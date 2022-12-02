@@ -8,13 +8,22 @@
   % \vspace{-0.3zh}
   \scalebox{1.5}{経路追従行動をオンラインで模倣する手法の提案}\\
   % \vspace{-0.3zh}
-  \scalebox{1.5}{（経路選択機能の追加と検証）}
+  \scalebox{1.5}{（目標方向による経路選択機能の追加と検証）}
 \end{center}
 \vspace{1.0zh}
 %
-本文
+近年, カメラ画像に基づいた自律走行の研究が行われている. 本研究室でも, LiDAR
+を用いた自律移動システムの出力を教師信号と
+して与えることでロボットの経路追従行動をオンラインで
+模倣する手法を提案されている. また, 実験によりカメラ画像に基づいた自律走行で, 一定の経路を周回することが
+可能であることが示されている. 提案手法では, 目標の進行方向をデータセットと学習器の入力に加えることで, 
+「直進」や「左折」などの経路が選択できる分岐路において, 任意の経路を選択可能にする
+機能の追加を提案する. 提案手法では, LiDARを用いた自律移動システムの出力をカメラ画像と目標方向を
+用いて模倣学習する. 学習後, カメラ画像と目標方向に基づいて任意の経路を選択可能な自律走行を行う. 
+また, シミュレータを用いた実験と実環境の実験により, 提案手法の有効性を検証した. 
+その結果, 任意の経路を選択し, カメラ画像に基づく自律走行が行えることを確認した.
 
-キーワード: end-to-end学習, Navigation
+キーワード: end-to-end学習, Navigation, 目標方向
 %
 \newpage
 %%
@@ -22,10 +31,12 @@
 \thispagestyle{empty}
 %
 \begin{center}
-  \scalebox{1.3}{title}
+  \scalebox{1.2}{A proposal for an online imitation method of path-tracking}\\
+  \scalebox{1.2}{behavior by end-to-end learning of vision and action}\\
+  \scalebox{1.2}{(Addition of path selection function and verification by target direction)}\\
 \end{center}
 \vspace{1.0zh}
 %
+In recent years, research on autonomous driving based on camera images has been conducted. In this research laboratory, a method of online imitation of robot path following behavior by giving the output of an autonomous moving system using LiDAR as a teacher signal has been proposed. Furthermore, experiments have shown that it is possible to circulate a certain route based on autonomous driving using camera images. In the proposed method, by adding the target progress direction to the input of the dataset and the learning machine, it is possible to add a function that enables the selection of arbitrary routes at branching roads where routes such as "straight ahead" and "turn left" can be selected. In the proposed method, we propose to learn the imitation of camera images and target direction using the output of the autonomous moving system using LiDAR. After learning, autonomous driving that can select arbitrary routes based on camera images and target direction is performed. In addition, the effectiveness of the proposed method was verified by experiments using a simulator and experiments in an actual environment. As a result, it was confirmed that arbitrary routes can be selected and autonomous driving based on camera images can be performed.
 
-
-keywords: 
+keywords: End-to-end learning, Navigation, Target direction
