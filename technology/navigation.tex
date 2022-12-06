@@ -4,23 +4,23 @@
 従来手法と提案手法において, 教師信号として用いる地図ベースの制御器について述べる. 地図ベースの制御器は, ROS Navigation\_stack\cite{navigation:online}へ移動目標の経由地点（waypoint）の指示を行うwaypoint\_nav\cite{waypoint_nav:online}を組み合わせたものである. ROS Navigation\_stackでは以下のような処理が行われる. 
 
 \begin{itemize}
-  \item ロボットの現在位置を決定する
-  \item 移動目標地点を決定する
+  \item ロボットの現在位置を推定する
+  % \item 移動目標地点を決定する
   \item 移動目標地点までの経路を決定する
   \item 経路にしたがった行動をロボットに指示する
 \end{itemize}
 
-
+また, \figref{Fig:end-to-end}に示すように, 事前に生成した占有格子地図と測域センサ, オドメトリを用いて, 地図上での自己位置推定をParticle\_Filterによって確率的に行う「amcl」. 障害物認識などによる局所的, または地図全体の大域的なコスト計算, その結果に基づいた経路計画, それに従ったモータ指令を行う「move\_base」などのパッケージを統合した自律走行用のメタパッケージである. 従来手法, 提案手法ともにモータ指令を並進速度と角速度にわけた. 並進速度は一定とした.
 
 % \vspace{5cm}
 
-% \begin{figure}[hbtp]
-%   \centering
-%  \includegraphics[keepaspectratio, scale=0.7]
-%       {images/end-to-end.png}
-%  \caption{Structure of end-to-end learning}
-%  \label{Fig:end-to-end}
-% \end{figure}
+\begin{figure}[hbtp]
+  \centering
+ \includegraphics[keepaspectratio, scale=0.7]
+      {images/navigation.png}
+ \caption{A rule-based controller using a map}
+ \label{Fig:navigation}
+\end{figure}
 
 % \subsubsection{etc...}
 \newpage
