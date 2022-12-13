@@ -8,6 +8,26 @@
   \item 全結合層\\畳み込み層とプーリング層の出力をまとめて処理する.
 \end{enumerate}
 
+Krizhevskyら\cite{AlexNet}は\figref{Fig:AlexNet}で示すような, 8つの層からなるネットワークを用いて, 15万の高解像度画像を1,000の異なるクラスに分類するタスクをエラー率15.3\%で達成し, 画像分類コンペティションである ILSVRC(ImageNet Large Scale VisualRecognition Competition)2012で優勝をおさめた.
+\begin{figure}[hbtp]
+  \centering
+ \includegraphics[keepaspectratio, scale=0.55]
+      {images/AlexNet.png}
+ \caption{AlexNet from \cite{AlexNet}}
+ \label{Fig:AlexNet}
+\end{figure}
+\newpage
+\par SimonyanらはCNNの層の深さが精度に与える影響を調査した. 最大19層の深い畳み込みネットワークを評価した結果, モデルを深層にすることが分類精度に有利であることが示された.
+ILSVRC2012の優勝モデルであるAlexNetは8層, ILSVRC2013で提案されたZFNetは同様の8層であることから, 当時のCNNとしては圧倒的に深い層を持つモデルであった. このような深い畳み込みネットワークは, 深層学習における重要な発展の一つとされている.
+\begin{figure}[hbtp]
+  \centering
+ \includegraphics[keepaspectratio, scale=0.5]
+      {images/VGG.png}
+ \caption{VGG from \cite{AlexNet}}
+ \label{Fig:VGG}
+\end{figure}
+
+
 % \vspace{5cm}
 
 % \begin{figure}[hbtp]
