@@ -45,7 +45,7 @@
 
 \newpage
 
-上記の研究により, カメラ画像に基づいてロボットが学習した経路を周回可能であることが確認されている. 次に岡田ら\cite{okada1}の研究（以下, 「従来手法」と称する）をベースに, \figref{Fig:road}のような進む方向が一意ではない分岐路において, 任意の経路を選択する機能の追加を検討する.
+上記の研究により, カメラ画像に基づいてロボットが学習した経路を周回可能であることが確認されている. 次に岡田ら\cite{okada1}の研究（以下, 「従来手法」と称する）をベースに, \figref{Fig:road}のような分岐路において, 任意の経路を選択する機能の追加を検討する.
 
 \vspace{1cm}
 
@@ -59,6 +59,62 @@
 
 \newpage
 
-本研究では, 従来手法をベースに「直進」, 「左折」, 「右折」の目標とする進行方向の情報（以下, 「目標方向」と称する）をデータセットと学習器へ与える. これにより, 訓練済みの学習器の出力を用いた走行において, 目標方向により任意の経路を選択可能とする機能の追加を提案する. 提案手法全体の流れをfigに示す.
+本研究では, 従来手法をベースに「直進」, 「左折」, 「右折」の目標とする進行方向の情報（以下, 「目標方向」と称する）をデータセットと学習器へ与える. これにより, 訓練済みの学習器の出力を用いた走行において, 目標方向により任意の経路を選択可能とする機能の追加を提案する. 提案手法全体の流れを\figref{Fig:suggest_work}に示す. 
+
+\begin{figure}[hbtp]
+     \centering
+    \includegraphics[keepaspectratio, scale=0.38]
+         {images/suggest_work.png}
+    \caption{Overall flow of the proposed method}
+    \label{Fig:suggest_work}
+\end{figure}
+
+最終的にはカメラ画像を入力として, トポロジカルマップによって生成される目標方向に従って, 目的地まで移動する自律走行の手法を提案することを検討する. トポロジカルマップとは\figref{Fig:tsudanuma}に示すように, 重要な情報のみを残し, 分岐路などの目印（ノード）とつながり（エッジ）を持つ簡略化された地図である.
+
+\vspace{0.5cm}
+
+\begin{figure}[hbtp]
+     \centering
+    \includegraphics[keepaspectratio, scale=0.45]
+         {images/tsudanuma.png}
+    \caption{Topological map}
+    \label{Fig:tsudanuma}
+\end{figure}
+
+カメラ画像とステアリング角度に, 条件を加えて学習を行う条件付き模倣学習によって, 自律移動を行う研究を述べる. Felipeら\cite{felipe}は前方カメラ画像, ステアリング角度, 加速度と「continue」, 「left」, 「straight」, 「right」からなるコマンドを入力とした\figref{Fig:felipe_network}のようなネットワークを用いて, \figref{Fig:felipe}に示すような実環境と都市環境のシミュレータ上で, 模倣学習のテスト時においてもコマンドによって制御可能であることを確認している.
+
+\vspace{0.5cm}
+
+\begin{figure}[hbtp]
+     \centering
+    \includegraphics[keepaspectratio, scale=0.65]
+         {images/felipe_network.png}
+    \caption{Two network architectures for command-conditional imitation learning from \cite{felipe}}
+    \label{Fig:felipe_network}
+\end{figure}
+
+\vspace{0.5cm}
+
+\begin{figure}[hbtp]
+     \centering
+    \includegraphics[keepaspectratio, scale=0.57]
+         {images/felipe.png}
+    \caption{End-to-end driving via conditional imitation learning from \cite{felipe}}
+    \label{Fig:felipe}
+\end{figure}
+
+\newpage
+
+また, Hawkeら\cite{hawke}は\figref{Fig:hawke}のような, 3つの前方カメラ画像と「go-straight」, 「turn-left」, 「turn-right」からなるコマンドを入力とする構造のモデルを用いて, 実環境での複雑な都市環境というシナリオで, 意思決定が可能なモデルをわずか30時間の学習データで学習可能であることを示している.
+
+\vspace{3cm}
+
+\begin{figure}[hbtp]
+     \centering
+    \includegraphics[keepaspectratio, scale=0.3]
+         {images/hawke.png}
+    \caption{Model structure from \cite{hawke}}
+    \label{Fig:hawke}
+\end{figure}
 
 \newpage
