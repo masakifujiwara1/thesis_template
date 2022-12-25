@@ -1,15 +1,7 @@
 %!TEX root = ../thesis.tex
 
 \section{実験要件}
-実験には下記のコンピュータとソフトウェアを用いた. ロボットモデルは前報\cite{okada1}\cite{okada2}と同様, \figref{Fig:waffle_pi}に示すように, TurtleBot3 Waffle\_piへ3つのカメラを追加したモデルを用いる.
-
-\begin{figure}[hbtp]
-  \centering
- \includegraphics[keepaspectratio, scale=0.3]
-      {images/Waffle_pi.png}
- \caption{TurtleBot3 waffle\_pi with 3 cameras}
- \label{Fig:waffle_pi}
-\end{figure}
+実験には下記のコンピュータとソフトウェアを用いた. 
 
 \begin{enumerate}
   \item コンピュータ\\
@@ -21,9 +13,57 @@
   \url{https://github.com/open-rdc/nav_cloning}
   \item waypoint\_nav(移動目標地点, 目標方向を出力)\\
   \url{https://github.com/open-rdc/waypoint_nav}
+  \newpage
   \item turtlebot3 関連\\
   \url{https://github.com/open-rdc/turtlebot3}
   \item navigation(ナビゲーションパッケージ)\\
   \url{https://github.com/ros-planning/navigation}
 \end{enumerate}
-% \newpage
+
+\subsection{実験装置(シミュレータ)}
+
+\begin{itemize}
+  \item ロボット
+
+ロボットモデルは前報\cite{okada1}\cite{okada2}と同様, \figref{Fig:waffle_pi}に示すように, TurtleBot3 Waffle\_piへ3つのカメラを追加したモデルを用いる.
+
+\begin{figure}[hbtp]
+  \centering
+ \includegraphics[keepaspectratio, scale=0.22]
+      {images/Waffle_pi.png}
+ \caption{TurtleBot3 waffle\_pi with 3 cameras}
+ \label{Fig:waffle_pi}
+\end{figure}
+
+\item 環境\\
+シミュレータ環境として, オープンソースの3DロボットシミュレータGazeboを用いる. \figref{Fig:sim}に示すようなGazebo上で千葉工業大学2号館3階を模した実験環境を対象に実験を行う.
+
+\begin{figure}[hbtp]
+  \centering
+ \includegraphics[keepaspectratio, scale=0.12]
+      {images/tsudanuma2-3_simorg.png}
+ \caption{Experimental enviroment of simulator}
+ \label{Fig:sim}
+\end{figure}
+
+\end{itemize}
+
+\subsection{実験方法}
+
+\begin{figure}[hbtp]
+  \centering
+ \includegraphics[keepaspectratio, scale=0.5]
+      {images/sim_explain.png}
+ \caption{Experimental enviroment of simulator}
+ \label{Fig:sim_explain}
+\end{figure}
+
+\begin{figure}[hbtp]
+  \centering
+ \includegraphics[keepaspectratio, scale=0.15]
+      {images/select.png}
+ \caption{Experimental enviroment of simulator}
+ \label{Fig:select}
+\end{figure}
+
+\newpage
