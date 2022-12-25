@@ -1,7 +1,7 @@
 %!TEX root = ../thesis.tex
 
 \section{実験要件}
-実験には下記のコンピュータとソフトウェアを用いた. ロボットモデルは前報\cite{okada1}\cite{okada2}と同様, figに示すように, TurtleBot3 Waffle\_piへ3つのカメラを追加したモデルを用いる.
+実験には下記のコンピュータとソフトウェアを用いた. ロボットモデルは前報\cite{okada1}\cite{okada2}と同様, \figref{Fig:waffle_pi}に示すように, TurtleBot3 Waffle\_piへ3つのカメラを追加したモデルを用いる.
 
 \begin{figure}[hbtp]
   \centering
@@ -11,4 +11,19 @@
  \label{Fig:waffle_pi}
 \end{figure}
 
+\begin{enumerate}
+  \item コンピュータ\\
+  OS: Ubuntu 20.04 LTS\\
+  ROS: Noetic\\
+  CPU: intel Core i7-10700F(4.8GHz/8コア/16スレッド)\\
+  DRAM: 32GB DDR4(3200/8GB×4)
+  \item nav\_cloning(学習器, 統合環境)\\
+  \url{https://github.com/open-rdc/nav_cloning}
+  \item waypoint\_nav(移動目標地点, 目標方向を出力)\\
+  \url{https://github.com/open-rdc/waypoint_nav}
+  \item turtlebot3 関連\\
+  \url{https://github.com/open-rdc/turtlebot3}
+  \item navigation(ナビゲーションパッケージ)\\
+  \url{https://github.com/ros-planning/navigation}
+\end{enumerate}
 % \newpage
