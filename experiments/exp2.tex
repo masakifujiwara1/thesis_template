@@ -15,26 +15,48 @@
 \subsection{従来の実験}
 
 \begin{itemize}
-  \item 実験環境
+  \item 実験目的\\
+  簡易的なシミュレータ上で, 提案手法の有効性の検証を行う
+  \item 実験環境\\
+  4.1.1で述べた簡易的なシミュレータ環境で実験を行った
+  \item 実験方法\\
+  4.1.2で示した経路を繰り返し走行させる. 学習を60000step実行後, テストフェーズに移行する. テストフェーズで正しい順序で経路を選択し, 走行を行えるか確認する. この一連の流れを10回繰り返し行う.
 
-  \begin{figure}[hbtp]
-  \centering
- \includegraphics[keepaspectratio, scale=0.35]
-      {images/tsudanuma2-3_sim.png}
- \caption{Experimental environment from \cite{mech}}
- \label{Fig:tsudanuma2-3_sim}
-\end{figure}
+  \newpage
+
+  \item 実験結果\\
+  実験結果を\figref{Fig:60000step}に示す. この図は, それぞれの走行パターンにおいて正しく経路を選択し, 走行できた回数を表している. \tabref{table:result}に全パターンを合計した結果を示す. なお, 分母が120であるのはテストフェーズにおいて, 全12パターンからなる経路を走行させ, 評価を行うことを10回繰り返したためである. 
+  \par
+  \tabref{table:result}に示すように, 目標方向に従って113/120回, 正しい経路を選択する様子が見られた. 
 
 \begin{figure}[hbtp]
   \centering
- \includegraphics[keepaspectratio, scale=0.35]
-      {images/select_patarn.png}
- \caption{Selecting a path at the T-junction from \cite{mech}}
- \label{Fig:select_patarn}
+ \includegraphics[keepaspectratio, scale=0.5]
+      {images/60000step.png}
+ \caption{Experimental results for each moving pattern from \cite{mech}}
+ \label{Fig:60000step}
 \end{figure}
 
-  \item 実験方法
-  \item 実験結果
+
+\begin{table}[hbtp]
+  \caption{Experimental results}
+  \label{table:result}
+  \centering
+  \begin{tabular}{|c|c|c|}
+    \hline
+    Experiments & Step & Total result\\
+    \hline
+    Conventional & 60000 & 113/120（94.2\%）\\
+    \hline
+  \end{tabular}
+\end{table}
+
+\end{itemize}
+
+\subsection{アプローチ1：データセットの割合変更}
+
+\begin{itemize}
+  \item 
 \end{itemize}
 
 % \begin{figure}[hbtp]
