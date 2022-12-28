@@ -236,12 +236,35 @@
     \end{tabular}
   \end{table}
 
-  \vspace{1cm}
+  % \vspace{1cm}
+
+  \tabref{table:result4}からアプローチ1の実験より, 成功率が改善していることがわかる. また, 60000stepの実験と成功率を比較した場合, 約4\%ほどの差がある. 
+  \tabref{table:factor}に\figref{Fig:10000step_act1.5}における成功率が低い場所と要因を示す.
+  % \begin{itemize}
+  %   \item \figref{Fig:10000step_act1.5}から, 他の箇所と比較してf7の成功率が低い\\
+  %   4.1.2で示した経路の最後にあたるf7の成功率が低いことから, f7を通った後に十分な学習を行うことができていない
+  %   \item 
+  % \end{itemize}
+
+  \begin{table}[hbtp]
+    \caption{Experimental results}
+    \label{table:factor}
+    \centering
+    \begin{tabular}{|c|c|c|}
+      \hline
+      Points with low success rates & Primary factor\\
+      \hline
+      f7 & 60000\\
+      \hline
+      Conventional & 10000\\
+      \hline
+    \end{tabular}
+  \end{table}
 
   学習フェーズにおける目標経路からの距離によるデータの割合を\figref{Fig:hist_act_training}に示す. \par
-  この図から, 学習器から得られた角速度を1.5倍にした場合, データの割合が目標経路付近では減少し, 目標経路から離れた場所では増加している. よって, アプローチ2を試みた結果, 目標経路から離れる行動が増えた. すなわち, 積極的に蛇行することができている可能性が高い.
+  この図から, 学習器から得られた角速度を1.5倍にした場合, データの割合が目標経路付近では減少し, 目標経路から離れた場所では増加している. よって, アプローチ2を試みた結果, 学習フェーズでは目標経路から離れる行動が増えた. すなわち, 積極的に蛇行している可能性が高い.
 
-  \vspace{1cm}
+  % \vspace{1cm}
 
   \begin{figure}[hbtp]
     \centering
@@ -253,7 +276,7 @@
 
   \newpage
 
-  テストフェーズにおける目標経路からの距離によるデータの割合を\figref{Fig:hist_act_test}に示す. この図から, 
+  テストフェーズにおける目標経路からの距離によるデータの割合を\figref{Fig:hist_act_test}に示す. この図から, 学習器から得られた角速度を1.5倍にした場合, データの割合が目標経路付近では増加し, 目標経路から離れた場所では減少している. よって, アプローチ2を試みた結果, テストフェーズでは目標経路付近の行動が増えた. すなわち, アプローチ2を試みる前に比べ, より正確に経路追従行動を模倣している可能性が高い.
 
   \begin{figure}[hbtp]
     \centering
@@ -263,12 +286,7 @@
    \label{Fig:hist_act_test}
   \end{figure}  
 
-  \newpage
-
-  \tabref{table:result4}からアプローチ1の実験より, 成功率が改善していることがわかる. また, 60000stepの実験と成功率を比較した場合, 約4\%ほどの差がある. これには, 以下2つの要因が挙げられる.
-  \begin{itemize}
-    \item 
-  \end{itemize}
+  % \newpage
 
 \end{itemize}
 
