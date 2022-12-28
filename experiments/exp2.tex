@@ -29,6 +29,8 @@
   \par
   \tabref{table:result}に示すように, 目標方向に従って113/120回, 正しい経路を選択する様子が見られた. 
 
+\vspace{1cm}
+
 \begin{figure}[hbtp]
   \centering
  \includegraphics[keepaspectratio, scale=0.5]
@@ -37,6 +39,7 @@
  \label{Fig:60000step}
 \end{figure}
 
+\vspace{1cm}
 
 \begin{table}[hbtp]
   \caption{Experimental results}
@@ -53,10 +56,98 @@
 
 \end{itemize}
 
-\subsection{アプローチ1：データセットの割合変更}
+\newpage
+
+この従来の実験を基に, 単に60000stepから10000stepに学習量を削減し, 実験した結果を下記に示す.
+
+\newpage
+
+
+
+\subsection{アプローチ1：データセットに加えるデータの割合変更}
+従来の実験における10000stepごとのコマンドごとのデータ数を\figref{Fig:hist}に示す. \figref{Fig:hist} (a)より, 直進コマンド時のデータ数が圧倒的に多いことがわかる. このデータ数の偏りを解消するため, \figref{Fig:hist} (b)に示すように, 左折と右折コマンドのデータ数を7倍にする. 7倍にするのは, 左折と右折コマンドのデータ数を直進コマンドと同程度にするためである. なお, データ数を何倍にするのが望ましいのか本論文では議論しない. 実験により, データセットに加えるデータ数の割合変更が有効か検証する.
+
+% \begin{figure}[h]
+%   \begin{minipage}[b]{0.5\linewidth}
+%     \centering
+%  \includegraphics[keepaspectratio, scale=0.3]
+%       {images/hist_change_org.png}
+%  \subcaption{hoge}
+%  \label{Fig:hist_org}
+% %  \label{Fig:hist_change_org}
+% \end{minipage}
+
+%   \begin{minipage}[b]{0.5\linewidth}
+%     \centering
+%  \includegraphics[keepaspectratio, scale=0.3]
+%       {images/hist_change_times7.png}
+%  \subcaption{jkofs}
+%  \label{Fig:hist_times7}
+% %  \label{Fig:hist_change_times7}
+%   \end{minipage}
+%   \caption{Number of data per command per 10000steps in conventional experiments}
+%    \label{Fig:hist}
+% \end{figure}
+
+\begin{figure}[h]
+  \centering
+  \begin{minipage}[b]{67mm}
+    \centering
+    \includegraphics[width=67mm]{images/hist_change_org.png}
+    \caption*{(a)}
+  \end{minipage} 
+  % \newpage
+  % \hspace{0.03\columnwidth}
+  \begin{minipage}[b]{67mm}
+    \centering
+    \includegraphics[width=67mm]{images/hist_change_times7.png}
+    \caption*{(b)}
+  \end{minipage}
+  \caption{Number of data per command per 10000steps in conventional experiments}
+  \label{Fig:hist}
+\end{figure}
 
 \begin{itemize}
-  \item 
+  % \item 実験目的\\
+  % データセットに加えるデータの割合変更が有効か検証を行う
+  \item 実験環境\\
+  4.1.1で述べた簡易的なシミュレータ環境で実験を行った
+  \item 実験方法
+  4.1.2で示した経路を繰り返し走行させる. 学習を60000step実行後, テストフェーズに
+  移行する. テストフェーズで正しい順序で経路を選択し, 走行を行えるか確認する. こ
+  の一連の流れを5回繰り返し行う.
+  \newpage
+  \item 実験結果\\
+  実験結果を\figref{Fig:10000step_act1.0}に示す. この図は, それぞれの走行パターンにおいて正しく経路を選択し, 走行できた回数を表している. \tabref{table:result3}に実験ごとに全パターンを合計した結果を示す. 
+  \tabref{table:result3}に示すように, 目標方向に従って48/60回, 正しい経路を選択する様子が見られた. また, 60000stepの実験と成功率を比較すると15\%ほど差があり, アプローチ1を試みた結果では成功率が十分だとは言い難い. 成功率を改善するため, 後述するアプローチ2を試みた.
+
+  \vspace{0.5cm}
+
+  \begin{figure}[hbtp]
+    \centering
+   \includegraphics[keepaspectratio, scale=0.3]
+        {images/10000step_act1.0.png}
+   \caption{Experimental results for each moving pattern}
+   \label{Fig:10000step_act1.0}
+  \end{figure}
+
+  \begin{table}[hbtp]
+    \caption{Experimental results}
+    \label{table:result3}
+    \centering
+    \begin{tabular}{|c|c|c|}
+      \hline
+      Experiments & Step & Total results per 5 times\\
+      \hline
+      Conventional & 60000 & 56.5/60（94.2\%）\\
+      \hline
+      Conventional & 10000 & /60（\%）\\
+      \hline
+      Approach1 & 10000 & 48/60（80\%）\\
+      \hline
+    \end{tabular}
+  \end{table}
+
 \end{itemize}
 
 % \begin{figure}[hbtp]
