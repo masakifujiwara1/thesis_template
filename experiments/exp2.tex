@@ -158,7 +158,16 @@
 
 \subsection{アプローチ2：学習フェーズにおける積極的な蛇行}
 清岡ら\cite{kiyooka}により, 目標経路上に加えて離れた状態を学習することが, テストフェーズでの走行に大きな影響を与えるため, 重要だとされている. そのため, より積極的に蛇行を行い, 目標経路から離れた状態を増加させることを検討する. \par
-実験で用いているシステムの学習フェーズでは,  \figref{Fig:act1.0}に示すようにロボットが目標経路上付近を走行している場合, 訓練中の学習器へ画像を入力し, 出力される角速度を用いて走行している. この場合に, 目標経路から一定の距離離れると地図を用いたルールベース制御器の走行に切り替わり, 強制的にロボットを目標経路上に戻すように制御を行う. \par
+実験で用いているシステムの学習フェーズでは,  \figref{Fig:act1.0}に示すようにロボットが目標経路上付近を走行している場合, 訓練中の学習器へ画像を入力し, 出力される角速度を用いて走行している. この場合に, 目標経路から一定の距離離れると地図を用いたルールベース制御器の走行に切り替わり, 強制的にロボットを目標経路上に戻すように制御を行う. 
+
+\begin{figure}[hbtp]
+  \centering
+ \includegraphics[keepaspectratio, scale=0.58]
+      {images/act1.0.png}
+ \caption{Moving on the target path}
+ \label{Fig:act1.0}
+\end{figure}
+
 訓練中の学習器へ画像を入力し, \figref{Fig:3action}のように出力される角速度を1.5倍にする. その結果, \figref{Fig:act1.5}に示すように蛇行する頻度が高くなり, 目標経路から離れた状態をより多く学習できる可能性がある. なお, 得られた角速度を何倍にするのが望ましいのか本論文では議論しない. 実験により, 学習フェーズにおける積極的な蛇行が有効か検証する.
 
 \begin{figure}[hbtp]
@@ -167,14 +176,6 @@
       {images/3action.png}
  \caption{Robot behavior}
  \label{Fig:3action}
-\end{figure}
-
-\begin{figure}[hbtp]
-  \centering
- \includegraphics[keepaspectratio, scale=0.58]
-      {images/act1.0.png}
- \caption{Moving on the target path}
- \label{Fig:act1.0}
 \end{figure}
 
 \begin{figure}[hbtp]
@@ -196,18 +197,25 @@
   の一連の流れを5回繰り返し行う.
   \item 実験結果\\
   実験結果を\figref{Fig:10000step_act1.5}に示す. この図は, それぞれの走行パターンにおいて正しく経路を選択し, 走行できた回数を表している. \tabref{table:result4}に実験ごとに全パターンを合計した結果を示す. 
-  \tabref{table:result4}に示すように, 目標方向に従って54/60回, 正しい経路を選択する様子が見られた.
+  \tabref{table:result4}に示すように, 目標方向に従って54/60回, 正しい経路を選択する様子が見られた. 
+  % また, 
+  % \par
+  % \tabref{table:result4}からアプローチ1の実験より, 成功率が改善していることがわかる. また, 60000stepの実験と成功率を比較した場合, 約4\%ほどの差がある. これには, 以下2つの要因が挙げられる.
+  % \begin{itemize}
+  %   \item 
+  % \end{itemize}
+  % そのため, 10000stepから20000stepに学習量を増加し, 実験した結果を下記に示す.
 
   
   \begin{figure}[hbtp]
     \centering
-   \includegraphics[keepaspectratio, scale=0.3]
+   \includegraphics[keepaspectratio, scale=0.27]
         {images/10000step_act1.5.png}
    \caption{Experimental results for each moving pattern}
    \label{Fig:10000step_act1.5}
   \end{figure}  
   
-  \vspace{0.5cm}
+  % \vspace{0.5cm}
 
   \begin{table}[hbtp]
     \caption{Experimental results}
@@ -227,6 +235,40 @@
       \hline
     \end{tabular}
   \end{table}
+
+  \vspace{1cm}
+
+  学習フェーズにおける目標経路からの距離によるデータの割合を\figref{Fig:hist_act_training}に示す. \par
+  この図から, 学習器から得られた角速度を1.5倍にした場合, データの割合が目標経路付近では減少し, 目標経路から離れた場所では増加している. よって, アプローチ2を試みた結果, 目標経路から離れる行動が増えた. すなわち, 積極的に蛇行することができている可能性が高い.
+
+  \vspace{1cm}
+
+  \begin{figure}[hbtp]
+    \centering
+   \includegraphics[keepaspectratio, scale=0.55]
+        {images/hist_act_training.png}
+   \caption{Ratio of data by distance from target path in learning phase}
+   \label{Fig:hist_act_training}
+  \end{figure}  
+
+  \newpage
+
+  テストフェーズにおける目標経路からの距離によるデータの割合を\figref{Fig:hist_act_test}に示す. この図から, 
+
+  \begin{figure}[hbtp]
+    \centering
+   \includegraphics[keepaspectratio, scale=0.55]
+        {images/hist_act_test.png}
+   \caption{Ratio of data by distance from target path in test phase}
+   \label{Fig:hist_act_test}
+  \end{figure}  
+
+  \newpage
+
+  \tabref{table:result4}からアプローチ1の実験より, 成功率が改善していることがわかる. また, 60000stepの実験と成功率を比較した場合, 約4\%ほどの差がある. これには, 以下2つの要因が挙げられる.
+  \begin{itemize}
+    \item 
+  \end{itemize}
 
 \end{itemize}
 
