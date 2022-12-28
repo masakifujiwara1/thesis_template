@@ -112,14 +112,16 @@
   % データセットに加えるデータの割合変更が有効か検証を行う
   \item 実験環境\\
   4.1.1で述べた簡易的なシミュレータ環境で実験を行った
-  \item 実験方法
-  4.1.2で示した経路を繰り返し走行させる. 学習を60000step実行後, テストフェーズに
+  \item 実験方法\\
+  4.1.2で示した経路を繰り返し走行させる. 学習を10000step実行後, テストフェーズに
   移行する. テストフェーズで正しい順序で経路を選択し, 走行を行えるか確認する. こ
   の一連の流れを5回繰り返し行う.
   \newpage
   \item 実験結果\\
   実験結果を\figref{Fig:10000step_act1.0}に示す. この図は, それぞれの走行パターンにおいて正しく経路を選択し, 走行できた回数を表している. \tabref{table:result3}に実験ごとに全パターンを合計した結果を示す. 
-  \tabref{table:result3}に示すように, 目標方向に従って48/60回, 正しい経路を選択する様子が見られた. また, 60000stepの実験と成功率を比較すると15\%ほど差があり, アプローチ1を試みた結果では成功率が十分だとは言い難い. 成功率を改善するため, 後述するアプローチ2を試みた.
+  \tabref{table:result3}に示すように, 目標方向に従って48/60回, 正しい経路を選択する様子が見られた. 
+  \par
+  60000stepの実験と成功率を比較すると15\%ほど差があり, アプローチ1を試みた結果では成功率が十分だとは言い難い. 次に成功率を改善するため, 後述するアプローチ2を試みた.
 
   \vspace{0.5cm}
 
@@ -129,7 +131,9 @@
         {images/10000step_act1.0.png}
    \caption{Experimental results for each moving pattern}
    \label{Fig:10000step_act1.0}
-  \end{figure}
+  \end{figure}  
+  
+  \vspace{0.5cm}
 
   \begin{table}[hbtp]
     \caption{Experimental results}
@@ -144,6 +148,82 @@
       Conventional & 10000 & /60（\%）\\
       \hline
       Approach1 & 10000 & 48/60（80\%）\\
+      \hline
+    \end{tabular}
+  \end{table}
+
+\end{itemize}
+
+\newpage
+
+\subsection{アプローチ2：学習フェーズにおける積極的な蛇行}
+清岡ら\cite{kiyooka}により, 目標経路上に加えて離れた状態を学習することが, テストフェーズでの走行に大きな影響を与えるため, 重要だとされている. そのため, より積極的に蛇行を行い, 目標経路から離れた状態を増加させることを検討する. \par
+実験で用いているシステムの学習フェーズでは,  \figref{Fig:act1.0}に示すようにロボットが目標経路上付近を走行している場合, 訓練中の学習器へ画像を入力し, 出力される角速度を用いて走行している. この場合に, 目標経路から一定の距離離れると地図を用いたルールベース制御器の走行に切り替わり, 強制的にロボットを目標経路上に戻すように制御を行う. \par
+訓練中の学習器へ画像を入力し, \figref{Fig:3action}のように出力される角速度を1.5倍にする. その結果, \figref{Fig:act1.5}に示すように蛇行する頻度が高くなり, 目標経路から離れた状態をより多く学習できる可能性がある. なお, 得られた角速度を何倍にするのが望ましいのか本論文では議論しない. 実験により, 学習フェーズにおける積極的な蛇行が有効か検証する.
+
+\begin{figure}[hbtp]
+  \centering
+ \includegraphics[keepaspectratio, scale=0.43]
+      {images/3action.png}
+ \caption{Robot behavior}
+ \label{Fig:3action}
+\end{figure}
+
+\begin{figure}[hbtp]
+  \centering
+ \includegraphics[keepaspectratio, scale=0.58]
+      {images/act1.0.png}
+ \caption{Moving on the target path}
+ \label{Fig:act1.0}
+\end{figure}
+
+\begin{figure}[hbtp]
+  \centering
+ \includegraphics[keepaspectratio, scale=0.58]
+      {images/act1.5.png}
+ \caption{Moving on the target path attempting approach 2}
+ \label{Fig:act1.5}
+\end{figure}
+
+\begin{itemize}
+  % \item 実験目的\\
+  % データセットに加えるデータの割合変更が有効か検証を行う
+  \item 実験環境\\
+  4.1.1で述べた簡易的なシミュレータ環境で実験を行った
+  \item 実験方法\\
+  4.1.2で示した経路を繰り返し走行させる. 学習を10000step実行後, テストフェーズに
+  移行する. テストフェーズで正しい順序で経路を選択し, 走行を行えるか確認する. こ
+  の一連の流れを5回繰り返し行う.
+  \item 実験結果\\
+  実験結果を\figref{Fig:10000step_act1.5}に示す. この図は, それぞれの走行パターンにおいて正しく経路を選択し, 走行できた回数を表している. \tabref{table:result4}に実験ごとに全パターンを合計した結果を示す. 
+  \tabref{table:result4}に示すように, 目標方向に従って54/60回, 正しい経路を選択する様子が見られた.
+
+  
+  \begin{figure}[hbtp]
+    \centering
+   \includegraphics[keepaspectratio, scale=0.3]
+        {images/10000step_act1.5.png}
+   \caption{Experimental results for each moving pattern}
+   \label{Fig:10000step_act1.5}
+  \end{figure}  
+  
+  \vspace{0.5cm}
+
+  \begin{table}[hbtp]
+    \caption{Experimental results}
+    \label{table:result4}
+    \centering
+    \begin{tabular}{|c|c|c|}
+      \hline
+      Experiments & Step & Total results per 5 times\\
+      \hline
+      Conventional & 60000 & 56.5/60（94.2\%）\\
+      \hline
+      Conventional & 10000 & /60（\%）\\
+      \hline
+      Approach1 & 10000 & 48/60（80\%）\\
+      \hline
+      Approach1+2 & 10000 & 54/60（90\%）\\
       \hline
     \end{tabular}
   \end{table}
