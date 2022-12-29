@@ -17,8 +17,8 @@
 \begin{itemize}
   \item 実験目的\\
   簡易的なシミュレータ上で, 提案手法の有効性の検証を行う
-  \item 実験環境\\
-  4.1.1で述べた簡易的なシミュレータ環境で実験を行った
+  \item 実験装置\\
+  4.1.1で述べた簡易的なシミュレータ環境とロボットで実験を行った
   \item 実験方法\\
   4.1.2で示した経路を繰り返し走行させる. 学習を60000step実行後, テストフェーズに移行する. テストフェーズで正しい順序で経路を選択し, 走行を行えるか確認する. この一連の流れを10回繰り返し行う.
 
@@ -110,8 +110,8 @@
 \begin{itemize}
   % \item 実験目的\\
   % データセットに加えるデータの割合変更が有効か検証を行う
-  \item 実験環境\\
-  4.1.1で述べた簡易的なシミュレータ環境で実験を行った
+  \item 実験装置\\
+  4.1.1で述べた簡易的なシミュレータ環境とロボットで実験を行った
   \item 実験方法\\
   4.1.2で示した経路を繰り返し走行させる. 学習を10000step実行後, テストフェーズに
   移行する. テストフェーズで正しい順序で経路を選択し, 走行を行えるか確認する. こ
@@ -189,8 +189,8 @@
 \begin{itemize}
   % \item 実験目的\\
   % データセットに加えるデータの割合変更が有効か検証を行う
-  \item 実験環境\\
-  4.1.1で述べた簡易的なシミュレータ環境で実験を行った
+  \item 実験装置\\
+  4.1.1で述べた簡易的なシミュレータ環境とロボットで実験を行った
   \item 実験方法\\
   4.1.2で示した経路を繰り返し走行させる. 学習を10000step実行後, テストフェーズに
   移行する. テストフェーズで正しい順序で経路を選択し, 走行を行えるか確認する. こ
@@ -296,7 +296,43 @@
 
 \end{itemize}
 
-このアプローチ1,2の実験を基に, 単に10000stepから20000stepに学習量を削減し, 実験した結果を下記に示す.
+アプローチ1,2の実験を基に, 単に10000stepから20000stepに学習量を増やし, 実験した結果を下記に示す.
+
+\figref{Fig:20000step_act1.5}は, それぞれの走行パターンにおいて正しく経路を
+選択し, 走行できた回数を表している. Table 4.4 に実験ごとに全パターンを合計した結
+果を示す. \tabref{table:result4} に示すように, 目標方向に従って 56/60 回, 正しい経路を選択する様子が見られた.
+
+続き書く
+
+\begin{figure}[hbtp]
+  \centering
+ \includegraphics[keepaspectratio, scale=0.37]
+      {images/20000step_act1.5.png}
+ \caption{Experimental results for each moving pattern}
+ \label{Fig:20000step_act1.5}
+\end{figure} 
+
+\begin{table}[hbtp]
+  \caption{Experimental results}
+  \label{table:result4}
+  \centering
+  \begin{tabular}{|c|c|c|}
+    \hline
+    Experiments & Step & Total results per 5 times\\
+    \hline
+    Conventional & 60000 & 56.5/60（94.2\%）\\
+    \hline
+    Conventional & 10000 & /60（\%）\\
+    \hline
+    Approach1 & 10000 & 48/60（80\%）\\
+    \hline
+    Approach1+2 & 10000 & 54/60（90\%）\\
+    \hline
+    \textbf{Approach1+2} & \textbf{20000} & \textbf{56/60（93.3\%）}\\
+    \hline
+  \end{tabular}
+\end{table}
+
 
 \newpage
 
