@@ -55,12 +55,13 @@
 
 \subsection{実験結果}
 実験結果を \figref{Fig:real_result} に示す. この図は, それぞれの走行パターンにおいて正しく経路を選し, 走行できた回数を表している. \tabref{table:real} に実験ごとに全パターンを合計した結果を示す. \tabref{table:real} に示すように, 目標方向に従って 78/120 回, 正しい経路を選択する様子が見られた.
+% \par
 
 \begin{figure}[hbtp]
   \centering
  \includegraphics[keepaspectratio, scale=0.5]
       {images/real_result.png}
- \caption{Experimental setup from \cite{okada1}}
+ \caption{Experimental results for each moving pattern}
  \label{Fig:real_result}
 \end{figure}
 
@@ -72,11 +73,22 @@
     \hline
     Experiments & Step & Total results\\
     \hline
-    Approach1+2 & 20000 & /120（\%）\\
+    Approach1+2 (Simulator similar to real environment) & 20000 & /120（\%）\\
     \hline
-    Real & 20000 & 78/120（65\%）\\
+    Approach1+2 (Real environment) & 20000 & 78/120（65\%）\\
     \hline
   \end{tabular}
 \end{table}
+
+実環境における実験の成功率が著しく低い結果となった. このような結果になった原因について, 考えられるのは以下の3点である.
+
+\begin{itemize}
+  \item データセットに加えられるカメラ画像に人などが多く写ってしまった
+  \item データセットに加えられるカメラ画像に入る光量が変化してしまった
+  \item カメラ画像の視野角がシミュレータと実環境で違う
+\end{itemize}
+
+シミュレータ上での実験では, 環境中の光や障害物の有無が変わらない. 一方で実環境での実験では, 通行人の存在や僅かな光の変化がある. 
+しかし, 原因の解明には未だ至っていない. そのため, 解析は今後の課題となっている.
 
 \newpage
