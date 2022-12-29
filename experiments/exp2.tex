@@ -115,11 +115,11 @@
   \item 実験方法\\
   4.1.2で示した経路を繰り返し走行させる. 学習を10000step実行後, テストフェーズに
   移行する. テストフェーズで正しい順序で経路を選択し, 走行を行えるか確認する. こ
-  の一連の流れを5回繰り返し行う.
+  の一連の流れを10回繰り返し行う.
   \newpage
   \item 実験結果\\
   実験結果を\figref{Fig:10000step_act1.0}に示す. この図は, それぞれの走行パターンにおいて正しく経路を選択し, 走行できた回数を表している. \tabref{table:result3}に実験ごとに全パターンを合計した結果を示す. 
-  \tabref{table:result3}に示すように, 目標方向に従って48/60回, 正しい経路を選択する様子が見られた. 
+  \tabref{table:result3}に示すように, 目標方向に従って99/120回, 正しい経路を選択する様子が見られた. 
   \par
   60000stepの実験と成功率を比較すると約12\%ほど差があり, アプローチ1を試みた結果では成功率が十分だとは言い難い. 次に成功率を改善するため, 後述するアプローチ2を試みた.
 
@@ -194,10 +194,10 @@
   \item 実験方法\\
   4.1.2で示した経路を繰り返し走行させる. 学習を10000step実行後, テストフェーズに
   移行する. テストフェーズで正しい順序で経路を選択し, 走行を行えるか確認する. こ
-  の一連の流れを5回繰り返し行う.
+  の一連の流れを10回繰り返し行う.
   \item 実験結果\\
   実験結果を\figref{Fig:10000step_act1.5}に示す. この図は, それぞれの走行パターンにおいて正しく経路を選択し, 走行できた回数を表している. \tabref{table:result4}に実験ごとに全パターンを合計した結果を示す. 
-  \tabref{table:result4}に示すように, 目標方向に従って54/60回, 正しい経路を選択する様子が見られた. 
+  \tabref{table:result4}に示すように, 目標方向に従って109/120回, 正しい経路を選択する様子が見られた. 
   % また, 
   % \par
   % \tabref{table:result4}からアプローチ1の実験より, 成功率が改善していることがわかる. また, 60000stepの実験と成功率を比較した場合, 約4\%ほどの差がある. これには, 以下2つの要因が挙げられる.
@@ -209,7 +209,7 @@
   
   \begin{figure}[hbtp]
     \centering
-   \includegraphics[keepaspectratio, scale=0.27]
+   \includegraphics[keepaspectratio, scale=0.55]
         {images/10000step_act1.5.png}
    \caption{Experimental results for each moving pattern}
    \label{Fig:10000step_act1.5}
@@ -231,14 +231,14 @@
       \hline
       Approach1 & 10000 & 99/120（82.5\%）\\
       \hline
-      Approach1+2 & 10000 & 54/60（90\%）\\
+      Approach1+2 & 10000 & 109/120（90.8\%）\\
       \hline
     \end{tabular}
   \end{table}
 
   % \vspace{1cm}
 
-  \tabref{table:result4}からアプローチ1の実験より, 成功率が改善していることがわかる. また, 60000stepの実験と成功率を比較した場合, 約4\%ほどの差がある. 
+  \tabref{table:result4}からアプローチ1の実験より, 成功率が改善していることがわかる. また, 60000stepの実験と成功率を比較した場合, 約3\%ほどの差がある. 
   % \tabref{table:factor}
   以下に\figref{Fig:10000step_act1.5}における成功率が低い場所と要因を示す.
   \begin{itemize}
@@ -326,7 +326,7 @@
     \hline
     Approach1 & 10000 & 99/120（82.5\%）\\
     \hline
-    Approach1+2 & 10000 & 54/60（90\%）\\
+    Approach1+2 & 10000 & 109/120（90.8\%）\\
     \hline
     \textbf{Approach1+2} & \textbf{20000} & \textbf{56/60（93.3\%）}\\
     \hline
