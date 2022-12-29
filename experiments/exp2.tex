@@ -239,27 +239,33 @@
   % \vspace{1cm}
 
   \tabref{table:result4}からアプローチ1の実験より, 成功率が改善していることがわかる. また, 60000stepの実験と成功率を比較した場合, 約4\%ほどの差がある. 
-  \tabref{table:factor}に\figref{Fig:10000step_act1.5}における成功率が低い場所と要因を示す.
-  % \begin{itemize}
-  %   \item \figref{Fig:10000step_act1.5}から, 他の箇所と比較してf7の成功率が低い\\
-  %   4.1.2で示した経路の最後にあたるf7の成功率が低いことから, f7を通った後に十分な学習を行うことができていない
-  %   \item 
-  % \end{itemize}
+  % \tabref{table:factor}
+  以下に\figref{Fig:10000step_act1.5}における成功率が低い場所と要因を示す.
+  \begin{itemize}
+    \item f7\\
+    4.1.2で示した経路の最後であり, 学習フェーズが終了する直前の三叉路である. そのため, データセットにf7のデータが加えられてから十分な学習ができていない
+    \item a7, b3, e1\\
+    これらは, 全て右折する場所である. \figref{Fig:hist}より, 他のコマンドのデータと比較して右折コマンドのデータが少ないことがわかる. このことから, 右折コマンドのデータを十分に学習できていない
+  \end{itemize} 
 
-  \begin{table}[hbtp]
-    \caption{Experimental results}
-    \label{table:factor}
-    \centering
-    \begin{tabular}{|c|c|c|}
-      \hline
-      Points with low success rates & Primary factor\\
-      \hline
-      f7 & 60000\\
-      \hline
-      Conventional & 10000\\
-      \hline
-    \end{tabular}
-  \end{table}
+  この2つの点から, 学習量を増加すると成功率が改善する可能性がある. そのため, 10000stepから20000stepに学習量を増加した実験結果を後述する.
+
+  \newpage
+
+  % \begin{table}[hbtp]
+  %   \caption{Experimental results}
+  %   \label{table:factor}
+  %   \centering
+  %   \begin{tabular}{|c|c|}
+  %     \hline
+  %     Points with low success rates & Primary factor\\
+  %     \hline
+  %     f7 & It is the last of the paths shown in 4.1.2, and the learning phase is terminated after passing through f7. Therefore, the data set has not been fully trained since the data of f7 was added to the dataset\\
+  %     \hline
+  %     a7, b3, e1 & 10000\\
+  %     \hline
+  %   \end{tabular}
+  % \end{table}
 
   学習フェーズにおける目標経路からの距離によるデータの割合を\figref{Fig:hist_act_training}に示す. \par
   この図から, 学習器から得られた角速度を1.5倍にした場合, データの割合が目標経路付近では減少し, 目標経路から離れた場所では増加している. よって, アプローチ2を試みた結果, 学習フェーズでは目標経路から離れる行動が増えた. すなわち, 積極的に蛇行している可能性が高い.
@@ -268,19 +274,19 @@
 
   \begin{figure}[hbtp]
     \centering
-   \includegraphics[keepaspectratio, scale=0.55]
+   \includegraphics[keepaspectratio, scale=0.37]
         {images/hist_act_training.png}
    \caption{Ratio of data by distance from target path in learning phase}
    \label{Fig:hist_act_training}
   \end{figure}  
 
-  \newpage
+  % \newpage
 
   テストフェーズにおける目標経路からの距離によるデータの割合を\figref{Fig:hist_act_test}に示す. この図から, 学習器から得られた角速度を1.5倍にした場合, データの割合が目標経路付近では増加し, 目標経路から離れた場所では減少している. よって, アプローチ2を試みた結果, テストフェーズでは目標経路付近の行動が増えた. すなわち, アプローチ2を試みる前に比べ, より正確に経路追従行動を模倣している可能性が高い.
 
   \begin{figure}[hbtp]
     \centering
-   \includegraphics[keepaspectratio, scale=0.55]
+   \includegraphics[keepaspectratio, scale=0.37]
         {images/hist_act_test.png}
    \caption{Ratio of data by distance from target path in test phase}
    \label{Fig:hist_act_test}
@@ -289,6 +295,66 @@
   % \newpage
 
 \end{itemize}
+
+このアプローチ1,2の実験を基に, 単に10000stepから20000stepに学習量を削減し, 実験した結果を下記に示す.
+
+\newpage
+
+\subsection{実環境に似たシミュレータ環境による実験}
+これまでの実験では, 簡易的なシミュレータ環境を用いてきた. しかし, 実験に簡易的なシミュレータ環境を用いるには問題があり, 以下の点である.
+
+\begin{itemize}
+  % \item 屋内を模している環境であるため, 影は少ないはずだが, \figref{Fig:sim_shadow}に示すように全体的に影が写り込んでしまっている
+
+  % \begin{figure}[hbtp]
+  %   \centering
+  %  \includegraphics[keepaspectratio, scale=0.37]
+  %       {images/sim_up.png}
+  %  \caption{Ratio of data by distance from target path in test phase}
+  %  \label{Fig:sim_up}
+  % \end{figure} 
+
+  % \begin{figure}[h]
+  %   \centering
+  %   \begin{minipage}[b]{67mm}
+  %     \centering
+  %     \includegraphics[width=67mm, height=50.5mm]{images/sim_robot.png}
+  %     \caption*{(a)}
+  %   \end{minipage} 
+  %   % \newpage
+  %   % \hspace{0.03\columnwidth}
+  %   \begin{minipage}[b]{67mm}
+  %     \centering
+  %     \includegraphics[width=67mm, height=50.5mm]{images/sim_up.png}
+  %     \caption*{(b)}
+  %   \end{minipage}
+  %   \caption{Number of data per command per 10000steps in conventional experiments}
+  %   \label{Fig:sim_shadow}
+  % \end{figure}
+
+  \item \figref{Fig:sim_shadow} (a)に示すように, 環境の大半が灰色や白のみで構成されているため, \figref{Fig:sim_shadow} (b)のように視覚による特徴が乏しい. 
+  
+   \begin{figure}[h]
+    \centering
+    \begin{minipage}[b]{67mm}
+      \centering
+      \includegraphics[width=67mm, height=50.5mm]{images/sim_up.png}
+      \caption*{(a) A bird's eye view of the robot}
+    \end{minipage} 
+    % \newpage
+    % \hspace{0.03\columnwidth}
+    \begin{minipage}[b]{67mm}
+      \centering
+      \includegraphics[width=67mm, height=50.5mm]{images/sim_robot.png}
+      \caption*{(b) Robot Perspective}
+    \end{minipage}
+    \caption{Simple simulator environment}
+    \label{Fig:sim_shadow}
+  \end{figure}
+
+\end{itemize}
+
+この問題は, 
 
 % \begin{figure}[hbtp]
 %   \centering
