@@ -25,7 +25,7 @@
   \newpage
 
   \item 実験結果\\
-  実験結果を\figref{Fig:60000step}に示す. この図は, それぞれの走行パターンにおいて正しく経路を選択し, 走行できた回数を表している. \tabref{table:result}に全パターンを合計した結果を示す. なお, 分母が120であるのはテストフェーズにおいて, 全12パターンからなる経路を走行させ, 評価を行うことを10回繰り返したためである. 
+  実験結果を\figref{Fig:60000step}に示す. この図は, それぞれの走行パターンにおいて正しく経路を選択し, 走行できた回数を表している. \tabref{table:result}に全パターンの成功回数を合計した結果を示す. なお, 分母が120であるのはテストフェーズにおいて, 全12パターンからなる経路を走行させ, 評価を行うことを10回繰り返したためである. 
   \par
   \tabref{table:result}に示すように, 目標方向に従って113/120回, 正しい経路を選択する様子が見られた. 
 
@@ -59,6 +59,37 @@
 \newpage
 
 この従来の実験を基に, 単に60000stepから10000stepに学習量を削減し, 実験した結果を下記に示す.
+
+実験結果を \figref{Fig:10000step} に示す. この図は, それぞれの走行パターンにおいて正しく経路を選択し, 走行できた回数を表している. \tabref{table:result_without} に実験ごとに全パターンの成功回数を合計した結果を示す. \tabref{table:result_without} に示すように, 目標方向に従って 87/120 回, 正しい経路を選択する様子が見られた.
+
+60000stepの実験と成功率を比較すると約22\%ほどの差がある. これでは, 学習量を削減できたとは言い難い. そのため, 後述する2つのアプローチを試みることで成功率の改善を図る.
+
+\vspace{0.5cm}
+
+\begin{figure}[hbtp]
+  \centering
+ \includegraphics[keepaspectratio, scale=0.43]
+      {images/10000step.png}
+ \caption{Experimental results for each moving pattern at 10000step by conventional}
+ \label{Fig:10000step}
+\end{figure}  
+
+\vspace{0.5cm}
+
+\begin{table}[hbtp]
+  \caption{Experimental results}
+  \label{table:result_without}
+  \centering
+  \begin{tabular}{|c|c|c|}
+    \hline
+    Experiments & Step & Total results\\
+    \hline
+    Conventional & 60000 & 113/120（94.2\%）\\
+    \hline
+    Conventional & 10000 & 87/120（72.5\%）\\
+    \hline
+  \end{tabular}
+\end{table}
 
 \newpage
 
@@ -118,7 +149,7 @@
   の一連の流れを10回繰り返し行う.
   \newpage
   \item 実験結果\\
-  実験結果を\figref{Fig:10000step_act1.0}に示す. この図は, それぞれの走行パターンにおいて正しく経路を選択し, 走行できた回数を表している. \tabref{table:result3}に実験ごとに全パターンを合計した結果を示す. 
+  実験結果を\figref{Fig:10000step_act1.0}に示す. この図は, それぞれの走行パターンにおいて正しく経路を選択し, 走行できた回数を表している. \tabref{table:result3}に実験ごとに全パターンの成功回数を合計した結果を示す. 
   \tabref{table:result3}に示すように, 目標方向に従って99/120回, 正しい経路を選択する様子が見られた. 
   \par
   60000stepの実験と成功率を比較すると約12\%ほど差があり, アプローチ1を試みた結果では成功率が十分だとは言い難い. 次に成功率を改善するため, 後述するアプローチ2を試みた.
@@ -129,7 +160,7 @@
     \centering
    \includegraphics[keepaspectratio, scale=0.5]
         {images/10000step_act1.0.png}
-   \caption{Experimental results for each moving pattern}
+   \caption{Experimental results for each moving pattern by Approach1}
    \label{Fig:10000step_act1.0}
   \end{figure}  
   
@@ -145,7 +176,7 @@
       \hline
       Conventional & 60000 & 113/120（94.2\%）\\
       \hline
-      Conventional & 10000 & /60（\%）\\
+      Conventional & 10000 & 87/120（72.5\%）\\
       \hline
       Approach1 & 10000 & 99/120（82.5\%）\\
       \hline
@@ -196,7 +227,7 @@
   移行する. テストフェーズで正しい順序で経路を選択し, 走行を行えるか確認する. こ
   の一連の流れを10回繰り返し行う.
   \item 実験結果\\
-  実験結果を\figref{Fig:10000step_act1.5}に示す. この図は, それぞれの走行パターンにおいて正しく経路を選択し, 走行できた回数を表している. \tabref{table:result4}に実験ごとに全パターンを合計した結果を示す. 
+  実験結果を\figref{Fig:10000step_act1.5}に示す. この図は, それぞれの走行パターンにおいて正しく経路を選択し, 走行できた回数を表している. \tabref{table:result4}に実験ごとに全パターンの成功回数を合計した結果を示す. 
   \tabref{table:result4}に示すように, 目標方向に従って109/120回, 正しい経路を選択する様子が見られた. 
   % また, 
   % \par
@@ -211,7 +242,7 @@
     \centering
    \includegraphics[keepaspectratio, scale=0.55]
         {images/10000step_act1.5.png}
-   \caption{Experimental results for each moving pattern}
+   \caption{Experimental results for each moving pattern at 10000step by Approach 1+2}
    \label{Fig:10000step_act1.5}
   \end{figure}  
   
@@ -227,11 +258,11 @@
       \hline
       Conventional & 60000 & 113/120（94.2\%）\\
       \hline
-      Conventional & 10000 & /60（\%）\\
+      Conventional & 10000 & 87/120（72.5\%）\\
       \hline
       Approach1 & 10000 & 99/120（82.5\%）\\
       \hline
-      Approach1+2 & 10000 & 109/120（90.8\%）\\
+      \textbf{Approach1+2} & \textbf{10000} & \textbf{109/120（90.8\%）}\\
       \hline
     \end{tabular}
   \end{table}
@@ -299,13 +330,13 @@
 アプローチ1,2の実験を基に, 単に10000stepから20000stepに学習量を増やし, 実験した結果を下記に示す.
 
 \figref{Fig:20000step_act1.5}は, それぞれの走行パターンにおいて正しく経路を
-選択し, 走行できた回数を表している. \tabref{table:result5} に実験ごとに全パターンを合計した結果を示す. \tabref{table:result5} に示すように, 目標方向に従って 114/120 回, 正しい経路を選択する様子が見られた. また, 成功率が60000stepの実験と同程度になった. このことから, アプローチ1+2によって学習量が約67\%削減できたといえる. 
+選択し, 走行できた回数を表している. \tabref{table:result5} に実験ごとに全パターンの成功回数を合計した結果を示す. \tabref{table:result5} に示すように, 目標方向に従って 114/120 回, 正しい経路を選択する様子が見られた. また, 成功率が60000stepの実験と同程度になった. このことから, アプローチ1+2によって学習量が約67\%削減できたといえる. 
 
 \begin{figure}[hbtp]
   \centering
  \includegraphics[keepaspectratio, scale=0.42]
       {images/20000step_act1.5.png}
- \caption{Experimental results for each moving pattern}
+ \caption{Experimental results for each moving pattern at 20000step by Approach 1+2}
  \label{Fig:20000step_act1.5}
 \end{figure} 
 
@@ -319,7 +350,7 @@
     \hline
     Conventional & 60000 & 113/120（94.2\%）\\
     \hline
-    Conventional & 10000 & /60（\%）\\
+    Conventional & 10000 & 87/120（72.5\%）\\
     \hline
     Approach1 & 10000 & 99/120（82.5\%）\\
     \hline
