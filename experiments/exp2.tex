@@ -299,14 +299,11 @@
 アプローチ1,2の実験を基に, 単に10000stepから20000stepに学習量を増やし, 実験した結果を下記に示す.
 
 \figref{Fig:20000step_act1.5}は, それぞれの走行パターンにおいて正しく経路を
-選択し, 走行できた回数を表している. \tabref{table:result5} に実験ごとに全パターンを合計した結
-果を示す. \tabref{table:result5} に示すように, 目標方向に従って 56/60 回, 正しい経路を選択する様子が見られた.
-
-続き書く
+選択し, 走行できた回数を表している. \tabref{table:result5} に実験ごとに全パターンを合計した結果を示す. \tabref{table:result5} に示すように, 目標方向に従って 114/120 回, 正しい経路を選択する様子が見られた. また, 成功率が60000stepの実験と同程度になった. このことから, アプローチ1+2によって学習量が約67\%削減できたといえる. 
 
 \begin{figure}[hbtp]
   \centering
- \includegraphics[keepaspectratio, scale=0.37]
+ \includegraphics[keepaspectratio, scale=0.42]
       {images/20000step_act1.5.png}
  \caption{Experimental results for each moving pattern}
  \label{Fig:20000step_act1.5}
@@ -328,7 +325,7 @@
     \hline
     Approach1+2 & 10000 & 109/120（90.8\%）\\
     \hline
-    \textbf{Approach1+2} & \textbf{20000} & \textbf{56/60（93.3\%）}\\
+    \textbf{Approach1+2} & \textbf{20000} & \textbf{114/120（95\%）}\\
     \hline
   \end{tabular}
 \end{table}
