@@ -77,7 +77,7 @@
 \vspace{0.5cm}
 
 \begin{table}[hbtp]
-  \caption{Experimental results}
+  \caption{Experimental results at 10000step by conventional}
   \label{table:result_without}
   \centering
   \begin{tabular}{|c|c|c|}
@@ -96,7 +96,7 @@
 
 
 \subsection{アプローチ1：データセットに加えるデータの割合変更}
-従来の実験における10000stepごとのコマンドごとのデータ数を\figref{Fig:hist}に示す. \figref{Fig:hist} (a)より, 直進コマンド時のデータ数が圧倒的に多いことがわかる. このデータ数の偏りを解消するため, \figref{Fig:hist} (b)に示すように, 左折と右折コマンドのデータ数を7倍にする. 7倍にするのは, 左折と右折コマンドのデータ数を直進コマンドと同程度にするためである. なお, データ数を何倍にするのが望ましいのか本論文では議論しない. 実験により, データセットに加えるデータ数の割合変更が有効か検証する.
+従来の実験における10000stepごとのコマンドに対応するデータ数を\figref{Fig:hist}に示す. \figref{Fig:hist} (a)より, 直進コマンド時のデータ数が圧倒的に多いことがわかる. このデータ数の偏りを解消するため, \figref{Fig:hist} (b)に示すように, 左折と右折コマンドのデータ数を7倍にする. 7倍にするのは, 左折と右折コマンドのデータ数を直進コマンドと同程度にするためである. なお, データ数を何倍にするのが望ましいのか本論文では議論しない. 実験により, データセットに加えるデータ数の割合変更が有効か検証する.
 
 % \begin{figure}[h]
 %   \begin{minipage}[b]{0.5\linewidth}
@@ -167,7 +167,7 @@
   \vspace{0.5cm}
 
   \begin{table}[hbtp]
-    \caption{Experimental results}
+    \caption{Experimental results by Approach 1}
     \label{table:result3}
     \centering
     \begin{tabular}{|c|c|c|}
@@ -249,7 +249,7 @@
   % \vspace{0.5cm}
 
   \begin{table}[hbtp]
-    \caption{Experimental results}
+    \caption{Experimental results at 10000step by Approach 1+2}
     \label{table:result4}
     \centering
     \begin{tabular}{|c|c|c|}
@@ -329,7 +329,7 @@
 
 アプローチ1,2の実験を基に, 単に10000stepから20000stepに学習量を増やし, 実験した結果を下記に示す.
 
-\figref{Fig:20000step_act1.5}は, それぞれの走行パターンにおいて正しく経路を選択し, 走行できた回数を表している. \tabref{table:result5} に実験ごとに全パターンの成功回数を合計した結果を示す. \tabref{table:result5} に示すように, 目標方向に従って 114/120 回, 正しい経路を選択する様子が見られた. また, 成功率が60000stepの実験と同程度になった. このことから, アプローチ1+2によって学習量が約67\%削減できたといえる. 
+\figref{Fig:20000step_act1.5}は, それぞれの走行パターンにおいて正しく経路を選択し, 走行できた回数を表している. \tabref{table:result5} に実験ごとに全パターンの成功回数を合計した結果を示す. \tabref{table:result5} に示すように, 目標方向に従って 114/120 回, 正しい経路を選択する様子が見られた. また, 成功率が60000stepの実験と同程度になった. このことから, アプローチ1+2によって学習量が約67\%削減でき, 実験を実環境に移す際の問題が解決できたといえる. 
 
 \begin{figure}[hbtp]
   \centering
@@ -340,7 +340,7 @@
 \end{figure} 
 
 \begin{table}[hbtp]
-  \caption{Experimental results}
+  \caption{Experimental results at 20000step by Approach 1+2}
   \label{table:result5}
   \centering
   \begin{tabular}{|c|c|c|}
