@@ -76,19 +76,19 @@
 
 4.2のアプローチ1,2の実験を基に, 20000stepで実験した結果を下記に示す.
 
-\figref{Fig:real_sim} は, それぞれの走行パターンにおいて正しく経路を選択し, 走行できた回数を表している. \tabref{table:real_sim} に実験ごとに全パターンの成功回数を合計した結果を示す. \tabref{table:real_sim} に示すように, 目標方向に従って 36/36 回, 正しい経路を選択する様子が見られた.
+\figref{Fig:real_sim_res} は, それぞれの走行パターンにおいて正しく経路を選択し, 走行できた回数を表している. \tabref{table:real_sim} に実験ごとに全パターンの成功回数を合計した結果を示す. \tabref{table:real_sim} に示すように, 目標方向に従って 119/120 回, 正しい経路を選択する様子が見られた.
 
 簡易的なシミュレータ上での実験と比較すると, 成功率が改善しており, 限りなく100\%に近づいている. これは, 大半が灰色と白で構成されている簡易的なシミュレータとは異なり, 実環境に似たシミュレータでは, よりロボットが捉えることのできる特徴(床の模様, 壁と床の境界線など)が増えたためだと考えられる.
 
 \vspace{0.5cm}
--実験不足なため, 後で実験差し替え部分（現在3モデル, 本当は10モデルで結果出す）-\\
-"""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""
+% -実験不足なため, 後で実験差し替え部分（現在3モデル, 本当は10モデルで結果出す）-\\
+% """""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""
 \begin{figure}[hbtp]
   \centering
- \includegraphics[keepaspectratio, scale=0.35]
-      {images/real_sim.png}
+ \includegraphics[keepaspectratio, scale=0.25]
+      {images/real_sim2.png}
  \caption{Experimental results for each moving pattern at 20000step by Approach 1+2(simulator environment to real environment)}
- \label{Fig:real_sim}
+ \label{Fig:real_sim_res}
 \end{figure} 
 
 \begin{table}[hbtp]
@@ -102,13 +102,13 @@
     \begin{tabular}{c}
       \textbf{Approach1+2} \\ \textbf{(Simulator similar to real environment)}
     \end{tabular}
-    & \textbf{20000} & \textbf{36/36（100\%）}\\
+    & \textbf{20000} & \textbf{119/120（99.2\%）}\\
     \hline
   \end{tabular}
 \end{table}
 
 
-"""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""
+% """""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""
  
 
 % \begin{figure}[hbtp]
