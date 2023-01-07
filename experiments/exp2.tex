@@ -1,64 +1,65 @@
 %!TEX root = ../thesis.tex
 
-\section{課題点と2つのアプローチによる実験}
-我々が行ってきた研究では, 簡易的なシミュレータ上で提案手法が有効だと確認されている. そのため, 次の段階として実環境における提案手法の有効性を検証することを試みた. そこで, 新たに顕在化した課題点は以下の2つの点である.
+\section{問題}
+我々が行ってきた研究では, 簡易的なシミュレータ上で提案手法が有効だと確認されている. そのため, 前章では次の段階として, 実環境における提案手法の有効性を検証することを試みた. しかし, 学習時間の長さが問題となり, 評価を十分な回数行うことができなかった. そのため, 学習時間の短縮が必要であると判断した. 2つのアプローチを提案し, 学習量の削減を図る.
 
-\begin{itemize}
-  \item 実験条件（主にカメラ画像に影響を及ぼす光である）を揃える関係上, 実験を行う時間帯を光の変化が少ない夜間に固定する必要があるため, 1日に実験を行える時間が少なく, 1回の学習に何日も費やす必要がある
-  \item 長時間の学習に耐えられるだけのバッテリ容量がロボットにない
-\end{itemize}
+% \begin{itemize}
+%   \item 実験条件（主にカメラ画像に影響を及ぼす光である）を揃える関係上, 実験を行う時間帯を光の変化が少ない夜間に固定する必要があるため, 1日に実験を行える時間が少なく, 1回の学習に何日も費やす必要がある
+%   \item 長時間の学習に耐えられるだけのバッテリ容量がロボットにない
+% \end{itemize}
 
-これらの課題点から, 学習時間の短縮が必要であると判断した. そのため, 2つのアプローチを提案し, 学習量を削減する.
-\par
-この節では, まず, 従来の実験を簡単に紹介する. 次に, 2つのアプローチについての詳細と行った実験を述べる. 最後に, アプローチを試みる前と各アプローチによる実験結果を比較し, 議論を行う.
-
-\subsection{従来の実験}
-
-\begin{itemize}
-  \item 実験目的\\
-  簡易的なシミュレータ上で, 提案手法の有効性の検証を行う
-  \item 実験装置\\
-  4.1.1で述べた簡易的なシミュレータ環境とロボットで実験を行った
-  \item 実験方法\\
-  4.1.2で示した経路を繰り返し走行させる. 学習を60000step実行後, テストフェーズに移行する. テストフェーズで正しい順序で経路を選択し, 走行を行えるか確認する. この一連の流れを10回繰り返し行う.
-
-  \newpage
-
-  \item 実験結果\\
-  実験結果を\figref{Fig:60000step}に示す. この図は, それぞれの走行パターンにおいて正しく経路を選択し, 走行できた回数を表している. \tabref{table:result}に全パターンの成功回数を合計した結果を示す. なお, 分母が120であるのはテストフェーズにおいて, 全12パターンからなる経路を走行させ, 評価を行うことを10回繰り返したためである. 
-  \par
-  \tabref{table:result}に示すように, 目標方向に従って113/120回, 正しい経路を選択する様子が見られた. 
-
-\vspace{1cm}
-
-\begin{figure}[hbtp]
-  \centering
- \includegraphics[keepaspectratio, scale=0.5]
-      {images/60000step.png}
- \caption{Experimental results for each moving pattern from \cite{mech}}
- \label{Fig:60000step}
-\end{figure}
-
-\vspace{1cm}
-
-\begin{table}[hbtp]
-  \caption{Experimental results}
-  \label{table:result}
-  \centering
-  \begin{tabular}{|c|c|c|}
-    \hline
-    Experiments & Step & Total result\\
-    \hline
-    Conventional & 60000 & 113/120（94.2\%）\\
-    \hline
-  \end{tabular}
-\end{table}
-
-\end{itemize}
+% これらの課題点から, 
+% \par
+% この節では, まず, 従来の実験を簡単に紹介する. 次に, 2つのアプローチについての詳細と行った実験を述べる. 最後に, アプローチを試みる前と各アプローチによる実験結果を比較し, 議論を行う.
 
 \newpage
+\section{単に学習量を減らした実験}
 
-この従来の実験を基に, 単に60000stepから10000stepに学習量を削減し, 実験した結果を下記に示す.
+% \begin{itemize}
+%   \item 実験目的\\
+%   簡易的なシミュレータ上で, 提案手法の有効性の検証を行う
+%   \item 実験装置\\
+%   4.1.1で述べた簡易的なシミュレータ環境とロボットで実験を行った
+%   \item 実験方法\\
+%   4.1.2で示した経路を繰り返し走行させる. 学習を60000step実行後, テストフェーズに移行する. テストフェーズで正しい順序で経路を選択し, 走行を行えるか確認する. この一連の流れを10回繰り返し行う.
+
+%   \newpage
+
+%   \item 実験結果\\
+%   実験結果を\figref{Fig:60000step}に示す. この図は, それぞれの走行パターンにおいて正しく経路を選択し, 走行できた回数を表している. \tabref{table:result}に全パターンの成功回数を合計した結果を示す. なお, 分母が120であるのはテストフェーズにおいて, 全12パターンからなる経路を走行させ, 評価を行うことを10回繰り返したためである. 
+%   \par
+%   \tabref{table:result}に示すように, 目標方向に従って113/120回, 正しい経路を選択する様子が見られた. 
+
+% \vspace{1cm}
+
+% \begin{figure}[hbtp]
+%   \centering
+%  \includegraphics[keepaspectratio, scale=0.5]
+%       {images/60000step.png}
+%  \caption{Experimental results for each moving pattern from \cite{mech}}
+%  \label{Fig:60000step}
+% \end{figure}
+
+% \vspace{1cm}
+
+% \begin{table}[hbtp]
+%   \caption{Experimental results}
+%   \label{table:result}
+%   \centering
+%   \begin{tabular}{|c|c|c|}
+%     \hline
+%     Experiments & Step & Total result\\
+%     \hline
+%     Conventional & 60000 & 113/120（94.2\%）\\
+%     \hline
+%   \end{tabular}
+% \end{table}
+
+% \end{itemize}
+
+% \newpage
+
+前章のシミュレータ上での実験を基に, 単に60000stepから10000stepに学習量を変更し, 実験した結果を下記に示す.
 
 実験結果を \figref{Fig:10000step} に示す. この図は, それぞれの走行パターンにおいて正しく経路を選択し, 走行できた回数を表している. \tabref{table:result_without} に実験ごとに全パターンの成功回数を合計した結果を示す. \tabref{table:result_without} に示すように, 目標方向に従って 87/120 回, 正しい経路を選択する様子が見られた.
 
@@ -95,7 +96,7 @@
 
 
 
-\subsection{アプローチ1：データセットに加えるデータの割合変更}
+\section{アプローチ1：データセットに加えるデータの割合変更}
 従来の実験における10000stepごとのコマンドに対応するデータ数を\figref{Fig:hist}に示す. \figref{Fig:hist} (a)より, 直進コマンド時のデータ数が圧倒的に多いことがわかる. このデータ数の偏りを解消するため, \figref{Fig:hist} (b)に示すように, 左折と右折コマンドのデータ数を7倍にする. 7倍にするのは, 左折と右折コマンドのデータ数を直進コマンドと同程度にするためである. なお, データ数を何倍にするのが望ましいのか本論文では議論しない. 実験により, データセットに加えるデータ数の割合変更が有効か検証する.
 
 % \begin{figure}[h]
@@ -138,33 +139,31 @@
   \label{Fig:hist}
 \end{figure}
 
-\begin{itemize}
-  % \item 実験目的\\
-  % データセットに加えるデータの割合変更が有効か検証を行う
-  \item 実験装置\\
-  4.1.1で述べた簡易的なシミュレータ環境とロボットで実験を行った
-  \item 実験方法\\
-  4.1.2で示した経路を繰り返し走行させる. 学習を10000step実行後, テストフェーズに
-  移行する. テストフェーズで正しい順序で経路を選択し, 走行を行えるか確認する. こ
-  の一連の流れを10回繰り返し行う.
-  \newpage
-  \item 実験結果\\
+% \begin{itemize}
+  \subsection{実験目的}
+  データセットに加えるデータの割合変更が有効か検証を行う
+  \subsection{実験装置}
+  4.2で述べた簡易的なシミュレータ環境とロボットで実験を行った
+  \subsection{実験方法}
+  4.3で示した経路を繰り返し走行させる. 学習を10000step実行後, テストフェーズに移行する. テストフェーズで正しい順序で経路を選択し, 走行を行えるか確認する. この一連の流れを10回繰り返し行う.
+  % \newpage
+  \subsection{実験結果}
   実験結果を\figref{Fig:10000step_act1.0}に示す. この図は, それぞれの走行パターンにおいて正しく経路を選択し, 走行できた回数を表している. \tabref{table:result3}に実験ごとに全パターンの成功回数を合計した結果を示す. 
   \tabref{table:result3}に示すように, 目標方向に従って99/120回, 正しい経路を選択する様子が見られた. 
   \par
   60000stepの実験と成功率を比較すると約12\%ほど差があり, アプローチ1を試みた結果では成功率が十分だとは言い難い. 次に成功率を改善するため, 後述するアプローチ2を試みた.
 
-  \vspace{0.5cm}
+  % \vspace{0.5cm}
 
   \begin{figure}[hbtp]
     \centering
-   \includegraphics[keepaspectratio, scale=0.5]
+   \includegraphics[keepaspectratio, scale=0.4]
         {images/10000step_act1.0.png}
    \caption{Experimental results for each moving pattern by Approach1}
    \label{Fig:10000step_act1.0}
   \end{figure}  
   
-  \vspace{0.5cm}
+  % \vspace{0.5cm}
 
   \begin{table}[hbtp]
     \caption{Experimental results by Approach 1}
@@ -178,16 +177,18 @@
       \hline
       Conventional & 10000 & 87/120（72.5\%）\\
       \hline
-      Approach1 & 10000 & 99/120（82.5\%）\\
+      Approach1：percentage change of data & 10000 & 99/120（82.5\%）\\
       \hline
     \end{tabular}
   \end{table}
 
-\end{itemize}
+% \end{itemize}
 
 \newpage
 
-\subsection{アプローチ2：学習フェーズにおける積極的な蛇行}
+\newpage
+
+\section{アプローチ2：学習フェーズにおける積極的な蛇行}
 清岡ら\cite{kiyooka}により, 目標経路上に加えて離れた状態を学習することが, テストフェーズでの走行に大きな影響を与えるため, 重要だとされている. そのため, より積極的に蛇行を行い, 目標経路から離れた状態を増加させることを検討する. \par
 実験で用いているシステムの学習フェーズでは,  \figref{Fig:act1.0}に示すようにロボットが目標経路上付近を走行している場合, 訓練中の学習器へ画像を入力し, 出力される角速度を用いて走行している. この場合に, 目標経路から一定の距離離れると地図を用いたルールベース制御器の走行に切り替わり, 強制的にロボットを目標経路上に戻すように制御を行う. 
 
@@ -203,8 +204,8 @@
 
 \begin{figure}[hbtp]
   \centering
- \includegraphics[keepaspectratio, scale=0.43]
-      {images/3action.png}
+ \includegraphics[keepaspectratio, scale=0.5]
+      {images/3action2.png}
  \caption{Robot behavior}
  \label{Fig:3action}
 \end{figure}
@@ -217,16 +218,16 @@
  \label{Fig:act1.5}
 \end{figure}
 
-\begin{itemize}
-  % \item 実験目的\\
-  % データセットに加えるデータの割合変更が有効か検証を行う
-  \item 実験装置\\
+% \begin{itemize}
+  \subsection{実験目的}
+  学習フェーズにおける積極的な蛇行が有効か検証を行う
+  \subsection{実験装置}
   4.1.1で述べた簡易的なシミュレータ環境とロボットで実験を行った
-  \item 実験方法\\
+  \subsection{実験方法}
   4.1.2で示した経路を繰り返し走行させる. 学習を10000step実行後, テストフェーズに
   移行する. テストフェーズで正しい順序で経路を選択し, 走行を行えるか確認する. こ
   の一連の流れを10回繰り返し行う.
-  \item 実験結果\\
+  \subsection{実験結果}
   実験結果を\figref{Fig:10000step_act1.5}に示す. この図は, それぞれの走行パターンにおいて正しく経路を選択し, 走行できた回数を表している. \tabref{table:result4}に実験ごとに全パターンの成功回数を合計した結果を示す. 
   \tabref{table:result4}に示すように, 目標方向に従って109/120回, 正しい経路を選択する様子が見られた. 
   % また, 
@@ -260,9 +261,14 @@
       \hline
       Conventional & 10000 & 87/120（72.5\%）\\
       \hline
-      Approach1 & 10000 & 99/120（82.5\%）\\
+      Approach1：percentage change of data & 10000 & 99/120（82.5\%）\\
       \hline
-      \textbf{Approach1+2} & \textbf{10000} & \textbf{109/120（90.8\%）}\\
+      \begin{tabular}{c}
+        \textbf{Approach1：percentage change of data}\\
+        % \textbf{+}
+        \textbf{+ Approach2：aggressive meandering}
+      \end{tabular}
+       & \textbf{10000} & \textbf{109/120（90.8\%）}\\
       \hline
     \end{tabular}
   \end{table}
@@ -306,7 +312,7 @@
   \begin{figure}[hbtp]
     \centering
    \includegraphics[keepaspectratio, scale=0.37]
-        {images/hist_act_training.png}
+        {images/hist_act_training2.png}
    \caption{Ratio of data by distance from target path in learning phase}
    \label{Fig:hist_act_training}
   \end{figure}  
@@ -318,18 +324,18 @@
   \begin{figure}[hbtp]
     \centering
    \includegraphics[keepaspectratio, scale=0.37]
-        {images/hist_act_test.png}
+        {images/hist_act_test2.png}
    \caption{Ratio of data by distance from target path in test phase}
    \label{Fig:hist_act_test}
   \end{figure}  
 
   % \newpage
 
-\end{itemize}
+% \end{itemize}
 
 アプローチ1,2の実験を基に, 単に10000stepから20000stepに学習量を増やし, 実験した結果を下記に示す.
 
-\figref{Fig:20000step_act1.5}は, それぞれの走行パターンにおいて正しく経路を選択し, 走行できた回数を表している. \tabref{table:result5} に実験ごとに全パターンの成功回数を合計した結果を示す. \tabref{table:result5} に示すように, 目標方向に従って 114/120 回, 正しい経路を選択する様子が見られた. また, 成功率が60000stepの実験と同程度になった. このことから, アプローチ1+2によって学習量が約67\%削減でき, 実験を実環境に移す際の問題が解決できたといえる. 
+\figref{Fig:20000step_act1.5}は, それぞれの走行パターンにおいて正しく経路を選択し, 走行できた回数を表している. \tabref{table:result5} に実験ごとに全パターンの成功回数を合計した結果を示す. \tabref{table:result5} に示すように, 目標方向に従って 114/120 回, 正しい経路を選択する様子が見られた. また, 成功率が60000stepの実験と同程度になった. このことから, 2つのアプローチによって学習量が約67\%削減できたといえる.
 
 \begin{figure}[hbtp]
   \centering
@@ -351,11 +357,18 @@
     \hline
     Conventional & 10000 & 87/120（72.5\%）\\
     \hline
-    Approach1 & 10000 & 99/120（82.5\%）\\
+    Approach1：percentage change of data & 10000 & 99/120（82.5\%）\\
     \hline
-    Approach1+2 & 10000 & 109/120（90.8\%）\\
+    \begin{tabular}{c}
+      Approach1：percentage change of data\\
+      + Approach2：aggressive meandering
+    \end{tabular} & 10000 & 109/120（90.8\%）\\
     \hline
-    \textbf{Approach1+2} & \textbf{20000} & \textbf{114/120（95\%）}\\
+    \begin{tabular}{c}
+      \textbf{Approach1：percentage change of data}\\
+      % \textbf{+}
+      \textbf{+ Approach2：aggressive meandering}
+    \end{tabular} & \textbf{20000} & \textbf{114/120（95\%）}\\
     \hline
   \end{tabular}
 \end{table}

@@ -1,21 +1,24 @@
 %!TEX root = ../thesis.tex
 
 \section{実環境の実験}
-これまでの節では, いずれもシミュレータ上での実験を行ってきたが, 実験を実環境に移す. それから, 実環境における提案手法の有効性を検証する.
+これまでの節では, 実験の大半をシミュレータ上で行ってきたが, 実験を実環境に移す. それから, 実環境における提案手法の有効性を検証する.
 
-\subsection{実験装置（実環境）}
+\subsection{実験目的}
+実環境において, 提案手法が有効か検証を行う
+
+\subsection{実験装置}
 \begin{itemize}
   \item ロボット
   
   ロボットは前報\cite{okada1}と同様, \figref{Fig:gamma}に示すように, 3つのカメラを搭載したロボットを用いる.
 
-  \vspace{2cm}
+  % \vspace{2cm}
   
   \begin{figure}[hbtp]
     \centering
    \includegraphics[keepaspectratio, scale=0.7]
-        {images/gamma2.png}
-   \caption{Experimental setup from \cite{okada1}}
+        {images/gamma3.png}
+   \caption{Experimental setup}
    \label{Fig:gamma}
   \end{figure}
 
@@ -48,7 +51,7 @@
 4.2の実験により, 20000stepほど学習させることで, 十分な成功率が得られる可能性が高いことがわかっている. しかし, 実環境で行う実験時間を削減するため, 実環境に似たシミュレータ上で訓練した学習器をファインチューニングする. なお, 本論文ではファインチューニングによる実験結果の影響を議論しない. 実環境における実験の流れを以下に示す.
 \begin{enumerate}
   \item 事前に4.3の実験に倣って, シミュレータ上で10000step学習させる. 
-  \item 前段階の学習器を用いて初期値を設定し, 実環境において4.1.2 で示した経路を繰り返し走行させる.
+  \item 前段階の学習器を用いて, 実環境において4.1.2 で示した経路を繰り返し走行させながら追加で学習を行う.
   \item 学習を10000step実行後, テストフェーズに移行する. テストフェーズで正しい順序で経路を選択し, 走行を行えるか確認する.
 \end{enumerate}
 この一連の流れを 10 回繰り返し行う.
@@ -59,23 +62,47 @@
 
 \begin{figure}[hbtp]
   \centering
- \includegraphics[keepaspectratio, scale=0.5]
+ \includegraphics[keepaspectratio, scale=0.45]
       {images/real_result.png}
  \caption{Experimental results for each moving pattern by real environment}
  \label{Fig:real_result}
 \end{figure}
 
+% \begin{table}[hbtp]
+%   \caption{Experimental results by real environment}
+%   \label{table:real}
+%   \centering
+%   \begin{tabular}{|c|c|c|}
+%     \hline
+%     Experiments & Step & Total results\\
+%     \hline
+%     Approach1+2 (Simulator similar to real environment) & 20000 & 114/120（95\%）\\
+%     \hline
+%     Approach1+2 (Real environment) & 20000 & 78/120（65\%）\\
+%     \hline
+%   \end{tabular}
+% \end{table}
+
+\vspace{-0.7cm}
+
 \begin{table}[hbtp]
-  \caption{Experimental results by real environment}
+  \caption{Experimental results by simulator similar to real environment}
   \label{table:real}
   \centering
   \begin{tabular}{|c|c|c|}
     \hline
-    Experiments & Step & Total results\\
+    \begin{tabular}{c}
+      Environment\\
+      (Approach1：percentage change of data\\
+      + Approach2：aggressive meandering)
+    \end{tabular}
+     & Step & Total results\\
     \hline
-    Approach1+2 (Simulator similar to real environment) & 20000 & 114/120（95\%）\\
+    Simulator similar to real environment & 20000 & 119/120（99.2\%）\\
     \hline
-    Approach1+2 (Real environment) & 20000 & 78/120（65\%）\\
+    \textbf{Real environment}
+    % \end{tabular}
+    & \textbf{20000} & \textbf{78/120（65\%）}\\
     \hline
   \end{tabular}
 \end{table}
