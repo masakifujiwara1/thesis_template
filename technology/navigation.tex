@@ -1,7 +1,7 @@
 %!TEX root = ../thesis.tex
 
 \section{地図を用いたルールベースの制御器}
-従来手法と提案手法において, 教師信号として用いる地図を用いたルールベース制御器について述べる. 地図を用いたルールベース制御器は, ROS Navigation\_stack\cite{navigation:online}へ目標位置（waypoint）の指示を行うwaypoint\_nav\cite{waypoint_nav:online}を組み合わせたものである. なお, 後述するが提案手法ではwaypoint\_navの役割が増えている. ROS Navigation\_stackでは以下のような処理が行われる. 
+後述する従来手法と提案手法において, 教師信号として用いる地図を用いたルールベース制御器について述べる. 地図を用いたルールベース制御器は, ROS Navigation\_stack\cite{navigation:online}へ目標位置（waypoint）の指示を行うwaypoint\_nav\cite{waypoint_nav:online}を組み合わせたものである. なお, 後述するが提案手法ではwaypoint\_navの役割が増えている. ROS Navigation\_stackでは以下のような処理が行われる. 
 
 \begin{itemize}
   \item ロボットの現在位置を推定する
@@ -10,13 +10,13 @@
   \item 経路に追従する行動をロボットに指示する
 \end{itemize}
 
-また, \figref{Fig:navigation}に示すように, 事前に作成した占有格子地図と測域センサ, オドメトリを用いて, 地図上での自己位置をParticle\_Filterを用いて近似することで推定する「amcl」. 障害物認識などによる局所的, または地図全体の大域的なコスト計算, その結果に基づいた経路計画, それに従ったモータ指令を行う「move\_base」などのパッケージによって構成されている. 従来手法, 提案手法ともにモータ指令を並進速度と角速度にわけた. なお, 並進速度は一定とした.
+また, \figref{Fig:navigation}に示すように, 事前に作成した占有格子地図と測域センサ, オドメトリを用いて, 地図上での自己位置をParticle\_Filterを用いて近似することで推定する「amcl」. 障害物認識などによる局所的, または地図全体の大域的なコスト計算, その結果に基づいた経路計画, それに従ったモータ指令を行う「move\_base」などのパッケージによって構成されている. 従来手法, 提案手法ともにモータ指令を並進速度は一定とし, 角速度のみを制御対象とした.
 
 % \vspace{5cm}
 
 \begin{figure}[hbtp]
   \centering
- \includegraphics[keepaspectratio, scale=0.7]
+ \includegraphics[keepaspectratio, scale=0.6]
       {images/rule-based.png}
  \caption{A rule-based controller using a map}
  \label{Fig:navigation}
