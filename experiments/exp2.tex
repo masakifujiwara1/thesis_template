@@ -1,7 +1,7 @@
 %!TEX root = ../thesis.tex
 
 \section{問題}
-我々が行ってきた研究では, 簡易的なシミュレータ上で提案手法が有効だと確認されている. そのため, 前章では次の段階として, 実環境における提案手法の有効性を検証することを試みた. しかし, 学習時間の長さが問題となり, 評価を十分な回数行うことができなかった. そのため, 学習時間の短縮が必要であると判断した. 2つのアプローチを提案し, 学習量の削減を図る.
+前章で述べたように, 簡易的なシミュレータ上での実験により提案手法が有効だと確認されている. そのため, 次の段階として, 実環境における提案手法の有効性を検証することを試みた. しかし, 学習時間の長さが問題となり, 評価を十分な回数行うことが困難であった. そのため, 本章では学習時間の短縮化に関して議論する. 2つのアプローチを提案し, 学習時間の削減の効果を実験により確認する.
 
 % \begin{itemize}
 %   \item 実験条件（主にカメラ画像に影響を及ぼす光である）を揃える関係上, 実験を行う時間帯を光の変化が少ない夜間に固定する必要があるため, 1日に実験を行える時間が少なく, 1回の学習に何日も費やす必要がある
@@ -13,7 +13,7 @@
 % この節では, まず, 従来の実験を簡単に紹介する. 次に, 2つのアプローチについての詳細と行った実験を述べる. 最後に, アプローチを試みる前と各アプローチによる実験結果を比較し, 議論を行う.
 
 \newpage
-\section{単に学習量を減らした実験}
+\section{学習step数の削減の影響}
 
 % \begin{itemize}
 %   \item 実験目的\\
@@ -59,11 +59,11 @@
 
 % \newpage
 
-前章のシミュレータ上での実験を基に, 単に60000stepから10000stepに学習量を変更し, 実験した結果を下記に示す.
+前章のシミュレータ上での実験と同様の条件で, 単に60000stepから10000stepにステップ数を変更し, 実験した結果を下記に示す.
 
 実験結果を \figref{Fig:10000step} に示す. この図は, それぞれの走行パターンにおいて正しく経路を選択し, 走行できた回数を表している. \tabref{table:result_without} に実験ごとに全パターンの成功回数を合計した結果を示す. \tabref{table:result_without} に示すように, 目標方向に従って 87/120 回, 正しい経路を選択する様子が見られた.
 
-60000stepの実験と成功率を比較すると約22\%ほどの差がある. これでは, 学習量を削減できたとは言い難い. そのため, 後述する2つのアプローチを試みることで成功率の改善を図る.
+60000stepの実験と成功率を比較すると約22\%ほどの差がある. これまで述べた提案手法では, ステップ数を減らすことにより, 成功率が大幅に低下することが判明した. そのため, 後述する2つのアプローチを試みることで成功率の改善を図る.
 
 \vspace{0.5cm}
 
@@ -71,23 +71,23 @@
   \centering
  \includegraphics[keepaspectratio, scale=0.43]
       {images/10000step.png}
- \caption{Experimental results for each moving pattern at 10000step by conventional}
+ \caption{Experimental results for each moving pattern at 10000step}
  \label{Fig:10000step}
 \end{figure}  
 
-\vspace{0.5cm}
+% \vspace{0.5cm}
 
 \begin{table}[hbtp]
-  \caption{Experimental results at 10000step by conventional}
+  \caption{Experimental results at 10000step}
   \label{table:result_without}
   \centering
-  \begin{tabular}{|c|c|c|}
+  \begin{tabular}{|c|c|}
     \hline
-    Experiments & Step & Total results\\
+    Step & Total results\\
     \hline
-    Conventional & 60000 & 113/120（94.2\%）\\
+    60000 & 113/120（94.2\%）\\
     \hline
-    Conventional & 10000 & 87/120（72.5\%）\\
+    10000 & 87/120（72.5\%）\\
     \hline
   \end{tabular}
 \end{table}
@@ -96,8 +96,8 @@
 
 
 
-\section{アプローチ1：データセットに加えるデータの割合変更}
-従来の実験における10000stepごとのコマンドに対応するデータ数を\figref{Fig:hist}に示す. \figref{Fig:hist} (a)より, 直進コマンド時のデータ数が圧倒的に多いことがわかる. このデータ数の偏りを解消するため, \figref{Fig:hist} (b)に示すように, 左折と右折コマンドのデータ数を7倍にする. 7倍にするのは, 左折と右折コマンドのデータ数を直進コマンドと同程度にするためである. なお, データ数を何倍にするのが望ましいのか本論文では議論しない. 実験により, データセットに加えるデータ数の割合変更が有効か検証する.
+\section{アプローチ1：データセットに加えるデータの割合の変更}
+実験における10000stepごとのコマンドのデータ数を\figref{Fig:hist}に示す. \figref{Fig:hist} (a)より, 直進コマンド時のデータ数が圧倒的に多いことがわかる. このデータ数の偏りを解消するため, \figref{Fig:hist} (b)に示すように, 左折と右折コマンドのデータ数を7倍にする. 7倍にするのは, 左折と右折コマンドのデータ数を直進コマンドと同程度にするためである. なお, データ数を何倍にするのが望ましいのか本論文では議論しない. 実験により, データセットに加えるデータ数の割合の変更が有効か検証する. なお, 第3章で述べた提案手法は以後CIL(Conditional Imitation Learning)と呼び, 本アプローチを加えた手法をCIL with CoDP(Change of Data Percentage)と呼ぶ.
 
 % \begin{figure}[h]
 %   \begin{minipage}[b]{0.5\linewidth}
@@ -140,51 +140,51 @@
 \end{figure}
 
 % \begin{itemize}
-  \subsection{実験目的}
-  データセットに加えるデータの割合変更が有効か検証を行う
-  \subsection{実験装置}
-  4.2で述べた簡易的なシミュレータ環境とロボットで実験を行った
-  \subsection{実験方法}
-  4.3で示した経路を繰り返し走行させる. 学習を10000step実行後, テストフェーズに移行する. テストフェーズで正しい順序で経路を選択し, 走行を行えるか確認する. この一連の流れを10回繰り返し行う.
-  % \newpage
-  \subsection{実験結果}
-  実験結果を\figref{Fig:10000step_act1.0}に示す. この図は, それぞれの走行パターンにおいて正しく経路を選択し, 走行できた回数を表している. \tabref{table:result3}に実験ごとに全パターンの成功回数を合計した結果を示す. 
-  \tabref{table:result3}に示すように, 目標方向に従って99/120回, 正しい経路を選択する様子が見られた. 
-  \par
-  60000stepの実験と成功率を比較すると約12\%ほど差があり, アプローチ1を試みた結果では成功率が十分だとは言い難い. 次に成功率を改善するため, 後述するアプローチ2を試みた.
+\subsection{実験目的}
+データセットに加えるデータの割合変更が学習step数の削減に有効か検証を行う
+\subsection{実験装置}
+4.2で述べた簡易的なシミュレータ環境とロボットで実験を行った
+\subsection{実験方法}
+4.3で示した経路を繰り返し走行させる. 学習を10000step実行後, テストフェーズに移行する. テストフェーズで正しい順序で経路を選択し, 走行を行えるか確認する. この一連の流れを10回繰り返し行う.
+% \newpage
+\subsection{実験結果}
+実験結果を\figref{Fig:10000step_act1.0}に示す. この図は, それぞれの走行パターンにおいて正しく経路を選択し, 走行できた回数を表している. \tabref{table:result3}に実験ごとに全パターンの成功回数を合計した結果を示す. 
+\tabref{table:result3}に示すように, 目標方向に従って99/120回, 正しい経路を選択する様子が見られた. 
+\par
+前節の単にステップ数を減らすことに比べると成功率は高いが, 60000stepの実験と成功率を比較すると約12\%ほど差があり, アプローチ1を試みた結果では成功率が十分だとは言い難い. 次に成功率を改善するため, 後述するアプローチ2を試みた.
 
-  % \vspace{0.5cm}
+\vspace{0.5cm}
 
-  \begin{figure}[hbtp]
-    \centering
-   \includegraphics[keepaspectratio, scale=0.4]
-        {images/10000step_act1.0.png}
-   \caption{Experimental results for each moving pattern by Approach1}
-   \label{Fig:10000step_act1.0}
-  \end{figure}  
-  
-  % \vspace{0.5cm}
+\begin{figure}[hbtp]
+  \centering
+  \includegraphics[keepaspectratio, scale=0.47]
+      {images/10000step_act1.0.png}
+  \caption{Experimental results for each moving pattern by CIL with CoDP}
+  \label{Fig:10000step_act1.0}
+\end{figure}  
 
-  \begin{table}[hbtp]
-    \caption{Experimental results by Approach 1}
-    \label{table:result3}
-    \centering
-    \begin{tabular}{|c|c|c|}
-      \hline
-      Experiments & Step & Total results\\
-      \hline
-      Conventional & 60000 & 113/120（94.2\%）\\
-      \hline
-      Conventional & 10000 & 87/120（72.5\%）\\
-      \hline
-      Approach1：percentage change of data & 10000 & 99/120（82.5\%）\\
-      \hline
-    \end{tabular}
-  \end{table}
+% \vspace{0.5cm}
+
+\begin{table}[hbtp]
+  \caption{Experimental results by CIL with CoDP}
+  \label{table:result3}
+  \centering
+  \begin{tabular}{|c|c|c|}
+    \hline
+    Category & Step & Total results\\
+    \hline
+    CIL & 60000 & 113/120（94.2\%）\\
+    \hline
+    CIL & 10000 & 87/120（72.5\%）\\
+    \hline
+    CIL with CoDP & 10000 & 99/120（82.5\%）\\
+    \hline
+  \end{tabular}
+\end{table}
 
 % \end{itemize}
 
-\newpage
+% \newpage
 
 \newpage
 
@@ -200,7 +200,7 @@
  \label{Fig:act1.0}
 \end{figure}
 
-訓練中の学習器へ画像を入力し, \figref{Fig:3action}のように出力される角速度を1.5倍にする. その結果, \figref{Fig:act1.5}に示すように蛇行する頻度が高くなり, 目標経路から離れた状態をより多く学習できる可能性がある. なお, 得られた角速度を何倍にするのが望ましいのか本論文では議論しない. 実験により, 学習フェーズにおける積極的な蛇行が有効か検証する.
+訓練中の学習器へ画像を入力し, \figref{Fig:3action}のように出力される角速度を1.5倍にする. その結果, \figref{Fig:act1.5}に示すように蛇行する頻度が高くなり, 目標経路から離れた状態をより多く学習できる可能性がある. なお, 得られた角速度を何倍にするのが望ましいのか本論文では議論しない. 実験により, 学習フェーズにおける積極的な蛇行が有効か検証する. なお, CIL with CoDPに本アプローチを加えた手法をCIL with CoDP+AM(Aggressive Meandering)と呼ぶ.
 
 \begin{figure}[hbtp]
   \centering
@@ -214,7 +214,7 @@
   \centering
  \includegraphics[keepaspectratio, scale=0.58]
       {images/act1.5.png}
- \caption{Moving on the target path attempting approach 2}
+ \caption{Moving on the target path attempting CIL with CoDP+AM}
  \label{Fig:act1.5}
 \end{figure}
 
@@ -222,7 +222,7 @@
 
 % \begin{itemize}
   \subsection{実験目的}
-  学習フェーズにおける積極的な蛇行が有効か検証を行う
+  学習フェーズにおける積極的な蛇行が学習step数の削減に有効か検証を行う
   \subsection{実験装置}
   4.2で述べた簡易的なシミュレータ環境とロボットで実験を行った
   \subsection{実験方法}
@@ -245,19 +245,19 @@
     \centering
    \includegraphics[keepaspectratio, scale=0.55]
         {images/10000step_act1.5.png}
-   \caption{Experimental results for each moving pattern at 10000step by Approach 1+2}
+   \caption{Experimental results for each moving pattern at 10000step by CIL with CoDP+AM}
    \label{Fig:10000step_act1.5}
   \end{figure}  
   
   % \vspace{0.5cm}
 
   \begin{table}[hbtp]
-    \caption{Experimental results at 10000step by Approach 1+2}
+    \caption{Experimental results at 10000step by CIL with CoDP+AM}
     \label{table:result4}
     \centering
     \begin{tabular}{|c|c|c|}
       \hline
-      Experiments & Step & Total results\\
+      Category & Step & Total results\\
       \hline
       Conventional & 60000 & 113/120（94.2\%）\\
       \hline
@@ -279,6 +279,8 @@
 
   \tabref{table:result4}からアプローチ1の実験より, 成功率が改善していることがわかる. また, 60000stepの実験と成功率を比較した場合, 約3\%ほどの差がある. 
   % \tabref{table:factor}
+
+  \newpage
   
   以下に\figref{Fig:10000step_act1.5}における成功率が低い場所と要因を示す.
   \begin{itemize}
@@ -344,12 +346,12 @@
   \centering
  \includegraphics[keepaspectratio, scale=0.42]
       {images/20000step_act1.5.png}
- \caption{Experimental results for each moving pattern at 20000step by Approach 1+2}
+ \caption{Experimental results for each moving pattern at 20000step by CIL with CoDP+AM}
  \label{Fig:20000step_act1.5}
 \end{figure} 
 
 \begin{table}[hbtp]
-  \caption{Experimental results at 20000step by Approach 1+2}
+  \caption{Experimental results at 20000step by CIL with CoDP+AM}
   \label{table:result5}
   \centering
   \begin{tabular}{|c|c|c|}
