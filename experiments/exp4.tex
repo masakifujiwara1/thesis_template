@@ -1,7 +1,7 @@
 %!TEX root = ../thesis.tex
 
 \section{実環境の実験}
-これまでの節では, 実験の大半をシミュレータ上で行ってきたが, 実験を実環境に移す. それから, 実環境における提案手法の有効性を検証する.
+これまでは, 実験の大半をシミュレータ上で行ってきたが, 実験を実環境に移す. 本節では, 実環境における提案手法の有効性を検証する.
 
 \subsection{実験目的}
 実環境において, 提案手法が有効か検証を行う
@@ -10,7 +10,7 @@
 \begin{itemize}
   \item ロボット
   
-  ロボットは前報\cite{okada1}と同様, \figref{Fig:gamma}に示すように, 3つのカメラを搭載したロボットを用いる.
+  ロボットは従来手法の検証に用いた実験\cite{okada1}と同様, \figref{Fig:gamma}に示すように, 3つのカメラを搭載したロボットを用いる.
 
   % \vspace{2cm}
   
@@ -48,10 +48,10 @@
 \end{itemize}
 
 \subsection{実験方法}
-5.5の実験により, 20000stepほど学習させることで, 十分な成功率が得られる可能性が高いことがわかっている. しかし, 実環境で行う実験時間を削減するため, 実環境に似たシミュレータ上で訓練した学習器をファインチューニングする. なお, 本論文ではファインチューニングによる実験結果の影響を議論しない. 実環境における実験の流れを以下に示す.
+5.5章の実験により, 実環境の実験においても20000stepほど学習させることで, 高い成功率が得られる可能性が高いことが予想される. しかし, 実環境で行う実験時間を削減するため, 実環境に似たシミュレータ上でまずは訓練を行い, その学習器を実環境でファインチューニングする. なお, 本論文ではファインチューニングによる実験結果の影響を議論しない. 実環境における実験の流れを以下に示す.
 \begin{enumerate}
-  \item 事前に5.5の実験に倣って, シミュレータ上で10000step学習させる. 
-  \item 前段階の学習器の重みを流用し, 実環境において4.1.2 で示した経路を繰り返し走行させながら追加で学習を行う.
+  \item 事前に5.5章の実験に倣って, シミュレータ上で10000step学習させる. 
+  \item この学習器の重みを使って, 実環境において4.1.2 で示した経路を繰り返し走行させながら追加で学習を行う.
   \item 学習を10000step実行後, テストフェーズに移行する. テストフェーズで正しい順序で経路を選択し, 走行を行えるか確認する.
 \end{enumerate}
 この一連の流れを 10 回繰り返し行う.
@@ -86,16 +86,16 @@
 \vspace{-0.7cm}
 
 \begin{table}[hbtp]
-  \caption{Experimental results by simulator similar to real environment}
+  \caption{Experimental results by real environment}
   \label{table:real}
   \centering
   \begin{tabular}{|c|c|c|}
     \hline
-    \begin{tabular}{c}
-      Environment\\
-      (Approach1：percentage change of data\\
-      + Approach2：aggressive meandering)
-    \end{tabular}
+    % \begin{tabular}{c}
+      Environment(CIL with CoDP+AM)
+      % (Approach1：percentage change of data\\
+      % + Approach2：aggressive meandering)
+    % \end{tabular}
      & Step & Total results\\
     \hline
     Simulator similar to real environment & 20000 & 119/120（99.2\%）\\
@@ -107,7 +107,7 @@
   \end{tabular}
 \end{table}
 
-実環境における実験の成功率が著しく低い結果となった. このような結果になった原因について, 考えられるのは以下の3点である.
+実環境における実験の成功率が明らかに低い結果となった. このような結果になった原因について, 考えられるのは以下の3点である.
 
 % \begin{itemize}
 %   \item データセットに加えられるカメラ画像に人などが多く写ってしまった
@@ -116,14 +116,14 @@
 % \end{itemize}
 
 \begin{enumerate}
-  \item データセットに加えられるカメラ画像に人などが多く写ってしまった
-  \item データセットに加えられるカメラ画像に入る光量が変化してしまった
-  \item 取得するカメラ画像の視野角と高さがシミュレータと実環境で違う
+  \item データセットに加えたカメラ画像に人などが多く写ってしまった
+  \item データセットに加えたカメラ画像の光量が変化してしまった
+  \item 画像を取得するカメラの視野角と高さがシミュレータと実環境で違う
 \end{enumerate}
 
-上記の1,2に関して, シミュレータ上での実験では環境中の光や障害物の有無が変わらない. 一方で, 実環境での実験では通行人の存在や僅かな光の変化がある. 
+上記の1,2に関して, シミュレータ上での学習では環境中の光や障害物の有無は変化しない. 一方で, 実環境での実験では通行人の存在や僅かな光の変化がある. 
 \par
-\figref{Fig:horizonal}はシュミレータ上と実環境で対応する場所で取得した画像を示している. この図より, 視野角と高さが異なっていることがわかる. このことから, 上記の3に関して同一の場所においても視野角の違いなどにより, 取得できる情報量に差が出ている可能性がある.
+\figref{Fig:horizonal}はシュミレータ上と実環境で対応する場所で取得した画像を示している. この図より, カメラの視野角と高さが異なっていることがわかる. このことから, 上記の3に関して同一の場所においても視野角の違いなどにより, 取得できる画像に差があることが影響しているおそれがある.
 
 \begin{figure}[h]
   \centering
@@ -144,11 +144,11 @@
 \end{figure}
 
 \figref{Fig:real_model3}は実環境における実験で, 成功率が最多のモデルによる実験結果である. 9/12 回正しい経路を選択する様子が見られた. この図のb3とe3に向かう三叉路などでは, 経路選択前は同じ場所を走行しているため, ほぼ同様の画像が入力されているが, 目標方向に従って正しい経路を選択できている. このことから, 実環境においても提案手法により, 任意の経路選択が行うことができている可能性が高い.
-しかし, 成功率が低い原因の解明には未だ至っていない. そのため, 解析は今後の課題となっている.
+しかし, 成功率が低い原因の解明には未だ至っていない. この問題の検討は, 今後の課題となっている.
 
 \begin{figure}[hbtp]
   \centering
- \includegraphics[keepaspectratio, scale=0.45]
+ \includegraphics[keepaspectratio, scale=0.40]
       {images/real_model3.png}
  \caption{Experimental results for each moving pattern by models with the highest success rate}
  \label{Fig:real_model3}

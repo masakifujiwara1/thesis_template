@@ -185,6 +185,7 @@
 % \end{itemize}
 
 % \newpage
+ 
 
 \newpage
 
@@ -205,7 +206,7 @@
 \begin{figure}[hbtp]
   \centering
  \includegraphics[keepaspectratio, scale=0.5]
-      {images/3action2.png}
+      {images/3action3.png}
  \caption{Robot behavior}
  \label{Fig:3action}
 \end{figure}
@@ -259,17 +260,17 @@
       \hline
       Category & Step & Total results\\
       \hline
-      Conventional & 60000 & 113/120（94.2\%）\\
+      CIL & 60000 & 113/120（94.2\%）\\
       \hline
-      Conventional & 10000 & 87/120（72.5\%）\\
+      CIL & 10000 & 87/120（72.5\%）\\
       \hline
-      Approach1：percentage change of data & 10000 & 99/120（82.5\%）\\
+      CIL with CoDP & 10000 & 99/120（82.5\%）\\
       \hline
-      \begin{tabular}{c}
-        \textbf{Approach1：percentage change of data}\\
+      % \begin{tabular}{c}
+        \textbf{CIL with CoDP+AM}
         % \textbf{+}
-        \textbf{+ Approach2：aggressive meandering}
-      \end{tabular}
+        % \textbf{}
+      % \end{tabular}
        & \textbf{10000} & \textbf{109/120（90.8\%）}\\
       \hline
     \end{tabular}
@@ -280,7 +281,7 @@
   \tabref{table:result4}からアプローチ1の実験より, 成功率が改善していることがわかる. また, 60000stepの実験と成功率を比較した場合, 約3\%ほどの差がある. 
   % \tabref{table:factor}
 
-  \newpage
+  % \newpage
   
   以下に\figref{Fig:10000step_act1.5}における成功率が低い場所と要因を示す.
   \begin{itemize}
@@ -338,9 +339,9 @@
 
 % \end{itemize}
 
-アプローチ1,2の実験を基に, 単に10000stepから20000stepに学習量を増やし, 実験した結果を下記に示す.
+CIL with CoDP+AM, 単に10000stepから20000stepに学習ステップ数を増やし, 実験した結果を下記に示す.
 
-\figref{Fig:20000step_act1.5}は, それぞれの走行パターンにおいて正しく経路を選択し, 走行できた回数を表している. \tabref{table:result5} に実験ごとに全パターンの成功回数を合計した結果を示す. \tabref{table:result5} に示すように, 目標方向に従って 114/120 回, 正しい経路を選択する様子が見られた. また, 成功率が60000stepの実験と同程度になった. このことから, 2つのアプローチによって学習量が約67\%削減できたといえる.
+\figref{Fig:20000step_act1.5}は, それぞれの走行パターンにおいて正しく経路を選択し, 走行できた回数を表している. \tabref{table:result5} に実験ごとに全パターンの成功回数を合計した結果を示す. \tabref{table:result5} に示すように, 目標方向に従って 114/120 回, 正しい経路を選択する様子が見られた. また, 成功率が60000stepの実験と同程度になった. このことから, 提案するCIL with CoDP+AMによって学習のステップ数が約67\%削減できたといえる.
 
 \begin{figure}[hbtp]
   \centering
@@ -356,24 +357,22 @@
   \centering
   \begin{tabular}{|c|c|c|}
     \hline
-    Experiments & Step & Total results\\
+    Category & Step & Total results\\
     \hline
-    Conventional & 60000 & 113/120（94.2\%）\\
+    CIL & 60000 & 113/120（94.2\%）\\
     \hline
-    Conventional & 10000 & 87/120（72.5\%）\\
+    CIL & 10000 & 87/120（72.5\%）\\
     \hline
-    Approach1：percentage change of data & 10000 & 99/120（82.5\%）\\
+    CIL with CoDP & 10000 & 99/120（82.5\%）\\
     \hline
-    \begin{tabular}{c}
-      Approach1：percentage change of data\\
-      + Approach2：aggressive meandering
-    \end{tabular} & 10000 & 109/120（90.8\%）\\
+    CIL with CoDP+AM & 10000 & 109/120（90.8\%）\\
     \hline
-    \begin{tabular}{c}
-      \textbf{Approach1：percentage change of data}\\
+    % \begin{tabular}{c}
+      % \textbf{Approach1：percentage change of data}\\
       % \textbf{+}
-      \textbf{+ Approach2：aggressive meandering}
-    \end{tabular} & \textbf{20000} & \textbf{114/120（95\%）}\\
+      \textbf{CIL with CoDP+AM}
+    % \end{tabular}
+     & \textbf{20000} & \textbf{114/120（95\%）}\\
     \hline
   \end{tabular}
 \end{table}

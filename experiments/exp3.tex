@@ -1,7 +1,7 @@
 %!TEX root = ../thesis.tex
 
 \section{実環境に似たシミュレータ環境による実験}
-これまでの実験では, 簡易的なシミュレータ環境を用いてきた. しかし, 実験に簡易的なシミュレータ環境を用いるには問題があり, 以下の点である.
+これまでの実験では, 簡易的なシミュレータ環境を用いてきた. しかし, 実験に簡易的なシミュレータ環境を用いるには問題があり, 以下のような問題がある.
 
 \begin{itemize}
   % \item 屋内を模している環境であるため, 影は少ないはずだが, \figref{Fig:sim_shadow}に示すように全体的に影が写り込んでしまっている
@@ -97,11 +97,10 @@
   \centering
   \begin{tabular}{|c|c|c|}
     \hline
-    \begin{tabular}{c}
-      Environment\\
-      (Approach1：percentage change of data\\
-      + Approach2：aggressive meandering)
-    \end{tabular}
+    % \begin{tabular}{c}
+      Environment
+      (CIL with CoDP+AM)
+    % \end{tabular}
      & Step & Total results\\
     \hline
     Simple simulator environment & 20000 & 114/120（95\%）\\
