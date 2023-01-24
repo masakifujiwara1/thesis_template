@@ -4,7 +4,7 @@
 これまでは, 実験の大半をシミュレータ上で行ってきたが, 実験を実環境に移す. 本節では, 実環境における提案手法の有効性を検証する.
 
 \subsection{実験目的}
-実環境において, 提案手法が有効か検証を行う
+実環境において, 提案手法が有効か検証を行う.
 
 \subsection{実験装置}
 \begin{itemize}
@@ -40,7 +40,7 @@
     \begin{minipage}[b]{120mm}
       \centering
       \includegraphics[width=80mm]{images/tsudanuma_structure.png}
-      \caption*{(b) structure}
+      \caption*{(b) Structure}
     \end{minipage}
     \caption{Real environment}
     \label{Fig:real_environment}
@@ -51,18 +51,18 @@
 5.5章の実験により, 実環境の実験においても20000stepほど学習させることで, 高い成功率が得られる可能性が高いことが予想される. しかし, 実環境で行う実験時間を削減するため, 実環境に似たシミュレータ上でまずは訓練を行い, その学習器を実環境でファインチューニングする. なお, 本論文ではファインチューニングによる実験結果の影響を議論しない. 実環境における実験の流れを以下に示す.
 \begin{enumerate}
   \item 事前に5.5章の実験に倣って, シミュレータ上で10000step学習させる. 
-  \item この学習器の重みを使って, 実環境において4.1.2 で示した経路を繰り返し走行させながら追加で学習を行う.
+  \item この学習器の重みを使って, 実環境において4.1.2項 で示した経路を繰り返し走行させながら追加で学習を行う.
   \item 学習を10000step実行後, テストフェーズに移行する. テストフェーズで正しい順序で経路を選択し, 走行を行えるか確認する.
 \end{enumerate}
 この一連の流れを 10 回繰り返し行う.
 
 \subsection{実験結果}
-実験結果を \figref{Fig:real_result} に示す. この図は, それぞれの走行パターンにおいて正しく経路を選択し, 走行できた回数を表している. \tabref{table:real} に実験ごとに全パターンの成功回数を合計した結果を示す. \tabref{table:real} に示すように, 目標方向に従って 78/120 回, 正しい経路を選択する様子が見られた.
+実験結果を \figref{Fig:real_result} に示す. この図は, それぞれの走行パターンにおいて正しく経路を選択し, 走行できた回数を表している. \tabref{table:real} に実験ごとに全パターンの成功回数を合計した結果を示す. 表に示すように, 目標方向に従って 78/120 回, 正しい経路を選択する様子が見られた. \figref{Fig:state_environment}は, 実験の様子を示している.
 % \par
 
 \begin{figure}[hbtp]
   \centering
- \includegraphics[keepaspectratio, scale=0.45]
+ \includegraphics[keepaspectratio, scale=0.48]
       {images/real_result.png}
  \caption{Experimental results for each moving pattern by real environment}
  \label{Fig:real_result}
@@ -83,7 +83,7 @@
 %   \end{tabular}
 % \end{table}
 
-\vspace{-0.7cm}
+% \vspace{-0.7cm}
 
 \begin{table}[hbtp]
   \caption{Experimental results by real environment}
@@ -107,6 +107,27 @@
   \end{tabular}
 \end{table}
 
+% \vspace{-0.5cm}
+\newpage
+
+\begin{figure}[h]
+  \centering
+  \begin{minipage}[b]{67mm}
+    \centering
+    \includegraphics[width=67mm, height=38mm]{images/real_exp_learning.jpg}
+    \caption*{(a) }
+  \end{minipage} 
+  % \newpage
+  % \hspace{0.03\columnwidth}
+  \begin{minipage}[b]{67mm}
+    \centering
+    \includegraphics[width=67mm, height=38mm]{images/real_exp_test2.png}
+    \caption*{(b) }
+  \end{minipage}
+  \caption{State of experiment}
+  \label{Fig:state_environment}
+\end{figure}
+
 実環境における実験の成功率が明らかに低い結果となった. このような結果になった原因について, 考えられるのは以下の3点である.
 
 % \begin{itemize}
@@ -123,7 +144,7 @@
 
 上記の1,2に関して, シミュレータ上での学習では環境中の光や障害物の有無は変化しない. 一方で, 実環境での実験では通行人の存在や僅かな光の変化がある. 
 \par
-\figref{Fig:horizonal}はシュミレータ上と実環境で対応する場所で取得した画像を示している. この図より, カメラの視野角と高さが異なっていることがわかる. このことから, 上記の3に関して同一の場所においても視野角の違いなどにより, 取得できる画像に差があることが影響しているおそれがある.
+\figref{Fig:horizonal}はシュミレータ上と実環境で対応する場所で取得したカメラ画像を示している. この図より, カメラの視野角と高さが異なっていることがわかる. このことから, 上記の3に関して, 同一の場所においても視野角の違いなどにより, 取得できるカメラ画像に差があることが影響しているおそれがある.
 
 \begin{figure}[h]
   \centering
