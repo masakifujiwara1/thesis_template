@@ -58,7 +58,13 @@
 
 \newpage
 
-上記の研究により, カメラ画像に基づいてロボットが学習した経路を周回可能であることが確認されている. 次に岡田らの研究（以下, 「従来手法」と称する）をベースに, \figref{Fig:road}のような分岐路において, 任意の経路を選択する機能の追加を検討する.
+上記の研究により, カメラ画像に基づいてロボットが学習した経路を周回可能であることが確認されている. しかし, 岡田らの手法は学習を行った一定の経路を走行できるが, 目的地に対して経路を動的に選択して走行することはできない. それをするためには, 以下のような拡張が必要となる.
+
+\begin{itemize}
+     \item ネットワークの入力に新たな要素の追加
+\end{itemize}
+
+そのため, 岡田らの研究（以下, 「従来手法」と称する）をベースに, ネットワークへ新たな要素を追加し, \figref{Fig:road}のような分岐路において, 任意の経路を選択する機能の追加を検討する.
 
 \vspace{1cm}
 
@@ -72,27 +78,27 @@
 
 \newpage
 
-本研究では, 従来手法をベースに「直進」, 「左折」, 「右折」の目標とする進行方向の情報（以下, 「目標方向」と称する）をデータセットと学習器へ与える. これにより, 訓練済みの学習器の出力を用いた走行において, 目標方向により任意の経路を選択可能とする機能の追加を提案する. 提案手法全体の流れを\figref{Fig:suggest_work}に示す. 
+% 本研究では, 従来手法をベースに「直進」, 「左折」, 「右折」の目標とする進行方向の情報（以下, 「目標方向」と称する）をデータセットと学習器へ与える. これにより, 訓練済みの学習器の出力を用いた走行において, 目標方向により任意の経路を選択可能とする機能の追加を提案する. 提案手法全体の流れを\figref{Fig:suggest_work}に示す. 
 
-\begin{figure}[hbtp]
-     \centering
-    \includegraphics[keepaspectratio, scale=0.38]
-         {images/suggest_work.png}
-    \caption{Overall flow of the proposed method}
-    \label{Fig:suggest_work}
-\end{figure}
+% \begin{figure}[hbtp]
+%      \centering
+%     \includegraphics[keepaspectratio, scale=0.38]
+%          {images/suggest_work.png}
+%     \caption{Overall flow of the proposed method}
+%     \label{Fig:suggest_work}
+% \end{figure}
 
-最終的にはカメラ画像を入力として, トポロジカルマップによって生成される目標方向に従って, 目的地まで移動する自律走行の手法を提案することを検討する. トポロジカルマップとは\figref{Fig:tsudanuma}に示すように, 分岐路などの目印（ノード）とつながり（エッジ）を持つ簡略化された地図である.
+% 最終的にはカメラ画像を入力として, トポロジカルマップによって生成される目標方向に従って, 目的地まで移動する自律走行の手法を提案することを検討する. トポロジカルマップとは\figref{Fig:tsudanuma}に示すように, 分岐路などの目印（ノード）とつながり（エッジ）を持つ簡略化された地図である.
 
-\vspace{0.5cm}
+% \vspace{0.5cm}
 
-\begin{figure}[hbtp]
-     \centering
-    \includegraphics[keepaspectratio, scale=0.45]
-         {images/tsudanuma.png}
-    \caption{Topological map}
-    \label{Fig:tsudanuma}
-\end{figure}
+% \begin{figure}[hbtp]
+%      \centering
+%     \includegraphics[keepaspectratio, scale=0.45]
+%          {images/tsudanuma.png}
+%     \caption{Topological map}
+%     \label{Fig:tsudanuma}
+% \end{figure}
 
 カメラ画像とステアリング角度に, 条件を加えて学習を行う条件付き模倣学習
 の研究は, 現在までにいくつか行われている.
