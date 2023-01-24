@@ -13,7 +13,10 @@
 \vspace{1.0zh}
 %
 \par
-近年, カメラ画像に基づいた自律走行の研究が行われている. 本研究室でも, 測域センサを用いた自律移動システムの出力を教師信号として与えることでロボットの経路追従行動をオンラインで模倣する手法を提案している. また, 実験によりカメラ画像に基づいた自律走行で, 一定の経路が周回可能であることを確認している. 本研究では, 目標の進行方向をデータセットと学習器の入力に加えることで, 「直進」や「左折」などの経路が選択できる分岐路において, 任意の経路を選択可能にする機能の追加を提案する. 提案手法では, 測域センサを用いた自律移動システムの出力をカメラ画像と目標とする進行方向を示すデータを用いて模倣学習を行う. 学習後, カメラ画像と目標方向に基づいて経路を選択して自律走行を行う. 
+近年, カメラ画像に基づいた自律走行の研究が行われている. 本研究室でも, 測域センサを用いた自律移動システムの出力を教師信号として与えることでロボットの経路追従行動をオンラインで模倣する手法を提案している. また, 実験によりカメラ画像に基づいた自律走行で, 一定の経路が周回可能であることを確認している. 本研究では, 目標の進行方向をデータセットと学習器の入力に加えることで, 「直進」や「左折」などの経路が選択できる分岐路において, 任意の経路を選択可能にする機能の追加を提案する. 
+提案手法では, 学習時に測域センサを用いた自律移動システムで走行しながら, 教師信号であるシステムの出力とカメラ画像に加えて, 目標方向をデータセットに追加することで模倣学習を行う.
+% 提案手法では, 測域センサを用いた自律移動システムの出力をカメラ画像と目標とする進行方向を示すデータを用いて模倣学習を行う. 
+学習後, カメラ画像と目標方向に基づいて経路を選択して自律走行を行う. 
 % シミュレータを用いた実験と実環境での実験により, 提案手法の有効性を検証した. その結果, 任意の経路を選択し, カメラ画像に基づく自律走行が行えることを確認した.
 ただし, この学習には多くの時間が必要であることが研究により明らかになった. そのため, 2つのアプローチを行い, 学習時間の短縮を図った. 
 これらの提案を検証するため, シミュレータを用いた実験と実環境での実験を行い, 有効性の検証を行った. 
@@ -34,6 +37,7 @@
 \end{center}
 \vspace{1.0zh}
 %
-In recent years, research on autonomous driving based on camera images has been conducted. In this laboratory, they have proposed a method to imitate the path-following behavior of a robot online by providing the output of an autonomous navigation system using a range-finding sensor as a teacher signal. Experiments have also shown that the robot is able to follow a certain path in autonomous moving based on camera images. In this study, we propose to add a function to enable the selection of arbitrary paths on branching roads where "go straight" or "turn left" can be selected by adding the direction of the target to the data set and the input of the learning machine. The proposed method learns to imitate the output of an autonomous system using a camera image and data indicating the target direction of movement (hereinafter referred to as "target direction"). After learning, the autonomous mobile robot can select an arbitrary path based on the camera images and the target direction. In order to reduce the learning time of our experiments, we tried two approaches. In addition, we conducted experiments using a simulator and in a real environment to verify the effectiveness of the proposed method.
+In recent years In recent years, research on autonomous moving based on camera images has been conducted. In this laboratory, we have also proposed a method to imitate the path-following behavior of a robot online by providing the output of an autonomous moving system using a range-finding sensor as a teacher signal. Experiments have also confirmed that a certain path can be circumnavigated by the autonomous moving based on camera images. In this study, we propose the addition of a function that enables the selection of arbitrary paths at branching roads where paths such as "go straight" or "turn left" can be selected by adding the target direction to the dataset and the input of the learner. The proposed method performs imitation learning by adding the target direction to the dataset in addition to the system output and camera images, which are the teacher signals, while moving with an autonomous system that uses a range-finding sensor during learning. After learning, the system selects a route based on the camera images and the target direction for autonomous moving. However, research has shown that this learning process requires a lot of time. Therefore, two approaches are proposed to reduce the learning time. In order to verify the effectiveness of these proposals, we conducted experiments using a simulator and in a real environment.
 
+\vspace{12pt}
 keywords: End-to-end learning, Navigation, Target direction
