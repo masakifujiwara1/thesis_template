@@ -1,0 +1,17 @@
+%!TEX root = ../thesis.tex
+
+\section{ナビゲーション}
+LiDARやオドメトリなどのセンサを用いて自律走行する移動ロボットの多くは，ROS Navigation stackを利用している．例えば，つくばチャレンジと呼ばれるつくば市内の遊歩道等を移動ロボットが自律走行する技術チャレンジにおいて，原らが行った技術調査によると，少なくとも76チーム中22チームが自律走行で使用していた．これは，オープンソースのソフトウェアに限れば最多であった．ROS Navigation stackは以下のような主要な機能を含んでいる．
+
+\begin{itemize}
+     \item 自己位置推定（Localization）\\
+     AMCL（Adaptive Monte Carlo Localization）アルゴリズムを利用して，ロボットの現在位置を推定する．
+     \item 地図生成（Mapping）\\
+     SLAM（Simultaneous Localization and Mapping）技術を活用し，環境のマッピングを行う．
+     \item 経路計画（Path Planning）\\
+     Dijkstra方やA*アルゴリズムを利用して，最適経路を計画する．
+     \item 障害物回避（Obstacle Avoidance）\\
+     センサから取得したデータに基づいて，障害物を回避しながら移動する．
+\end{itemize}
+
+\newpage
