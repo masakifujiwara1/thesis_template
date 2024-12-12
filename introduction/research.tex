@@ -7,14 +7,36 @@
 \begin{figure}[hbtp]
      \centering
     \includegraphics[keepaspectratio, scale=0.56]
-         {images/s_lstm.png}
+         {images/s-lstm.png}
     \caption{Overview of Social-LSTM method.\protect\footnotemark[1]}
     \label{Fig:s-lstm}
 \end{figure}
 
 \protect\footnotetext[1]{\cite{s-lstm}より引用}
 
-hogehoge
+Zhangら\cite{sr-lstm}は，LSTMのシーケンス学習能力にエージェント間の相互作用をモデル化するため，\figref{Fig:sr-lstm-str}のようなLSTMネットワークの情報精密化モジュールを提案している．この研究では，\figref{Fig:sr-lstm}のようにAttentionメカニズムにより，各歩行者の他者への影響を重み付けしている．
+
+% \vspace{0.8zh}
+
+\begin{figure}[hbtp]
+     \centering
+    \includegraphics[keepaspectratio, scale=0.65]
+         {images/sr-lstm-str.png}
+    \caption{Framework overview of proposed SR-LSTM.\protect\footnotemark[2]}
+    \label{Fig:sr-lstm-str}
+\end{figure}
+
+\begin{figure}[hbtp]
+     \centering
+    \includegraphics[keepaspectratio, scale=0.65]
+         {images/sr-lstm.png}
+    \caption{Illustration of the pedestrian-wise attention.\protect\footnotemark[2]}
+    \label{Fig:sr-lstm}
+\end{figure}
+
+\protect\footnotetext[2]{\cite{sr-lstm}より引用}
+
+同様に，歩行者の注意に着目した研究をKosarajuらも行っている．この研究は，社会的Attentionグラフネットワーク（GAT）を利用して，歩行者の
 
 \subsection{LSTMによる歩行者の軌道予測の応用事例}
 この研究では，
