@@ -36,13 +36,17 @@ Zhangら\cite{sr-lstm}は，LSTMのシーケンス学習能力にエージェン
 
 \protect\footnotetext[2]{\cite{sr-lstm}より引用}
 
-同様に，歩行者の注意に着目した研究をKosarajuらも行っている．この研究は，社会的Attentionグラフネットワーク（GAT）を利用して，歩行者の
+同様に，歩行者の注意に着目した研究をKosarajuらも行っている．この研究は，グラフアテンションネットワーク（GAT）を利用して，現実的な歩行者の軌道予測を実現している．ここでは，グラフは\figref{Fig:s-bigat}のように，歩行者をノード，距離を
 
-\subsection{LSTMによる歩行者の軌道予測の応用事例}
-この研究では，
+\begin{figure}[hbtp]
+     \centering
+    \includegraphics[keepaspectratio, scale=0.65]
+         {images/s-bigat.png}
+    \caption{Illustration of the pedestrian-wise attention.\protect\footnotemark[3]}
+    \label{Fig:s-bigat}
+\end{figure}
 
-\subsection{GNNによる歩行者の軌道予測の応用事例}
-hoge
+\protect\footnotetext[3]{\cite{s-bigat}より引用}
 
 \subsection{ロボットの将来の行動を軌道予測に用いた事例}
 丹野らは，歩行者の軌道予測に過去の動きだけでなく，ロボットが選択する将来の動きを考慮して予測をしている．実験では，ロボットの将来の行動を考慮しない場合と比較して，ロボットの動きに合わせて変化する歩行者の動きを予測できている．
