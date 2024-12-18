@@ -16,7 +16,7 @@
 % $$
 
 人間の軌道予測は，歩行者の将来の2次元空間の$x,y$座標を，事前観測の情報を与えて予測ステップ分出力することである．
-ここで，$t_{obs}$を観測時刻の長さとしたとき，歩行者$i$の各時刻の位置を
+ここで，$t_{obs}$を観測時間の長さとしたとき，歩行者$i$の各時刻の位置を
 
 \begin{equation}
   P_i = \{ (x^t_i, y^t_i) \in \mathbb{R}^2 \mid t = 1, \dots , t_{obs} \}
@@ -26,12 +26,12 @@
 \begin{equation}
   P_{obs} = \{ P_i \mid i = 1, \dots , N \}  
 \end{equation}
-と表す．ここで，式\eqref{hat-pos}は2次元空間における各時刻$t$について歩行者$i$の位置の確率分布である．ただし，$t_{pred}$を予測時間の長さとする．
+と表す．ここで，$t_{pred}$を予測時間の長さとするとき，2次元空間における各時刻$t$について歩行者$i$の位置の確率分布を
 
 \begin{equation}
   \hat{P}_i = \{ \hat{P}^t_i = (\hat{x}^t_i, \hat{y}^t_i) \mid t = t_{obs + 1}, \dots , t_{obs} + t_{pred} \} \label{hat-pos}
 \end{equation}
-$P^t_i$が$\mathcal{N}(\mu^t_i, \sigma^t_i, \rho^t_i)$となる2変量ガウス分布に従うと仮定する．すなわち，$\hat{P}^t_i$は平均$\hat{\mu}^t_i$，分散$\hat{\sigma}^t_i$，相関係数$\hat{\rho}^t_i$を持つガウス分布
+と表す．$P^t_i$が$\mathcal{N}(\mu^t_i, \sigma^t_i, \rho^t_i)$となる2変量ガウス分布に従うと仮定する．すなわち，$\hat{P}^t_i$は平均$\hat{\mu}^t_i$，分散$\hat{\sigma}^t_i$，相関係数$\hat{\rho}^t_i$を持つガウス分布
 
 \begin{equation}
   \hat{P}^t_i \sim \mathcal{N}(\hat{\mu}^t_i, \hat{\sigma}^t_i, \hat{\rho}^t_i)
@@ -51,6 +51,7 @@ $P^t_i$が$\mathcal{N}(\mu^t_i, \sigma^t_i, \rho^t_i)$となる2変量ガウス�
 \end{figure}   
 
 \subsection{エンコーダモジュール}
+エンコーダでは，
 
 \subsection{グラフアテンションネットワーク}
 
