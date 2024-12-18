@@ -4,12 +4,63 @@
 
 本章では，2章で述べたようにロボットの行動を考慮した歩行者の軌道予測を行う手法を提案する．学習に用いたアルゴリズムに関する内容を3.2章，
 
-\section{学習アルゴリズム}
+% 以下では，予測を行うネットワーク構造とその学習方法に関して説明する．
 
-以下では，予測を行うネットワーク構造とその学習方法に関して説明する．
+% 〜について目指す．〜について提案する．
 
-\subsection{ネットワーク構造}
-\subsection{学習方法}
+\section{問題設定}
+% あるシーンにおける歩行者N人の内，i番目の歩行者の位置を$P^t_i = (x^t_i, y^t_i)$とする．また，$P_{obs}$は観測された全歩行者の位置データをまとめたものとして，以下の数式のように表される．
+
+% $$
+% P_{obs} = \{ P^t_i \mid i = 1, \dots , N, t = 1, \dots , t_{obs} \}
+% $$
+
+人間の軌道予測は，歩行者の将来の2次元空間の$x,y$座標を，事前観測の情報を与えて予測ステップ分出力することである．
+ここで，$t_{obs}$を観測時刻の長さとしたとき，歩行者$i$の各時刻の位置を
+
+\begin{equation}
+  P_i = \{ (x^t_i, y^t_i) \in \mathbb{R}^2 \mid t = 1, \dots , t_{obs} \}
+\end{equation}
+と表す．また，観測された全歩行者の位置データを
+
+\begin{equation}
+  P_{obs} = \{ P_i \mid i = 1, \dots , N \}  
+\end{equation}
+と表す．ここで，式\eqref{hat-pos}は2次元空間における各時刻$t$について歩行者$i$の位置の確率分布である．ただし，$t_{pred}$を予測時間の長さとする．
+
+\begin{equation}
+  \hat{P}_i = \{ \hat{P}^t_i = (\hat{x}^t_i, \hat{y}^t_i) \mid t = t_{obs + 1}, \dots , t_{obs} + t_{pred} \} \label{hat-pos}
+\end{equation}
+$P^t_i$が$\mathcal{N}(\mu^t_i, \sigma^t_i, \rho^t_i)$となる2変量ガウス分布に従うと仮定する．すなわち，$\hat{P}^t_i$は平均$\hat{\mu}^t_i$，分散$\hat{\sigma}^t_i$，相関係数$\hat{\rho}^t_i$を持つガウス分布
+
+\begin{equation}
+  \hat{P}^t_i \sim \mathcal{N}(\hat{\mu}^t_i, \hat{\sigma}^t_i, \hat{\rho}^t_i)
+\end{equation}
+に従う．ここで，平均を$\hat{\mu}^t_i = (\hat{\mu}^t_{x, i}, \hat{\mu}^t_{y, i})$，分散を$\hat{\sigma}^t_i = (\hat{\sigma}^t_{x, i}, \hat{\sigma}^t_{y, i})$とする．
+
+\section{ネットワーク構造}
+本手法で用いられるネットワークは，エンコーダ・デコーダ構造で構成されている．ネットワークは，主にエンコーダモジュール，グラフアテンションネットワークモジュール，デコーダモジュールから構成される．エンコーダモジュールでは，入力データから特徴量を抽出し，グラフアテンションネットワークを用いて，ノード間の関係性を学習する．これらの潜在表現を基に，デコーダモジュールで目的のシーケンス長の予測を行う．
+以下の図は，このネットワークの概要を表している．
+
+\begin{figure}[hbtp]
+  \centering
+ \includegraphics[keepaspectratio, scale=0.5]
+      {images/RaspberryPiMouse.png}
+ \caption{Neural Network}
+ \label{Fig:hoge4}
+\end{figure}   
+
+\subsection{エンコーダモジュール}
+
+\subsection{グラフアテンションネットワーク}
+
+\subsection{デコーダモジュール}
+
+\section{データセットと評価指標}
+
+\section{学習方法}
+
+\section{ロボットの行動を考慮した軌道予測}
 
 \section{設計したネットワークの予備実験}
 
