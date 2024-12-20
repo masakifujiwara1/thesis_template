@@ -9,34 +9,34 @@
 % 〜について目指す．〜について提案する．
 
 \section{問題設定}
-% あるシーンにおける歩行者N人の内，i番目の歩行者の位置を$P^t_i = (x^t_i, y^t_i)$とする．また，$P_{obs}$は観測された全歩行者の位置データをまとめたものとして，以下の数式のように表される．
-
-% $$
-% P_{obs} = \{ P^t_i \mid i = 1, \dots , N, t = 1, \dots , t_{obs} \}
-% $$
+本論文における歩行者のグラフ表現を説明する．時刻$t$におけるシーン内の歩行者の位置を表す空間グラフを$G_t = (V_t, E_t)$と定義する．ここで，$V_t = \{ v^i_t \mid i = 1, \dots N \}$はグラフ$G_t$のノードの集合であり，各ノード$v^i_t$は$i$番目の歩行者の位置$(x^i_t, y^i_t)$を属性として持つ．$E_t = \{ e^{ij}_t \mid i, j = 1, \dots N \}$はグラフ$G_t$のエッジの集合であり，$e^{ij}_t$はノード$v^i_t$と$v^j_t$が接続されている場合1，そうでない場合0の値をとる．
 
 人間の軌道予測は，歩行者の将来の2次元空間の$x,y$座標を，事前観測の情報を与えて予測ステップ分出力することである．
-ここで，$t_{obs}$を観測時間の長さとしたとき，歩行者$i$の各時刻の位置を
+ここで，歩行者$i$の各時刻の位置を
+\begin{equation}
+  V_t = \{ v^i_t = (x^i_t, y^i_t) \in \mathbb{R}^2 \mid i = 1, \dots N \}
+\end{equation}
+と表す．また，$t_{obs}$を観測時間の長さとしたとき，観測された全歩行者の位置データを
 
 \begin{equation}
-  P_i = \{ (x^t_i, y^t_i) \in \mathbb{R}^2 \mid t = 1, \dots , t_{obs} \}
+  V_{obs} = \{ V_t \mid t = 1, \dots t_{obs} \}  
 \end{equation}
-と表す．また，観測された全歩行者の位置データを
+と表す．ここで，時刻$t$の2次元空間における歩行者$i$の位置の確率分布を
 
 \begin{equation}
-  P_{obs} = \{ P_i \mid i = 1, \dots , N \}  
+  \hat{V}_t = \{ \hat{p}^i_t = (\hat{x}^i_t, \hat{y}^i_t) \mid i = 1, \dots N \} \label{hat-pos}
 \end{equation}
-と表す．ここで，$t_{pred}$を予測時間の長さとするとき，2次元空間における各時刻$t$について歩行者$i$の位置の確率分布を
+と表す．$t_{pred}$を予測時間の長さとしたとき，予測する全歩行者の位置データを
 
 \begin{equation}
-  \hat{P}_i = \{ \hat{P}^t_i = (\hat{x}^t_i, \hat{y}^t_i) \mid t = t_{obs + 1}, \dots , t_{obs} + t_{pred} \} \label{hat-pos}
+  V_{pred} = \{ \hat{V}_t \mid t = t_{obs + 1}, \dots t_{obs} + t_{pred} \}
 \end{equation}
-と表す．$P^t_i$が$\mathcal{N}(\mu^t_i, \sigma^t_i, \rho^t_i)$となる2変量ガウス分布に従うと仮定する．すなわち，$\hat{P}^t_i$は平均$\hat{\mu}^t_i$，分散$\hat{\sigma}^t_i$，相関係数$\hat{\rho}^t_i$を持つガウス分布
+と表すことができる．$p^i_t$が$\mathcal{N}(\mu^i_t, \sigma^i_t, \rho^i_t)$となる2変量ガウス分布に従うと仮定する．すなわち，$\hat{p}^i_t$は平均$\hat{\mu}^i_t$，分散$\hat{\sigma}^i_t$，相関係数$\hat{\rho}^i_t$を持つガウス分布
 
 \begin{equation}
-  \hat{P}^t_i \sim \mathcal{N}(\hat{\mu}^t_i, \hat{\sigma}^t_i, \hat{\rho}^t_i)
+  \hat{p}^i_t \sim \mathcal{N}(\hat{\mu}^i_t, \hat{\sigma}^i_t, \hat{\rho}^i_t)
 \end{equation}
-に従う．ここで，平均を$\hat{\mu}^t_i = (\hat{\mu}^t_{x, i}, \hat{\mu}^t_{y, i})$，分散を$\hat{\sigma}^t_i = (\hat{\sigma}^t_{x, i}, \hat{\sigma}^t_{y, i})$とする．
+に従う．ここで，平均を$\hat{\mu}^i_t = (\hat{\mu}^i_{x, t}, \hat{\mu}^i_{y, t})$，分散を$\hat{\sigma}^i_t = (\hat{\sigma}^i_{x, t}, \hat{\sigma}^i_{y, t})$とする．
 
 \section{ネットワーク構造}
 本手法で用いられるネットワークは，エンコーダ・デコーダ構造で構成されている．ネットワークは，主にエンコーダモジュール，グラフアテンションネットワークモジュール，デコーダモジュールから構成される．エンコーダモジュールでは，入力データから特徴量を抽出し，グラフアテンションネットワークを用いて，ノード間の関係性を学習する．これらの潜在表現を基に，デコーダモジュールで目的のシーケンス長の予測を行う．
@@ -51,9 +51,17 @@
 \end{figure}   
 
 \subsection{エンコーダモジュール}
-エンコーダでは，
+エンコーダでは，まず，入力の各時刻における歩行者の過去の位置は，線形変換層$\phi_{emb}$を用いて高次元空間に埋め込まれる．この埋め込み表現は，LSTM層に入力され，歩行者の過去の位置情報を時間的に処理し，隠れ状態を出力する．隠れ状態は，歩行者の過去の動きを要約したものであり，次のグラフアテンションネットワークに渡される．エンコーダでの処理を式\eqref{emb}，\eqref{lstm-en}に示す．
+
+\begin{equation}
+  e^i_t = \phi_{emb}(x^i_t, y^i_t ; W_{emb}) \label{emb}
+\end{equation}
+\begin{equation}
+  h^i_t = \text{LSTM}_{en}(e^i_t, h_{t-1}^i ; W_{en}) \label{lstm-en}
+\end{equation}
 
 \subsection{グラフアテンションネットワーク}
+モデルの中核を担うグラフアテンションネットワーク（GAT）は，複数層で構成される．各GAT層は，マルチヘッドアテンション機構を用いて，各ノードの特徴をその近傍ノードの特徴と集約する．アテンション機構は，ノード間の関係の強さに基づいて重み付けを行うため，より関連性の高いノードからの情報が強調される．本モデルでは，複数のGAT層を積み重ねることで，グラフ構造における高次の依存関係を捉えることができる．各タイムステップにおいて，対応する隣接行列を用いてグラフ畳み込みが実行され，動的なグラフ構造の変化にも対応できる．
 
 \subsection{デコーダモジュール}
 
