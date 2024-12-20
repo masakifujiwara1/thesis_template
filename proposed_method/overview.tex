@@ -16,23 +16,19 @@
 \begin{equation}
   V_t = \{ v^i_t = (x^i_t, y^i_t) \in \mathbb{R}^2 \mid i = 1, \dots N \}
 \end{equation}
-と表す．また，$t_{obs}$を観測時間の長さとしたとき，観測された全歩行者の位置データを
-
+と表す．また，$t_{obs}$を観測時間としたとき，観測された全歩行者の位置データを
 \begin{equation}
   V_{obs} = \{ V_t \mid t = 1, \dots t_{obs} \}  
 \end{equation}
 と表す．ここで，時刻$t$の2次元空間における歩行者$i$の位置の確率分布を
-
 \begin{equation}
   \hat{V}_t = \{ \hat{p}^i_t = (\hat{x}^i_t, \hat{y}^i_t) \mid i = 1, \dots N \} \label{hat-pos}
 \end{equation}
-と表す．$t_{pred}$を予測時間の長さとしたとき，予測する全歩行者の位置データを
-
+と表す．$t_{pred}$を予測時間としたとき，予測する全歩行者の位置データを
 \begin{equation}
-  V_{pred} = \{ \hat{V}_t \mid t = t_{obs + 1}, \dots t_{obs} + t_{pred} \}
+  V_{pred} = \{ \hat{V}_t \mid t = t_{obs + 1}, \dots t_{pred} \}
 \end{equation}
 と表すことができる．$p^i_t$が$\mathcal{N}(\mu^i_t, \sigma^i_t, \rho^i_t)$となる2変量ガウス分布に従うと仮定する．すなわち，$\hat{p}^i_t$は平均$\hat{\mu}^i_t$，分散$\hat{\sigma}^i_t$，相関係数$\hat{\rho}^i_t$を持つガウス分布
-
 \begin{equation}
   \hat{p}^i_t \sim \mathcal{N}(\hat{\mu}^i_t, \hat{\sigma}^i_t, \hat{\rho}^i_t)
 \end{equation}
@@ -51,19 +47,31 @@
 \end{figure}   
 
 \subsection{エンコーダモジュール}
-エンコーダでは，まず，入力の各時刻における歩行者の過去の位置は，線形変換層$\phi_{emb}$を用いて高次元空間に埋め込まれる．この埋め込み表現は，LSTM層に入力され，歩行者の過去の位置情報を時間的に処理し，隠れ状態を出力する．隠れ状態は，歩行者の過去の動きを要約したものであり，次のグラフアテンションネットワークに渡される．エンコーダでの処理を式\eqref{emb}，\eqref{lstm-en}に示す．
-
-\begin{equation}
-  e^i_t = \phi_{emb}(x^i_t, y^i_t ; W_{emb}) \label{emb}
-\end{equation}
-\begin{equation}
-  h^i_t = \text{LSTM}_{en}(e^i_t, h_{t-1}^i ; W_{en}) \label{lstm-en}
-\end{equation}
+エンコーダでは，まず，入力の各時刻における歩行者の過去の位置は，線形変換層$\phi_{emb}$を用いて高次元空間に埋め込まれる．この埋め込み表現は，LSTM層に入力され，歩行者の過去の位置情報を時間的に処理し，隠れ状態を出力する．隠れ状態は，歩行者の過去の動きを要約したものであり，次のグラフアテンションネットワークに渡される．エンコーダでの処理を式\eqref{emb}，\eqref{lstm-en}に示す．なお，$v^i_t \text{と} v^t_i$は等価である．
+\begin{align}
+  e^t_i &= \phi_{emb}(v^t_i ; W_{emb}) \label{emb} \\
+  h_i &= \text{LSTM}_{en}(e^t_i, h^{t-1}_i ; W_{en}) \label{lstm-en}
+\end{align}
 
 \subsection{グラフアテンションネットワーク}
 モデルの中核を担うグラフアテンションネットワーク（GAT）は，複数層で構成される．各GAT層は，マルチヘッドアテンション機構を用いて，各ノードの特徴をその近傍ノードの特徴と集約する．アテンション機構は，ノード間の関係の強さに基づいて重み付けを行うため，より関連性の高いノードからの情報が強調される．本モデルでは，複数のGAT層を積み重ねることで，グラフ構造における高次の依存関係を捉えることができる．各タイムステップにおいて，対応する隣接行列を用いてグラフ畳み込みが実行され，動的なグラフ構造の変化にも対応できる．
 
+歩行者$i$の隠れ状態$h_i$が与えられたとき，全ての歩行者に対して，複数のGAT層を適用する．各層は以下のように適用される．式\eqref{gat-eij}は，ノード$i$に対するノード$j$の特徴の重要度を表している．$W$は重み行列であり，$a$は共有アテンション機構である．また，$\sigma$は活性化関数であり，本手法ではPRELU\cite{prelu}を用いた．
+\begin{align}
+  e_{ij} = a(Wh_i, Wh_j) \label{gat-eij} \\
+  \alpha_{ij} = \text{softmax}_{j}(e_{ij}) \\
+  h'_i = \sigma\Bigg(\sum_{j \in \mathcal{N}_i} \alpha_{ij}Wh_j \Bigg)
+\end{align}
+
 \subsection{デコーダモジュール}
+GAT層からの出力は，デコーダモジュールによって将来の歩行者の予測位置に変換される．まず，2つ目のLSTM層がGATによって生成された時空間特徴表現をさらに時間的に処理する．次に，1次元畳み込み層を用いて，入力シーケンス長から予測シーケンス長への変換が行われる．この層は，予測時間に合わせて特徴表現を調整する役割を果たす．最後に多層パーセプトロン（MLP）が予測値を生成する．
+\begin{align}
+  h''_i = \text{LSTM}_{dec}(h'_i, h_{deci}; W_{dec})\\
+  c^t_i = \text{CNN}(h''_i; W_{cnn}) \\
+  \hat{P}^t_i = \text{MLP}_{d}(c^t_i; W_{d})
+\end{align}
+
+さらに，本ネットワークでは，GAT層とLSTM層の出力にスキップ接続を導入することで，勾配消失問題を軽減し，学習を安定化させる．このアーキテクチャにより，時系列データの動的な変化とグラフ構造におけるノード間の複雑な関係を効果的に捉え，高精度な予測を実現する．
 
 \section{データセットと評価指標}
 
