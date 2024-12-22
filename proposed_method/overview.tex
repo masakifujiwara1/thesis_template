@@ -192,6 +192,32 @@ GAT層からの出力は，デコーダモジュールによって将来の歩�
 
 \tabref{tab:val-results}のように，我々のモデルは2つの指標において，他のベースラインモデルを上回る結果を示した．
 我々のモデルは，平均ADEで0.40の誤差であり，最も優れたベースラインモデルと比較して約9％の改善を示した．また，FDEにおいても約8％の誤差減少を達成した．
+\tabref{tab:density}に示すように，5つのシーンの内，HOTEL，ZARA1，ZARA2の歩行者密度が低く，歩行者同士の複雑な相互作用が少ないため，ADEとFDEの値が残りのシーンよりも小さくなると思われる．一方で，
+ETHとUNIVのシーンでは，歩行者の密度が高く，複雑な相互作用が多いため，ADEとFDEの値が他のシーンよりも大きくなる傾向が見られる．
+
+\begin{table}[hbtp]
+  \begin{center}
+  \caption{データセットのサンプル数と密度\protect\footnotemark[7]}
+  \label{tab:density}
+  % \footnotesize
+  \begin{tabular}{c||c|c}
+  Scene & Number of pedestrians & density [person$/ m^2$] \\ 
+  \hline \hline
+  ETH      & 358       & 8                      \\
+  \hline
+  HOTEL    & 389       & 5                      \\
+  \hline
+  UCY      & 434       & 8                      \\
+  \hline
+  ZARA1   & 148       & 4                      \\
+  \hline
+  ZARA2   & 204       & 5                      \\
+  \hline
+  \end{tabular}
+  \end{center}
+\end{table}
+
+\protect\footnotetext[7]{\cite{箕浦大晃2022deep-survey}のデータを基に作成}
 
 \tabref{tab:param-results}は，各モデルサイズと推論時間を我々のモデルと比較したものである．
 この図に示すように，我々のモデルはSocial-STGCNN\cite{s-stgcnn}を除き，他のベースラインモデルと比較して，パラメータ数および推論時間の両方において効率的であることがわかる．
@@ -201,7 +227,7 @@ GAT層からの出力は，デコーダモジュールによって将来の歩�
   \centering
   \caption{各モデルのパラメータ数と推論時間\protect\footnotemark[6]}
   \label{tab:param-results}
-  \footnotesize
+  % \footnotesize
   \begin{tabular}{c||c|c}
    & Parameters count & Inference time \\
   \hline\hline
