@@ -83,7 +83,7 @@ GAT層からの出力は，デコーダモジュールによって将来の歩�
 ロボットの位置を表すノード$r_t$を追加し，グラフ$G_t$を拡張する．拡張されたグラフ$\tilde{G}_t = (\tilde{V}_t, \tilde{E}_t)$は，$\tilde{V}_t = V_t \cup \{ r_t \}$と定義される．エッジ集合$\tilde{E}_t$も同様に拡張され，ロボットと歩行者間のエッジが追加される．なお，拡張されたグラフ$\tilde{G}_t$は，ネットワーク構造を変更せずに入力することができる．
 
 エンコーダモジュールでは，ロボットの位置$r_t$も他のノードと同様に埋め込み表現$e^t_r$に変換され，LSTM層に入力される．グラフアテンションネットワークでは，ロボットと歩行者間の相互作用を考慮したアテンション重みが計算される．デコーダモジュールでは，ロボットの位置情報を含む潜在表現を基に，将来の歩行者の位置を予測する．
-このようにして，ロボットの行動を考慮した軌道予測を実現する．4章では，実験で提案手法の有効性を評価する．
+このようにして，ロボットの行動を考慮した軌道予測を実現する．\ref{chap:experiments_oculus}章では，実験で提案手法の有効性を評価する．
 
 \section{学習方法}
 提案するネットワークの学習方法の詳細について述べる．
@@ -92,7 +92,7 @@ GAT層からの出力は，デコーダモジュールによって将来の歩�
   L^i = -\sum_{t=t_{obs+1}}^{t_{pred}} \log \left( P(\hat{p}^i_t \mid \hat{\mu}^i_t, \hat{\sigma}^i_t, \hat{\rho}^i_t) \right)
 \end{equation}
 
-このネットワークは，2つの歩行者の軌跡データを含むデータセットで学習される．ETHデータセット\cite{pellegrini2009you-eth}とUCYデータセット\cite{lerner2007crowds-ucy}である．この2つのデータセットには，図のような5つのシーンがあり，計1536人の歩行者のデータが含まれている．5つのシーンは，Zara1，Zara2，Univ，Eth，Hotelから構成されている．データセットの軌跡は0.4秒ごとにサンプリングされたものである．
+このネットワークは，2つの歩行者の軌跡データを含むデータセットで学習される．ETHデータセット\cite{pellegrini2009you-eth}とUCYデータセット\cite{lerner2007crowds-ucy}である．この2つのデータセットには，図のような5つのシーンがあり，計1536人の歩行者のデータが含まれている．5つのシーンは，ETH，HOTEL，UNIV，ZARA1，ZARA2から構成されている．データセットの軌跡は0.4秒ごとにサンプリングされたものである．
 
 \begin{figure}[hbtp]
   \centering
@@ -141,25 +141,42 @@ GAT層からの出力は，デコーダモジュールによって将来の歩�
     \begin{align}
       \text{ADE} = \frac{1}{TN} \sum_{t=1}^{T} \sum_{i=1}^{N} \| p^i_t - \hat{p}^i_t \|_2
     \end{align}
-    ここで，$p^i_t$ は時刻 $t$ における歩行者 $i$ の実際の位置，$\hat{p}^i_t$ は予測された位置，$N$ は歩行者の総数，$T$ は予測の総時間ステップである．なお，本研究では$T = 12$である．ADEは，予測された位置と実際の位置との平均的な距離誤差を示す指標である．
+    ここで，$p^i_t$ は時刻 $t$ における歩行者 $i$ の実際の位置，$\hat{p}^i_t$ は予測された位置，$N$ は歩行者の総数，$T$ は予測の総時間ステップである．なお，本研究では$T = 12$である．ADEは，\figref{fig:ade}に示すように，予測された位置と実際の位置との平均的な距離誤差を示す指標である．
     \\
     \item FDE（Final Displacement Error）\cite{s-lstm}:
     \begin{align}
       \text{FDE} = \frac{1}{N} \sum_{i=1}^{N} \| p^i_t - \hat{p}^i_t \|_2 , \ t = t_{pred}
     \end{align}
-    ここで，$p^i_t$ は最終時刻 $t_{pred}$ における歩行者 $i$ の実際の位置，$\hat{p}^i_t$ は予測された位置である．FDEは，予測の最終時刻における位置と実際の位置との間の距離誤差を示す指標である．
+    ここで，$p^i_t$ は最終時刻 $t_{pred}$ における歩行者 $i$ の実際の位置，$\hat{p}^i_t$ は予測された位置である．FDEは，\figref{fig:fde}に示すように，予測の最終時刻における位置と実際の位置との間の距離誤差を示す指標である．
 \end{itemize}
+
+\begin{figure}[hbtp]
+  \centering
+  \begin{minipage}{0.49\textwidth}
+    \centering
+    \includegraphics[width=\textwidth]{images/ade.pdf}
+    \caption{ADE Image}
+    \label{fig:ade}
+  \end{minipage}
+  \hfill
+  \begin{minipage}{0.49\textwidth}
+    \centering
+    \includegraphics[width=\textwidth]{images/fde.pdf}
+    \caption{FDE Image}
+    \label{fig:fde}
+  \end{minipage}
+\end{figure}
 
 \newpage
 
 \subsection{結果と考察}
 \begin{table}[hbtp]
   \centering
-  \caption{各モデルのADE/FDE比較\protect\footnotemark[6]}
+  \caption{Comparison of ADE/FDE for each model\protect\footnotemark[6]}
   \label{tab:val-results}
   \footnotesize
   \begin{tabular}{c||c|c|c|c|c|c}
-  Model & ETH & HOTEL & UNIV & ZARA1 & ZARA2 & AVG \\
+  Model & ETH & HOTEL & UNIV & ZARA1 & ZARA2 & Average \\
   \hline \hline
   Linear \cite{s-lstm} & 1.33/2.94 & 0.39/0.72 & 0.82/1.59 & 0.62/1.21 & 0.77/1.42 & 0.79/1.59 \\
   \hline
@@ -203,7 +220,7 @@ ETHとUNIVのシーンでは，歩行者の密度が高く，複雑な相互作�
 
 \begin{table}[hbtp]
   \begin{center}
-  \caption{データセットのサンプル数と密度\protect\footnotemark[7]}
+  \caption{Number of samples and density of each dataset\protect\footnotemark[7]}
   \label{tab:density}
   % \footnotesize
   \begin{tabular}{c||c|c}
@@ -227,7 +244,7 @@ ETHとUNIVのシーンでは，歩行者の密度が高く，複雑な相互作�
 
 \begin{table}[hbtp]
   \centering
-  \caption{各モデルのパラメータ数と推論時間\protect\footnotemark[6]}
+  \caption{Number of parameters and inference time for each model\protect\footnotemark[6]}
   \label{tab:param-results}
   % \footnotesize
   \begin{tabular}{c||c|c}
