@@ -1,7 +1,9 @@
 %!TEX root = ../thesis.tex
 
+\vspace{-10pt}
+
 \section{本章の概要}
-本章では，\ref{sec:nav-sys}節でシステムの概要を示す．
+本章では，\ref{sec:nav-sys}節でシステムの概要を示す．また，\ref{sec:real-robot}節で実ロボットにおける歩行者の位置計算の詳細，\ref{sec:nav-usage}節でナビゲーションにおける予測結果の利用方法について述べる．
 
 % \newpage
 
@@ -13,7 +15,7 @@
   制御モジュールは，Navigation Stackの主要コンポーネントであるmove\_baseで構成されている．
   センサデータと目標位置を受け取り，適切なロボットの制御指令を出力する．
   \item \textbf{認識モジュール} \\
-  認識モジュールは，YOLOを用いて歩行者の検出及び，追跡を行う．そして，観測時間分のデータをまとめて時系列データとして，独自メッセージで出力する．
+  認識モジュールは，YOLOを用いて歩行者の検出及び，追跡を行う．そして，観測時間分のデータをまとめて時系列データとして出力する．
   \item \textbf{予測モジュール} \\
   予測モジュールは，認識モジュールからメッセージを受け取り，そのデータを基に\ref{chap:proposed_method}章で述べたネットワークを用いて歩行者の位置予測を行う．その後，制御モジュールのglobal\_costmapの独自レイヤで予測結果をコストマップに反映する．
 \end{itemize}
@@ -30,8 +32,8 @@
  \label{Fig:nav-system}
 \end{figure}  
 
-\section{実ロボットにおける歩行者の位置計算}
-データセットと実ロボットにおける歩行者の位置計算のイメージを\figref{Fig:ped2pos}に示す．ここで，データセットはETH\cite{pellegrini2009you-eth}，UCY\cite{lerner2007crowds-ucy}データセットのような，俯瞰視点のデータセットのことを指す．\figref{Fig:ped2pos-dataset}のように，データセットでは，俯瞰視点の映像と各時刻における歩行者のワールド座標系上の位置が含まれている．一方，実ロボットではセンシングしたデータのみで，ワールド座標系の位置計算が求められる．一例として\figref{Fig:ped2pos-realrobot}のように，1人称視点の画像上の歩行者の位置を，ワールド座標系での位置に座標変換し，データセットとデータ形式を合わせる必要がある．そうすることで，データセットで学習した訓練済みモデルを実ロボットにおいても再学習することなく，そのまま利用することができる．
+\section{実ロボットにおける歩行者の位置計算}\label{sec:real-robot}
+データセットと実ロボットにおける歩行者の位置計算のイメージを\figref{Fig:ped2pos}に示す．ここで，データセットはETH\cite{pellegrini2009you-eth}，UCY\cite{lerner2007crowds-ucy}データセットのような，俯瞰視点のデータセットのことを指す．\figref{Fig:ped2pos-dataset}のように，データセットでは，俯瞰視点の映像と各時刻における歩行者のワールド座標系上の位置が含まれている．しかし，実ロボットではセンシングしたデータのみで，ワールド座標系の位置計算が求められる．一例として\figref{Fig:ped2pos-realrobot}のように，1人称視点の画像上の歩行者の位置を，ワールド座標系での位置に座標変換し，データセットとデータ形式を合わせる必要がある．そうすることで，データセットで学習した訓練済みモデルを実ロボットにおいても再学習することなく，そのまま利用することができる．
 
 \begin{figure}[H]
   \centering
@@ -89,15 +91,24 @@
   最後に，計算された相対位置をワールド座標系に変換する．この座標変換は，ロボットのナビゲーションシステムのmapフレームに基づいて行われる．ワールド座標系での位置が特定されることで，ロボットは歩行者の位置を正確に把握し，適切なナビゲーションを行うことができる．
 \end{enumerate}
 
-\section{ナビゲーションにおける予測結果の利用方法}
-\figref{Fig:global-costmap}に示すように，グローバルコストマップに独自のレイヤであるMarker Array Layerを追加した．このレイヤで予測結果を受け取り，コストマップに反映する．グローバルコストマップを拡張したのは，\ref{sec:navigation-stack}節で述べたように，多くのロボットで使用されるNavigation Stackで予測結果を容易に利用できるようにするためである．
+\section{ナビゲーションにおける予測結果の利用方法}\label{sec:nav-usage}
+\figref{Fig:global-costmap}に示すように，グローバルコストマップに独自のレイヤであるMarker Array Layerを追加した．このレイヤで予測結果を受け取り，コストマップに反映する．\figref{Fig:costmap-flow}のように，各レイヤでの処理を重ねて合わせて，最終的なグローバルコストマップを生成する．グローバルコストマップを拡張したのは，\ref{sec:navigation-stack}節で述べたように，多くのロボットで使用されているNavigation Stackで予測結果を容易に利用できるようにするためである．
 
 \begin{figure}[H]
   \centering
- \includegraphics[keepaspectratio, scale=0.73]
+ \includegraphics[keepaspectratio, scale=0.7]
       {images/layer.pdf}
 \caption{Global Costmap in This Study}
  \label{Fig:global-costmap}
 \end{figure} 
+
+\begin{figure}[H]
+  \centering
+ \includegraphics[keepaspectratio, scale=0.47]
+      {images/costmap-image.pdf}
+\caption{}
+ \label{Fig:costmap-flow}
+\end{figure} 
+
 
 \newpage
