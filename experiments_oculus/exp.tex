@@ -48,6 +48,8 @@
   \label{fig:tracking}
 \end{figure}
 
+\vspace{-20pt}
+
 \begin{figure}[H]
   \centering
  \includegraphics[keepaspectratio, scale=0.32]
@@ -55,6 +57,8 @@
 \caption{Infrared sensor setup}
  \label{Fig:oculus-sensor}
 \end{figure}
+
+\vspace{-20pt}
 
 \section{結果と考察}\label{sec:oculus-exp-result}
 \tabref{tab:robot-behavior}に，ロボットの行動を考慮する場合としない場合における各評価指標の値を示す．考慮しない場合に比べて，ADEは7.5％，FDEは15.9％誤差を改善した．
@@ -76,7 +80,9 @@
   \end{center}
 \end{table}
 
-\figref{Fig:pred-straight}，\figref{Fig:pred-right}，\figref{Fig:pred-left}に実験で取得した目的地Aへの歩行データに対する予測例を示す．ロボットの行動を考慮せず予測を行うと，いずれのロボットの行動に対しても避けるような予測は見られなかった．一方，ロボットの行動を考慮した予測では，より真値に近い予測を行う様子が確認できた．また，\figref{Fig:pred-straight}，\figref{Fig:pred-right}では，ロボットを避けるような予測をしている．このことから，ロボットの行動を考慮した軌道予測は，人間とロボット間の相互作用を捉えていることが分かる．
+\figref{Fig:pred-straight}，\figref{Fig:pred-right}，\figref{Fig:pred-left}に実験で取得した目的地Aへの歩行データに対する予測例を示す．この予測例は，ロボットが行動を取り始める時刻を最終観測時刻とした．ロボットの行動を考慮せず予測を行うと，いずれのロボットの行動に対しても避けるような予測は見られなかった．
+一方，ロボットの行動を考慮した予測では，より真値に近い予測を行う様子が確認できた．
+観測時間内では，人間の行動は一貫して直進しているため，その後のロボットを避けるような予測は困難であるが，\figref{Fig:pred-straight}，\figref{Fig:pred-right}では，ロボットを避けるような予測をしている．このことから，ロボットの行動を考慮した軌道予測は，人間とロボット間の相互作用を捉えていることが分かる．
 
 \vspace{-10pt}
 
