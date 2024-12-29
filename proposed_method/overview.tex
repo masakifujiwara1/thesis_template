@@ -63,7 +63,7 @@
   h'_i = \sigma\Bigg(\sum_{j \in \mathcal{N}_i} \alpha_{ij}Wh_j \Bigg)
 \end{align}
 
-\subsection{デコーダモジュール}
+\subsection{デコーダモジュール}\label{sec:decoder}
 GAT層からの出力は，デコーダモジュールによって将来の歩行者の予測位置に変換される．まず，2つ目のLSTM層がGATによって生成された時空間特徴表現をさらに時間的に処理する．次に，1次元畳み込み層を用いて，入力シーケンス長から予測シーケンス長への変換が行われる．この層は，予測時間に合わせて特徴表現を調整する役割を果たす．最後に多層パーセプトロン（MLP）が予測値を生成する．式\eqref{output}のように，ネットワークの最終的な出力は5次元である．なお，$\hat{P}^t_i\text{と}\hat{P}^i_t$は等価である．
 \begin{align}
   h''_i = \text{LSTM}_{dec}(h'_i, h_{deci}; W_{dec})\\
@@ -127,7 +127,7 @@ GAT層からの出力は，デコーダモジュールによって将来の歩�
 ロボットの行動を考慮した軌道予測が行えるか実験で確認する前に，提案したネットワークの性能を確認するため，予備実験を行った．
 
 \subsection{実験概要}
-この実験では，先行研究\cite{s-stgcnn}の実験方法に倣って，訓練済みモデルを後述する2種類の指標により評価する．その結果を複数のベースラインモデルと比較する．
+この実験では，Mohamedら\cite{s-stgcnn}の実験方法に倣って，訓練済みモデルを後述する2種類の指標により評価する．その結果を複数のベースラインモデルと比較する．
 
 \subsection{学習条件}
 ネットワークの学習は，先行研究\cite{s-lstm,s-stgcnn}と同様の方針に従い，リーブワンアウト（Leave One Out）方式を採用する．これにより，データセットを最大限に活用することができる．
@@ -137,13 +137,13 @@ GAT層からの出力は，デコーダモジュールによって将来の歩�
 モデルの評価には，以下の2つの指標を用いた．
 
 \begin{itemize}
-  \item ADE（Average Displacement Error）\cite{pellegrini2009you-eth}:
+  \item \textbf{ADE（Average Displacement Error）}\cite{pellegrini2009you-eth}:
     \begin{align}
       \text{ADE} = \frac{1}{TN} \sum_{t=1}^{T} \sum_{i=1}^{N} \| p^i_t - \hat{p}^i_t \|_2
     \end{align}
     ここで，$p^i_t$ は時刻 $t$ における歩行者 $i$ の実際の位置，$\hat{p}^i_t$ は予測された位置，$N$ は歩行者の総数，$T$ は予測の総時間ステップである．なお，本研究では$T = 12$である．ADEは，\figref{fig:ade}に示すように，予測された位置と実際の位置との平均的な距離誤差を示す指標である．
     \\
-    \item FDE（Final Displacement Error）\cite{s-lstm}:
+    \item \textbf{FDE（Final Displacement Error）}\cite{s-lstm}:
     \begin{align}
       \text{FDE} = \frac{1}{N} \sum_{i=1}^{N} \| p^i_t - \hat{p}^i_t \|_2 , \ t = t_{pred}
     \end{align}
