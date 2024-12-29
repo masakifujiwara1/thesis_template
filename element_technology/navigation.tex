@@ -1,17 +1,17 @@
 %!TEX root = ../thesis.tex
 
 \section{ナビゲーション}\label{sec:navigation-stack}
-LiDARやオドメトリなどのセンサを用いて自律走行する移動ロボットの多くは，ROS Navigation stack\cite{nav1,nav2}を利用している．例えば，つくばチャレンジと呼ばれるつくば市内の遊歩道等を移動ロボットが自律走行する技術チャレンジにおいて，原らが行った技術調査\cite{robomech2024-hara}によると，少なくとも76チーム中22チームが自律走行で使用していた．これは，オープンソースのソフトウェアに限れば最多であった．ROS Navigation stackは以下のような主要な機能を含んでいる．
+LiDARやオドメトリなどのセンサ情報を利用して自律走行する移動ロボットの多くは，ROS Navigation stack\cite{nav1,nav2}を採用している．例えば，つくば市内の遊歩道を移動ロボットが自律走行する技術チャレンジ「つくばチャレンジ」において，原らの技術調査\cite{robomech2024-hara}によると，少なくとも参加76チーム中22チームが自律走行でROS Navigation stack使用していたと報告されている．これは，オープンソースのソフトウェアにとしては最多の利用数であった．ROS Navigation stackには，以下の主要な機能が含まれている．
 
 \begin{itemize}
      \item \textbf{自己位置推定（Localization）}\\
-     AMCL（Adaptive Monte Carlo Localization）アルゴリズムを利用して，ロボットの現在位置を推定する．
+     AMCL（Adaptive Monte Carlo Localization）アルゴリズムを用いて，ロボットの現在位置を推定する．
      \item \textbf{地図生成（Mapping）}\\
      SLAM（Simultaneous Localization and Mapping）技術を活用し，環境のマッピングを行う．
      \item \textbf{経路計画（Path Planning）}\\
-     Dijkstra法\cite{dijkstra2022note}やA*アルゴリズム\cite{hart1968formal-astar}を利用して，最適経路を計画する．
+     Dijkstra法\cite{dijkstra2022note}やA*アルゴリズム\cite{hart1968formal-astar}を用いて，最適経路を計画する．
      \item \textbf{障害物回避（Obstacle Avoidance）}\\
-     センサから取得したデータに基づいて，障害物を回避しながら移動する．
+     センサデータに基づいて障害物を検知し，動的に回避しながら移動する．
 \end{itemize}
 
 \newpage
