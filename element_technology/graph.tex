@@ -1,7 +1,7 @@
 %!TEX root = ../thesis.tex
 
 \section{グラフニューラルネットワーク}
-グラフニューラルネットワーク（Graph Neural Network；GNN）は，ノード（頂点）とエッジ（辺）で構成されるグラフ構造のデータを処理するために設計されたニューラルネットワークの一種である．GNNでは，各ノードの特徴ベクトルを学習すると同時に，ノード間の関係性を考慮した上で予測や分類を行う．
+グラフニューラルネットワーク（Graph Neural Network；GNN）は，\figref{Fig:s-bigat}のようにノード（頂点）とエッジ（辺）で構成されるグラフ構造のデータを処理するために設計されたニューラルネットワークの一種である．GNNでは，各ノードの特徴ベクトルを学習すると同時に，ノード間の関係性を考慮した上で予測や分類を行う．
 
 GNNの基本的なアイデアは，各ノードの特徴ベクトルをその隣接ノードの特徴ベクトルと組み合わせて反復的に更新することである．この一連の更新は，メッセージパッシングと呼ばれ，複数の層を通じて繰り返し行われる．各層では，ノードの特徴ベクトルが隣接ノードからの情報を集約して更新されるため，最終的にグラフ全体にわたる依存関係を捉えることが可能となる．
 代表的なGNNのアーキテクチャとしては，以下のようなものが挙げられる．
@@ -16,12 +16,12 @@ GNNの基本的なアイデアは，各ノードの特徴ベクトルをその�
 
 GNNは，ソーシャルネットワーク分析，化学分子の特性予測，知識グラフの補完など，さまざまな分野で応用されている．グラフ構造データの持つ複雑なパターンを学習し，従来の手法では困難とされてきた問題を解決可能である点がGNNの大きな利点である．
 
-\begin{figure}[H]
-  \centering
- \includegraphics[keepaspectratio, scale=0.4]
-      {images/RaspberryPiMouse.png}
- \caption{Neural Network}
- \label{Fig:hoge3}
-\end{figure}   
+% \begin{figure}[H]
+%   \centering
+%  \includegraphics[keepaspectratio, scale=0.4]
+%       {images/RaspberryPiMouse.png}
+%  \caption{Neural Network}
+%  \label{Fig:hoge3}
+% \end{figure}   
 
 \newpage
