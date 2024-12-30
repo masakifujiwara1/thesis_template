@@ -16,21 +16,31 @@
 本研究は，歩行者とロボットの双方向的な相互作用を反映した軌道予測モデルを開発・検証し，その有効性を示した．
 具体的には，グラフアテンションネットワークを用いて，歩行者とロボットの相互作用を同時にモデル化し，軌道予測の精度を向上させることを目指した．さらに，提案モデルを用いて，動的な環境下でのロボットのナビゲーションシステムの安全性を高めることを確認した．
 
-\vspace{1.0zh}
+% \vspace{1.0zh}
 \begin{flushleft}
 キーワード: 深層学習，自律移動ロボット，ナビゲーション
 \end{flushleft}
 %
 \newpage
 %%
+% \vspace{-40pt}
 \chapter*{abstract}
 \thispagestyle{empty}
 %
+\vspace{-30pt}
 \begin{center}
-  \scalebox{1.3}{title}
+  \scalebox{1.2}{Pedestrian Position Prediction Using Deep Learning for Mobile Robot}\\
+  \scalebox{1.2}{and Its Application to Navigation}
 \end{center}
 \vspace{1.0zh}
 %
+In environments where pedestrians and mobile robots coexist, it is critical for robots to accurately predict human movements to some extent and dynamically plan safe paths, ensuring both safety and efficiency. However, many previous studies primarily focused on interactions among pedestrians, with limited approaches comprehensively incorporating the movements of mobile robots and their influence on pedestrian behavior. To address this issue, this study proposes a trajectory prediction model that simultaneously models the interactions between pedestrians and mobile robots.
 
+The proposed model was trained on various datasets and compared with baseline models using multiple evaluation metrics, achieving an approximately 9\% improvement in accuracy. Moreover, experiments conducted in real-world environments confirmed that predictions considering robot behavior captured pedestrian trajectories more accurately than those without such considerations. Additionally, applying the prediction results to navigation systems demonstrated enhanced safety in dynamic environments. On the other hand, further investigation is necessary for improving the efficiency of path planning.
 
-keywords:
+This study developed and validated a trajectory prediction model that reflects bidirectional interactions between pedestrians and robots, demonstrating its effectiveness. Specifically, the model utilizes a graph attention network to simultaneously model pedestrian-robot interactions, aiming to improve trajectory prediction accuracy. Furthermore, it was confirmed that applying the proposed model enhances the safety of robot navigation systems in dynamic environments.
+
+% \vspace{-13pt}
+\begin{flushleft}
+keywords: deep learning, autonomous mobile robots, navigation
+\end{flushleft}
