@@ -14,7 +14,7 @@
 
 \begin{itemize}
   \item \textbf{制御モジュール} \\
-  制御モジュールは，ROS Navigation Stackの主要コンポーネントであるmove\_baseにより構成される．
+  制御モジュールは，ROS Navigation stackの主要コンポーネントであるmove\_baseにより構成される．
   センサデータと目標位置を受け取り，適切な制御指令をロボットに送信する．
   \item \textbf{認識モジュール} \\
   認識モジュールは，YOLOを用いて歩行者の検出・追跡し，観測時間分のデータをまとめて時系列データとして出力する．
@@ -91,7 +91,7 @@
 \section{ナビゲーションにおける予測結果の利用方法}\label{sec:nav-usage}
 \figref{Fig:global-costmap}に示すように，グローバルコストマップに独自のレイヤとしてMarker Array Layerを追加した．このレイヤでは，0.4秒ごとに受け取る予測結果をコストマップへ反映する．
 \ref{sec:decoder}節で述べたとおり，予測結果のデータ形式はガウス分布を構成する5次元の要素である．本研究では，そのガウス分布からサンプリングした軌道を予測結果としてコストマップに反映する．
-\figref{Fig:costmap-flow}のように，各レイヤでの処理を積み重ねて，最終的なグローバルコストマップを生成する．グローバルコストマップを拡張したのは，\ref{sec:navigation-stack}項で述べたように，多くのロボットで使用されているNavigation Stackで予測結果を容易に利用できるようにするためである．
+\figref{Fig:costmap-flow}のように，各レイヤでの処理を積み重ねて，最終的なグローバルコストマップを生成する．グローバルコストマップを拡張したのは，\ref{sec:navigation-stack}項で述べたように，多くのロボットで使用されているNavigation stackで予測結果を容易に利用できるようにするためである．
 
 \begin{figure}[H]
   \centering
