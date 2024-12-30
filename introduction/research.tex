@@ -17,13 +17,13 @@
 
 % \newpage
 
-Zhangら\cite{sr-lstm}は，LSTMのシーケンス学習能力にエージェント間の相互作用をモデル化するため，\figref{Fig:sr-lstm-str}のようなLSTMネットワークの情報精密化モジュールを提案している．この研究では，\figref{Fig:sr-lstm}のようにAttention機構により，各歩行者の他者への影響を重み付けしている．
+Zhangら\cite{sr-lstm}は，LSTMのシーケンス学習能力にエージェント間の相互作用をモデル化するため，\figref{Fig:sr-lstm-str}のようなLSTMネットワークの情報精密化モジュールを提案している．この研究では，Attention機構により，各歩行者の他者への影響を重み付けしている．この手法により，\figref{Fig:sr-lstm}のように近隣の歩行者に対してより注意を向けるよう学習することが可能になる．
 
 % \vspace{0.8zh}
 
 \begin{figure}[hbtp]
      \centering
-    \includegraphics[keepaspectratio, scale=0.63]
+    \includegraphics[keepaspectratio, scale=0.6]
          {images/sr-lstm-str.png}
     \caption{Framework overview of proposed SR-LSTM.\protect\footnotemark[2]}
     \label{Fig:sr-lstm-str}
@@ -33,7 +33,7 @@ Zhangら\cite{sr-lstm}は，LSTMのシーケンス学習能力にエージェン
 
 \begin{figure}[hbtp]
      \centering
-    \includegraphics[keepaspectratio, scale=0.63]
+    \includegraphics[keepaspectratio, scale=0.6]
          {images/sr-lstm.png}
     \caption{Illustration of the pedestrian-wise attention.\protect\footnotemark[2]}
     \label{Fig:sr-lstm}
@@ -47,7 +47,7 @@ Zhangら\cite{sr-lstm}は，LSTMのシーケンス学習能力にエージェン
      \centering
     \includegraphics[keepaspectratio, scale=0.4]
          {images/s-bigat.png}
-    \caption{Illustration of the pedestrian-wise attention.\protect\footnotemark[3]}
+\caption{Illustration of the pedestrian-wise dependencies.\protect\footnotemark[3]}
     \label{Fig:s-bigat}
 \end{figure}
 
