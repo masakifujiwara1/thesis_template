@@ -100,6 +100,7 @@ GAT層からの出力は，デコーダモジュールによって将来の歩�
 拡張グラフ$\tilde{G}_t$は既存のエンコーダモジュールにそのまま入力可能であり，ロボットの位置$r_t$も他のノードと同様に埋め込み表現$e^t_r$に変換され，LSTM層で処理される．グラフアテンションネットワークでは，ロボットと歩行者間の相互作用を考慮したアテンション重みが計算される．デコーダモジュールでは，ロボットの位置情報を含む潜在表現を基づき，将来の歩行者の位置を予測する．
 以上により，ロボットの行動を考慮した軌道予測が可能となる．\ref{chap:experiments_oculus}章では，実験で提案手法の有効性を評価する．
 
+\vspace{-5pt}
 \section{学習方法}\label{sec:learning-method}
 本研究で提案するネットワークの学習方法の詳細について述べる．
 本ネットワークは，以下の負の対数尤度を最小化するように学習される．式\eqref{loss}の損失関数を用いる．
@@ -107,14 +108,40 @@ GAT層からの出力は，デコーダモジュールによって将来の歩�
   L^i = -\sum_{t=t_{obs+1}}^{t_{pred}} \log \left( P(\hat{p}^i_t \mid \hat{\mu}^i_t, \hat{\sigma}^i_t, \hat{\rho}^i_t) \right) \label{loss}
 \end{equation}
 
-本ネットワークの学習には，2つの歩行者の軌跡データを含むデータセットを用いる．ETHデータセット\cite{pellegrini2009you-eth}とUCYデータセット\cite{lerner2007crowds-ucy}である．この2つのデータセットは，図のような5つのシーン（ETH，HOTEL，UNIV，ZARA1，ZARA2）から構成され，合計1536人の歩行者のデータが含まれている．データセットの軌跡は0.4秒ごとにサンプリングされたものである．
+本ネットワークの学習には，2つの歩行者の軌跡データを含むデータセットを用いる．ETHデータセット\cite{pellegrini2009you-eth}とUCYデータセット\cite{lerner2007crowds-ucy}である．この2つのデータセットは，\figref{Fig:datasets}のような5つのシーン（ETH，HOTEL，UNIV，ZARA1，ZARA2）から構成され，合計1536人の歩行者のデータが含まれている．データセットの軌跡は0.4秒ごとにサンプリングされたものである．
 
 \begin{figure}[hbtp]
   \centering
- \includegraphics[keepaspectratio, scale=0.4]
-      {images/RaspberryPiMouse.png}
- \caption{Neural Network}
- \label{Fig:hoge4}
+  \begin{subfigure}{0.24\textwidth}
+    \centering
+    \includegraphics[keepaspectratio, scale=0.133]{images/eth.png}
+    \caption{ETH}
+    \label{Fig:datasets1}
+  \end{subfigure}
+  \hfill
+  \begin{subfigure}{0.24\textwidth}
+    \centering
+    \includegraphics[keepaspectratio, scale=0.11]{images/hotel.png}
+    \caption{HOTEL}
+    \label{Fig:datasets2}
+  \end{subfigure}
+  \hfill
+  \begin{subfigure}{0.24\textwidth}
+    \centering
+    \includegraphics[keepaspectratio, scale=0.11]{images/students_003.jpg}
+    \caption{UNIV}
+    \label{Fig:datasets3}
+  \end{subfigure}
+  \hfill
+  \begin{subfigure}{0.24\textwidth}
+    \centering
+    \includegraphics[keepaspectratio, scale=0.11]{images/crowds_zara01.jpg}
+    \caption{ZARA1/ZARA2}
+    \label{Fig:datasets4}
+  \end{subfigure}
+  \vspace{-8pt}
+   \caption{Dataset examples}
+  \label{Fig:datasets}
 \end{figure}
 
 \newpage
