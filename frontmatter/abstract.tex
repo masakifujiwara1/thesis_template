@@ -9,12 +9,11 @@
 \vspace{1.0zh}
 %
 
-歩行者と移動ロボットが混在する環境で，ロボットが歩行者の移動をある程度正確に予測し，歩行者を避けるように経路を動的に計画することは，安全性と効率性の両面から重要である．しかし，従来の研究の多くは主に歩行者同士の相互作用を考慮しており，移動ロボットの動きや，それが歩行者の行動に与える影響を包括的に取り入れた手法は限られていた．本研究では，この課題を解決するために，歩行者同士だけでなくロボットとの相互作用を同時にモデル化する軌道予測モデルを提案する．
+歩行者と移動ロボットが混在する環境では，ロボットが歩行者の移動を正確に予測し，歩行者を避けるように経路を動的に計画することは，安全性と効率性の両面から重要である．しかし，従来の研究の多くは主に歩行者同士の相互作用を考慮しており，移動ロボットの動作や，それが歩行者の行動に与える影響を包括的に取り入れた手法は限られていた．本研究では，この課題を解決するために，歩行者同士だけでなくロボットとの相互作用を同時にモデル化する軌道予測モデルを提案する．
 
-本モデルを各種データセットで学習し，複数の評価指標でベースラインモデルと比較した結果，約9％の精度向上を達成した．また，実環境の実験では，ロボットの行動を考慮した予測が，考慮しない場合に比べて歩行者の軌道をより高精度に捉えることを確認している．さらに，予測結果をナビゲーションシステムに応用することで，動的な環境下でも安全性を高められることを実証した．一方，効率的な経路計画の面では今後さらなる検討が必要である．
+提案モデルでは，グラフアテンションネットワーク（Graph Attention Network, GAT）を用いて，歩行者とロボットの相互作用を動的に捉える．これにより，従来の手法と比較して軌道予測の精度を向上させることを目指した．本モデルを既存の複数のデータセットで学習させた結果，ベースラインモデルと比較して約9％の精度向上を達成した．また，実環境の実験では，ロボットの行動を考慮することで歩行者の軌道予測精度が向上することを確認した．
 
-本研究は，歩行者とロボットの双方向的な相互作用を反映した軌道予測モデルを開発・検証し，その有効性を示した．
-具体的には，グラフアテンションネットワークを用いて，歩行者とロボットの相互作用を同時にモデル化し，軌道予測の精度を向上させることを目指した．さらに，提案モデルを用いて，動的な環境下でのロボットのナビゲーションシステムの安全性を高めることを確認した．
+さらに，本研究では提案モデルの予測結果を利用したナビゲーションシステムを開発し，シミュレータ環境でその性能を検証した．あわせて，歩行者とロボット間の衝突リスクを複数の指標で定量化し，その低減効果を評価した結果，本システムを導入することにより，予測結果を用いない場合と比べて衝突リスクが低下することを確認した．
 
 % \vspace{1.0zh}
 \begin{flushleft}
@@ -34,11 +33,11 @@
 \end{center}
 \vspace{1.0zh}
 %
-In environments where pedestrians and mobile robots coexist, it is critical for robots to accurately predict human movements to some extent and dynamically plan safe paths, ensuring both safety and efficiency. However, many previous studies primarily focused on interactions among pedestrians, with limited approaches comprehensively incorporating the movements of mobile robots and their influence on pedestrian behavior. To address this issue, this study proposes a trajectory prediction model that simultaneously models the interactions between pedestrians and mobile robots.
+In environments where pedestrians and mobile robots coexist, accurately predicting pedestrian movement and dynamically planning robot paths to avoid pedestrians are crucial for both safety and efficiency. However, many existing studies primarily consider interactions among pedestrians, with limited approaches comprehensively incorporating robot behaviors and their influence on pedestrian actions. This research proposes a trajectory prediction model that simultaneously models interactions between pedestrians and robots to address this challenge.
 
-The proposed model was trained on various datasets and compared with baseline models using multiple evaluation metrics, achieving an approximately 9\% improvement in accuracy. Moreover, experiments conducted in real-world environments confirmed that predictions considering robot behavior captured pedestrian trajectories more accurately than those without such considerations. Additionally, applying the prediction results to navigation systems demonstrated enhanced safety in dynamic environments. On the other hand, further investigation is necessary for improving the efficiency of path planning.
+The proposed model employs a Graph Attention Network (GAT) to dynamically capture interactions between pedestrians and robots, aiming to enhance trajectory prediction accuracy compared to conventional methods. Training the model on multiple existing datasets resulted in approximately a 9\% improvement in accuracy over baseline models. Additionally, experiments in real-world environments confirmed that accounting for robot actions improves the accuracy of pedestrian trajectory predictions.
 
-This study developed and validated a trajectory prediction model that reflects bidirectional interactions between pedestrians and robots, demonstrating its effectiveness. Specifically, the model utilizes a graph attention network to simultaneously model pedestrian-robot interactions, aiming to improve trajectory prediction accuracy. Furthermore, it was confirmed that applying the proposed model enhances the safety of robot navigation systems in dynamic environments.
+Furthermore, this study developed a navigation system utilizing the proposed model's prediction results and validated its performance in a simulation environment. Collision risks between pedestrians and robots were quantified using multiple metrics, and the system’s effectiveness in reducing collision risks was evaluated. The results confirmed that introducing this system reduces collision risks compared to scenarios without using prediction results.
 
 % \vspace{-13pt}
 \begin{flushleft}
