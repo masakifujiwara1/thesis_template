@@ -8,17 +8,17 @@
 % まず，実験の概要と方法について説明し，次に実験シナリオと使用したシミュレータ環境について述べる．最後に，実験結果を踏まえて考察を行う．
 
 本章では，移動ロボットのナビゲーションにおける予測結果の活用方法を検討するための実験を実施し，その結果を評価する．
-また，実験では等速で往復する人のモデルを対象に，予測された歩行者の軌道をどのように活用できるかを議論する．
+また，実験では指定した軌道を往復する人のモデルを対象に，予測された歩行者の軌道をどのように活用できるかを議論する．
 まず，実験の概要と方法について説明し，次に実験シナリオと使用したシミュレータ環境について述べる．最後に，実験結果を踏まえて考察を行う．
 
 \section{実験概要}
-予測結果を応用したナビゲーションシステムによって，移動ロボットの挙動がどのように変化するかを観察・評価するための実験を行う．実験では，2つのナビゲーションシナリオで移動ロボットを自律走行させ，各シナリオにつき10回ずつ走行を実施してデータを取得した．
+予測結果を応用したナビゲーションシステムによって，移動ロボットの挙動がどのように変化するかを観察・評価するための実験を行う．実験では，3つのナビゲーションシナリオで移動ロボットを自律走行させ，各シナリオにつき10回ずつ走行を実施してデータを取得した．
 
 \section{実験方法}
 本実験の予測には，\ref{chap:proposed_method}章で提案したネットワークを用いた．ただし，使用したモデルはホールドアウト（Hold Out）方式で学習を行った．それ以外は同様の学習条件である．
 また，\ref{chap:application}章で述べたシステムを用いて，ナビゲーションに予測結果を適用した．
 
-実験は\figref{Fig:sim-env}に示すように，Gazebo\cite{Gazebo62:online}のシミュレータ環境上で行う．また，\figref{Fig:sim-robot}に示すように，シミュレータで再現した移動ロボット（ORNE-box2\cite{井口颯人2023屋外自律移動ロボットプラットフォーム-orne}）を用い，\figref{Fig:sim-actor}に示す歩行者はGazeboのプラグイン\cite{Actors-G87:online}を使用してシミュレータ内に配置した．
+実験は\figref{Fig:sim-env}に示すように，Gazebo\cite{Gazebo62:online}のシミュレータ環境上で行う．また，\figref{Fig:sim-robot}に示すように，シミュレータで再現した移動ロボット（ORNE-box2\cite{井口颯人2023屋外自律移動ロボットプラットフォーム-orne}）を用い，\figref{Fig:sim-actor}に示す歩行者はGazeboのプラグイン\cite{Actors-G87:online}を使用してシミュレータ内に配置した．歩行者の動きには，Social Force Model\cite{s-force-model}のプラグイン\cite{techlife87:online-sfm-plugin}を使用した．なお，速度のみ$0.6m/s$に変更して実験を行った．
 
 \begin{figure}[H]
   \centering
@@ -51,33 +51,39 @@
 
 % 移動ロボットの自律走行は，つくばチャレンジ2024EX＠イーアスつくば\cite{つくばチャレンジ36:online}で千葉工業大学 未来ロボティクス学科 box2チームが完走した際のソフトウェア構成，パラメータを参考にした．これは，Githubで公開されている\cite{openrdco85:online}．なお，後述するシナリオには狭い通路の走行が含まれるため，yaw方向の角速度を小さくなるように変更している．
 
-本研究で用いた移動ロボットの自律走行ソフトウェアおよびパラメータ設定は，つくばチャレンジ2024EX＠イーアスつくば\cite{つくばチャレンジ36:online}において，千葉工業大学 未来ロボティクス学科 box2チームが完走した際の構成を参考にしている（Github\cite{openrdco85:online}で公開）．なお，後述のシナリオには狭い通路を走行する箇所が含まれているため，yaw方向の角速度を小さくなるように調整している．
+本研究で用いた移動ロボットの自律走行ソフトウェアおよびパラメータ設定は，つくばチャレンジ2024EX＠イーアスつくば\cite{つくばチャレンジ36:online}において，千葉工業大学 未来ロボティクス学科 box2チームが完走した際の構成を参考にしている（Github\cite{openrdco85:online}で公開）．なお，後述のシナリオには狭い通路を走行する箇所が含まれているため，yaw方向の角速度を小さくしている．
 
 \newpage
 
-実験は\figref{Fig:experiment-scenarios}に示す2種類のシナリオで行った．
-\figref{Fig:scenario1}のシナリオ1では，ロボットが直線経路を進む途中に歩行者が横断する状況を設定した．\figref{Fig:scenario2}のシナリオ2では，ロボットが狭い通路を走行する際に2名の歩行者がすれ違う状況を設定し，より複雑な環境下でのナビゲーションを想定している．
+実験は以下に示す3種類のシナリオで行った．
+\figref{Fig:scenario1}のシナリオ1では，ロボットが直線経路を進む途中に歩行者が横断する状況を設定した．
+\figref{Fig:scenario2}のシナリオ2では，ロボットが狭い通路で正面から近づく歩行者とすれ違う状況を設定した．
+\figref{Fig:scenario3}のシナリオ3では，ロボットが狭い通路を走行する際に2名の歩行者がすれ違う状況を設定し，より複雑な環境下でのナビゲーションを想定している．
+
+\vspace{15pt}
 
 \begin{figure}[H]
   \centering
-  \begin{subfigure}{0.80\textwidth}
-    \centering
-    \includegraphics[keepaspectratio, scale=0.15]{images/scenario1.pdf}
-    \caption{Scenario 1}
-    \label{Fig:scenario1}
-  \end{subfigure}
-  \vspace{10pt}
-  \begin{subfigure}{0.80\textwidth}
-    \centering
-    \includegraphics[keepaspectratio, scale=0.15]{images/scenario2.pdf}
-    \caption{Scenario 2}
-    \label{Fig:scenario2}
-  \end{subfigure}
-  \caption{Experiment Scenarios}
-  \label{Fig:experiment-scenarios}
+  \includegraphics[keepaspectratio, scale=0.15]{images/scenario1.pdf}
+  \caption{Experiment scenario 1}
+  \label{Fig:scenario1}
 \end{figure}
 
-\newpage
+\begin{figure}[H]
+  \centering
+  \includegraphics[keepaspectratio, scale=0.15]{images/scenario2.pdf}
+  \caption{Experiment scenario 2}
+  \label{Fig:scenario2}
+\end{figure}
+
+\begin{figure}[H]
+  \centering
+  \includegraphics[keepaspectratio, scale=0.15]{images/scenario3.pdf}
+  \caption{Experiment scenario 3}
+  \label{Fig:scenario3}
+\end{figure}
+
+% \newpage
 
 評価は以下の4項目に基づいて行った．
 \begin{itemize}
@@ -100,10 +106,16 @@ TTCは，移動物体同士が現在の速度と進行方向を維持した場�
 ここで，$d$はロボットと歩行者の距離，$\mathbf{v}_{robot}$はロボットの速度ベクトル，$\mathbf{v}_{ped}$は歩行者の速度ベクトルである．
 
 \section{結果と考察}\label{sec:exp-sim-result}
-\figref{Fig:scenario1-result}，\figref{Fig:scenario2-result}は，予測結果を用いないナビゲーションとロボットの行動を考慮した予測結果を用いるナビゲーションの比較結果である．棒グラフは平均値，エラーバーは標準偏差を表す．
-まず，\figref{Fig:scenario1-result}に示すシナリオ1の結果を比較すると，走行時間が約1.8倍，走行距離が約1.01倍と悪化した一方で，最小距離が約13倍，最小TTCが約17倍と大幅に改善した．
-次に，\figref{Fig:scenario2-result}に示すシナリオ2の結果では，走行時間が約1.5倍，走行距離が約1.01倍，歩行者2の最小距離が0.9倍と悪化したが，歩行者1の最小距離が1.84倍，歩行者1の最小TTCが約1.3倍，歩行者2の最小TTCが約1.1倍と改善した．
-これらの結果から，予測結果を用いることで，ロボットのナビゲーションにおいて接触リスクが低減される可能性が示された．一方で，効率性の面では課題が残ることも確認された．
+\figref{Fig:scenario1-result}，\figref{Fig:scenario2-result}，\figref{Fig:scenario3-result}は，各シナリオにおいて予測結果を用いないナビゲーションとロボットの行動を考慮した予測結果を用いるナビゲーションの比較結果である．棒グラフは平均値，エラーバーは標準偏差を表す．
+
+まず，\figref{Fig:scenario1-result}に示すシナリオ1の結果を比較すると，走行時間が約78％，走行距離が約3％悪化した一方で，最小距離が約29％，最小TTCが約55％ほど大幅に改善した．
+次に，\figref{Fig:scenario2-result}に示すシナリオ2の結果では，走行時間が約54％，走行距離が約4％悪化したが，最小距離が約10％，最小TTCが約14％改善した．
+% \figref{Fig:scenario2-result}に示すシナリオ3の結果では，走行時間が約57％，走行距離が約1％増加，歩行者2との最小距離が約17％減少したが，歩行者1との最小距離が，歩行者1との最小TTCが約1.3倍，歩行者2との最小TTCが約1.1倍と改善した．
+\figref{Fig:scenario3-result}に示すシナリオ3の結果では，走行時間が約57％，歩行者2との最小TTCが約15％悪化した．それ以外の項目は，最大で約2％ほどの変化しか生じなかった．
+
+これらの結果から，予測結果を用いることで，ロボットのナビゲーションにおいて接触リスクが低減される可能性が示された．一方で，効率性の面では課題が残ることや，複雑なシナリオでは接触リスクの低減が困難であることも確認された．
+
+\vspace{10pt}
 
 \begin{figure}[H]
   \centering
@@ -113,27 +125,37 @@ TTCは，移動物体同士が現在の速度と進行方向を維持した場�
  \label{Fig:scenario1-result}
 \end{figure} 
 
+\newpage
+
+\vspace*{20pt}
 \begin{figure}[H]
   \centering
- \includegraphics[keepaspectratio, scale=0.44]
+ \includegraphics[keepaspectratio, scale=0.53]
       {images/scenario2_result.pdf}
   \caption{Scenario2 result}
  \label{Fig:scenario2-result}
 \end{figure} 
 
+\begin{figure}[H]
+  \centering
+ \includegraphics[keepaspectratio, scale=0.44]
+      {images/scenario3_result.pdf}
+  \caption{Scenario3 result}
+ \label{Fig:scenario3-result}
+\end{figure} 
+
 \newpage
 
-シナリオ1では，歩行者との最小距離と最小TTCが大幅に改善されており，予測結果を活用することで早期に停止を行い，歩行者との接触リスクを低減できる一方，停止や回避行動に伴う走行時間・距離の増加が生じたと考えられる．
-% つまり，安全性が向上する一方で，効率性の面では課題が残るような結果となった．
+シナリオ1とシナリオ2では，歩行者との最小距離と最小TTCが改善されており，予測結果を活用することで早期に停止を行い，歩行者との接触リスクを低減できる一方，停止や回避行動に伴う走行時間・距離の増加が生じたと考えられる．
+% シナリオ2が，シナリオ1と比べて最小距離と最小TTCの改善幅が小さかった．これは，シナリオ2は狭い通路での歩行者とのすれ違いであることと，歩行者が接近する方向によって
+シナリオ3では，歩行者1に対する最小距離と最小TTCが改善されているが，歩行者2との最小TTCが悪化している．これは，狭い通路でのすれ違い時にロボットと歩行者2の接近速度が増加していることを意味している．この結果から，狭い空間などの複雑なシナリオでのナビゲーションにおいては，予測結果の精度や扱い方に改善の余地があると考えられる．また，本研究の学習に用いたデータセットはいずれも屋外の広い空間のデータであり，狭い環境での学習サンプルが不足していたことも一因と考えられる．
 
-シナリオ2では，歩行者1に対する最小距離と最小TTCが改善されているが，歩行者2との最小距離が悪化している．これは，狭い通路でのすれ違い時にロボットが歩行者2に対してより接近する状況が発生したことを意味している．この結果から，狭い空間でのナビゲーションにおいては，予測結果の精度に改善の余地があると考えられる．また，本研究の学習に用いたデータセットはいずれも屋外の広い空間のデータであり，狭い環境での学習サンプルが不足していたことも一因と考えられる．
-
-本実験で用いたシミュレータの歩行者は，事前に設定した線形軌道を常に一定速度で歩行しており，現実の歩行者の動きとは大きく異なっている．つまり，歩行者同士や歩行者とロボット間など，全ての移動体の間に相互作用が存在しない．その結果，相互作用を重視して学習したモデルと実験環境の性質が乖離し，予測性能が低下した可能性がある．さらに，予測結果を用いる場合の標準偏差が大きい要因として，以下の点が考えられる．
+本実験で用いたシミュレータの歩行者は，動かすアルゴリズムにSocial Force Model\cite{s-force-model}を用いている．このモデルによって，ロボットと歩行者間や歩行者同士の相互作用を再現しているが，現実の歩行者の動きとは異なっている．その結果，現実の歩行者の動きを重視して学習したモデルと実験環境の性質が乖離し，予測性能が低下した可能性がある．さらに，予測結果を用いる場合の標準偏差が大きい要因として，以下の点が考えられる．
 \begin{itemize}
   \item 正規分布からサンプリングされた軌道が実際の軌道と大きく異なる場合がある
   \item 0.4秒ごとに反映される予測結果がロボットの経路計画にチャタリングを引き起こす
   \item 前後の予測結果（例えば，$t-1\text{と}t$）に一貫性がない場合がある
 \end{itemize}
-これらの課題を解決するためには，狭い空間など多様な環境，相互作用を含むデータセットの活用や，提案したナビゲーションシステムの予測結果の扱い方の改善などが今後の検討課題となる．
+これらの課題を解決するためには，狭い空間など多様な環境，相互作用を含むデータセットの活用や，提案したナビゲーションシステムの予測結果の扱い方の改善などが必要になると考えられる．
 
 \newpage
