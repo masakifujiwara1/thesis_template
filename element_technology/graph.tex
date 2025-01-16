@@ -6,11 +6,11 @@
 GNNの基本的なアイデアは，各ノードの特徴ベクトルをその隣接ノードの特徴ベクトルと組み合わせて反復的に更新することである．この一連の更新は，メッセージパッシングと呼ばれ，複数の層を通じて繰り返し行われる．各層では，ノードの特徴ベクトルが隣接ノードからの情報を集約して更新されるため，最終的にグラフ全体にわたる依存関係を捉えることが可能となる．
 代表的なGNNのアーキテクチャとしては，以下のようなものが挙げられる．
 \begin{itemize}
-  \item \textbf{Graph Convolutional Networks (GCN)}\\
+  \item \textbf{Graph Convolutional Networks (GCN)} \cite{kipf2016semi-gcn}\\
   グラフ畳み込みネットワークは，畳み込みに相当する操作をグラフに適用し，隣接ノードの情報を考慮して各ノードの特徴を更新する．
-  \item \textbf{Graph Attention Networks (GAT)}\\
+  \item \textbf{Graph Attention Networks (GAT)} \cite{velickovic2017graph-gat}\\
   グラフアテンションネットワークは，隣接するノード間に異なる重みを付与することで，重要度の高いノードからの情報を強調する．アテンション機構を取り入れることで，より柔軟な学習が可能となる．
-  \item \textbf{GraphSAGE}\\
+  \item \textbf{GraphSAGE} \cite{hamilton2017inductive-graph-sage}\\
   ノードサンプリングと情報集約の手法を組み合わせることで，大規模なグラフを効率的に扱う．各ステップでサブグラフを取り出し，必要最小限の隣接ノードのみを考慮して学習を行うため，計算コストを抑制できる．
 \end{itemize}
 
