@@ -154,35 +154,52 @@ TTCは，移動物体同士が現在の速度と進行方向を維持した場�
 
 \newpage
 
-シナリオ1とシナリオ2では，歩行者との最小距離と最小TTCが改善されており，予測結果を活用することでロボットが早期に停止し，歩行者との接触リスクを低減できる可能性を示している．一方，停止や回避行動に伴い，走行時間・距離の増加が生じたと考えられる．付録Aの\figref{Fig:cross-viz}および\figref{Fig:block-viz}には，ロボットと歩行者の位置の時間変化を可視化した例を示している．これらの図から，ロボットが早期に減速または停止を行う様子が確認できる．
+シナリオ1とシナリオ2では，歩行者との最小距離と最小TTCが改善されており，予測結果を活用することでロボットが早期に停止し，歩行者との接触リスクを低減できる可能性を示している．一方，停止や回避行動に伴い，走行時間・距離の増加が生じたと考えられる．
+% 付録Aの\figref{Fig:cross-viz}および\figref{Fig:block-viz}には，ロボットと歩行者の位置の時間変化を可視化した例を示している．これらの図から，ロボットが早期に減速または停止を行う様子が確認できる．
 
 シナリオ3では，歩行者1に対する最小距離と最小TTCが改善されているが，歩行者2との最小TTCが悪化している．これは，狭い通路ですれ違う際にロボットと歩行者2の接近速度が増加していることを意味している．この結果から，狭い空間など複雑なシナリオでのナビゲーションにおいては，予測結果の精度や活用方法のさらなる改善が必要と考えられる．また，本研究の学習に用いたデータセットはいずれも屋外の広い空間のデータであり，狭い環境に対する学習サンプルが不足していた点も影響したと考えられる．
 
 本実験で用いたシミュレータの歩行者は，Social Force Model\cite{s-force-model}を用いてロボットや他の歩行者との相互作用を再現しているが，現実の歩行者の動きとは完全に一致しない．その結果，現実の歩行者の動きを重視して学習したモデルと実験環境の性質が乖離し，予測性能が低下した可能性がある．さらに，予測結果を用いる場合の標準偏差が大きい要因として，以下の点が考えられる．
+% \vspace{-10pt}
 \begin{itemize}
   \item 正規分布からサンプリングされた軌道が実際の軌道と大きく異なる場合がある
-  \item 0.4秒ごとに更新される予測結果がロボットの経路計画にチャタリングを引き起こす
+  \item 予測結果が更新される際にロボットの経路計画にチャタリングを引き起こす（\figref{Fig:sequences}）
   \item 前後の予測結果（例えば，$t-1\text{と}t$）に一貫性がない場合がある
 \end{itemize}
+% \vspace{-10pt}
 これらの課題を解決するためには，狭い空間など多様な環境，相互作用を含むデータセットの活用や，提案したナビゲーションシステムの予測結果の活用方法の改善などが必要になると考えられる．
 
-% \begin{figure}[H]
-%   \centering
-%   \begin{subfigure}{0.8\textwidth}
-%     \centering
-%     \includegraphics[keepaspectratio, scale=0.75]{images/hallway_normal.pdf}
-%     \caption{hallway normal a}
-%     \label{Fig:hallway-normal}
-%   \end{subfigure}
-%   \vfill
-%   \begin{subfigure}{0.8\textwidth}
-%     \centering
-%     \includegraphics[keepaspectratio, scale=0.75]{images/hallway_normal.pdf}
-%     \caption{hallway normal b}
-%     \label{Fig:hallway-pred}
-%   \end{subfigure}
-%   \caption{Hallway normal scenarios}
-%   \label{Fig:hallway-viz}
-% \end{figure}
+\begin{figure}[H]
+  \centering
+  \begin{subfigure}{\linewidth}
+    \centering
+    \includegraphics[keepaspectratio, scale=0.28]{images/seq-19.png}
+    \caption{t = 0}
+    \label{Fig:seq-19}
+  \end{subfigure}
+  
+  % \vspace{10pt}
+  
+  \begin{subfigure}{\linewidth}
+    \centering
+    \includegraphics[keepaspectratio, scale=0.28]{images/seq-20.png}
+    \caption{t = 1}
+    \label{Fig:seq-20}
+  \end{subfigure}
+  
+  % \vspace{10pt}
+  
+  \begin{subfigure}{\linewidth}
+    \centering
+    \includegraphics[keepaspectratio, scale=0.28]{images/seq-21.png}
+    \caption{t = 2}
+    \label{Fig:seq-21}
+  \end{subfigure}
+  
+  % \vspace{-10pt}
+  
+  \caption{\centering Chattering in robot path planning due to updating prediction results \newline (t represents time in seconds, with 1-second intervals)}
+  \label{Fig:sequences}
+\end{figure}
 
 \newpage
