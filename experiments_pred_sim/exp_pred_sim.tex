@@ -110,7 +110,7 @@ TTCは，移動物体同士が現在の速度と進行方向を維持した場�
   \mathbf{v}_{\text{robot}} = \begin{bmatrix} v_{\text{robot}x} \\ v_{\text{robot}y} \end{bmatrix}, \quad 
   \mathbf{v}_{\text{ped}} = \begin{bmatrix} v_{\text{ped}x} \\ v_{\text{ped}y} \end{bmatrix} \\
   \mathbf{v}_{\text{relative}} = \mathbf{v}_{\text{robot}} - \mathbf{v}_{\text{ped}} \\
-  \text{TTC} = \frac{\text{d}}{\|\mathbf{v}_{\text{relative}}\|}
+  \text{TTC} = \frac{d}{\|\mathbf{v}_{\text{relative}}\|}
 \end{align}
 ここで，$d$はロボットと歩行者の距離，$\mathbf{v}_{\text{robot}}$はロボットの速度ベクトル，$\mathbf{v}_{\text{ped}}$は歩行者の速度ベクトルである．
 
