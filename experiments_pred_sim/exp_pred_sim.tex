@@ -107,12 +107,12 @@
 TTCは，移動物体同士が現在の速度と進行方向を維持した場合の衝突するまでの時間を示し，以下の式で計算される．
 \setlength{\jot}{1em}
 \begin{align}
-  \mathbf{v}_{robot} = \begin{bmatrix} v_{robot,x} \\ v_{robot,y} \end{bmatrix}, \quad 
-  \mathbf{v}_{ped} = \begin{bmatrix} v_{ped,x} \\ v_{ped,y} \end{bmatrix} \\
-  \mathbf{v}_{relative} = \mathbf{v}_{robot} - \mathbf{v}_{ped} \\
-  \text{TTC} = \frac{\text{d}}{\|\mathbf{v}_{relative}\|}
+  \mathbf{v}_{\text{robot}} = \begin{bmatrix} v_{\text{robot}x} \\ v_{\text{robot}y} \end{bmatrix}, \quad 
+  \mathbf{v}_{\text{ped}} = \begin{bmatrix} v_{\text{ped}x} \\ v_{\text{ped}y} \end{bmatrix} \\
+  \mathbf{v}_{\text{relative}} = \mathbf{v}_{\text{robot}} - \mathbf{v}_{\text{ped}} \\
+  \text{TTC} = \frac{\text{d}}{\|\mathbf{v}_{\text{relative}}\|}
 \end{align}
-ここで，$d$はロボットと歩行者の距離，$\mathbf{v}_{robot}$はロボットの速度ベクトル，$\mathbf{v}_{ped}$は歩行者の速度ベクトルである．
+ここで，$d$はロボットと歩行者の距離，$\mathbf{v}_{\text{robot}}$はロボットの速度ベクトル，$\mathbf{v}_{\text{ped}}$は歩行者の速度ベクトルである．
 
 \section{結果と考察}\label{sec:exp-sim-result}
 \figref{Fig:scenario1-result}，\figref{Fig:scenario2-result}，\figref{Fig:scenario3-result}は，各シナリオにおいて予測結果を用いないナビゲーションとロボットの行動を考慮した予測結果を用いるナビゲーションの比較結果である．棒グラフは平均値，エラーバーは標準偏差を表す．

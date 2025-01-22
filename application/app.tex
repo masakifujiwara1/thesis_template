@@ -74,12 +74,12 @@
   YOLO\cite{redmon2016you-yolo}は，高速・高精度な物体検出アルゴリズムであり，RGBカメラ画像から歩行者を検出する．本研究では，YOLOv9\cite{wang2025yolov9}の学習済みモデル（yolov9c.pt）を使用し，画像上で歩行者の位置を特定する．
 
   \item \textbf{検出した個体の画像上での角度を計算} \\
-  検出した歩行者の画像上での位置をもとに，式\eqref{yolo-ang}に従いロボットカメラの視野内における角度$\theta_{camera}$を求める．
+  検出した歩行者の画像上での位置をもとに，式\eqref{yolo-ang}に従いロボットカメラの視野内における角度$\theta_{\text{camera}}$を求める．
   \begin{equation}
-    \theta_{camera} = - \cfrac{(x_{center} - \cfrac{w_{img}}{2}) \cdot fov_{horizontal}}{W_{img}} \label{yolo-ang}
+    \theta_{\text{camera}} = - \cfrac{(x_{\text{center}} - \cfrac{w_{\text{img}}}{2}) \cdot fov_{\text{horizontal}}}{W_{\text{img}}} \label{yolo-ang}
   \end{equation}
 
-  ここで，$w_{img}$は画像の幅，$fov_{horizontal}$はカメラの水平視野角，$x_{center}$が検出バウンディングボックスの中心の$x$座標である．計算後，$\theta_{camera}$を$-\pi \text{から} \pi$の範囲に正規化する．
+  ここで，$w_{\text{img}}$は画像の幅，$fov_{\text{horizontal}}$はカメラの水平視野角，$x_{\text{center}}$が検出バウンディングボックスの中心の$x$座標である．計算後，$\theta_{\text{camera}}$を$-\pi \text{から} \pi$の範囲に正規化する．
 
   \item \textbf{計算した角度とLRFデータからロボットとの相対位置を計算} \\
   画像上で得られた角度情報に対応するLRFデータの要素を取り出す．そして，そのデータを用いて歩行者とロボットとの相対位置を計算する．LRFはロボットからの距離情報を提供し，歩行者の正確な位置を特定するために使用される．

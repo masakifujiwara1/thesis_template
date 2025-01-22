@@ -30,17 +30,17 @@
 \begin{equation}
   V_t = \{ v^i_t = (x^i_t, y^i_t) \in \mathbb{R}^2 \mid i = 1, \dots N \}
 \end{equation}
-と表す．また，観測時間$t_{obs}$において得られた全ての歩行者の位置データを
+と表す．また，観測時間$t_{\text{obs}}$において得られた全ての歩行者の位置データを
 \begin{equation}
-  V_{obs} = \{ V_t \mid t = 1, \dots t_{obs} \}  
+  V_{\text{obs}} = \{ V_t \mid t = 1, \dots t_{\text{obs}} \}  
 \end{equation}
 とする．ここで，時刻$t$の歩行者$i$の位置の確率分布を
 \begin{equation}
   \hat{V}_t = \{ \hat{p}^i_t = (\hat{x}^i_t, \hat{y}^i_t) \mid i = 1, \dots N \} \label{hat-pos}
 \end{equation}
-と表す．そうすると，予測時間$t_{pred}$にわたって予測される全ての歩行者の位置データを
+と表す．そうすると，予測時間$t_{\text{pred}}$にわたって予測される全ての歩行者の位置データを
 \begin{equation}
-  V_{pred} = \{ \hat{V}_t \mid t = t_{obs + 1}, \dots t_{pred} \}
+  V_{\text{pred}} = \{ \hat{V}_t \mid t = t_{\text{obs} + 1}, \dots t_{\text{pred}} \}
 \end{equation}
 と表すことができる．また，$p^i_t$が2次元正規分布$\mathcal{N}(\mu^i_t, \sigma^i_t, \rho^i_t)$に従うと仮定する．すなわち，
 \begin{equation}
@@ -63,10 +63,10 @@
 % \vspace{-20pt}
 
 \subsection{エンコーダモジュール}
-エンコーダでは，まず各時刻における歩行者の過去位置を線形変換層$\phi_{emb}$によって高次元空間へ埋め込む．この埋め込み表現をLSTM層に入力し，歩行者の過去の軌跡を時間的に処理した隠れ状態を出力する．ここで得られた隠れ状態は，歩行者の過去の動きを要約した表現となり，次に続くグラフアテンションネットワークモジュールに渡される．エンコーダにおける処理を式\eqref{emb}，\eqref{lstm-en}に示す．なお，$v^i_t \text{と} v^t_i$は同義とする．
+エンコーダでは，まず各時刻における歩行者の過去位置を線形変換層$\phi_{\text{emb}}$によって高次元空間へ埋め込む．この埋め込み表現をLSTM層に入力し，歩行者の過去の軌跡を時間的に処理した隠れ状態を出力する．ここで得られた隠れ状態は，歩行者の過去の動きを要約した表現となり，次に続くグラフアテンションネットワークモジュールに渡される．エンコーダにおける処理を式\eqref{emb}，\eqref{lstm-en}に示す．なお，$v^i_t \text{と} v^t_i$は同義とする．
 \begin{align}
-  e^t_i &= \phi_{emb}(v^t_i ; W_{emb}) \label{emb} \\
-  h_i &= \text{LSTM}_{en}(e^t_i, h^{t-1}_i ; W_{en}) \label{lstm-en}
+  e^t_i &= \phi_{\text{emb}}(v^t_i ; W_{\text{emb}}) \label{emb} \\
+  h_i &= \text{LSTM}_{\text{en}}(e^t_i, h^{t-1}_i ; W_{\text{en}}) \label{lstm-en}
 \end{align}
 
 \subsection{グラフアテンションネットワーク}
@@ -83,9 +83,9 @@
 \subsection{デコーダモジュール}\label{sec:decoder}
 GAT層からの出力は，デコーダモジュールによって将来の歩行者の位置に変換される．まず，2つ目のLSTM層を用いてGAT層により生成された時空間特徴表現をさらに時間方向に処理する．次に，1次元畳み込み層（CNN）を適用し，入力シーケンス長から予測シーケンス長への変換を行う．この層は，予測時間に合わせて特徴表現の次元を調整する役割を果たす．最後に，多層パーセプトロン（MLP）を用いて予測値を生成する．式\eqref{output}に示すように，本ネットワークの最終出力は5次元である．なお，$\hat{P}^t_i\text{と}\hat{P}^i_t$は同義である．
 \begin{align}
-  h''_i = \text{LSTM}_{dec}(h'_i, h_{deci}; W_{dec})\\
-  c^t_i = \text{CNN}(h''_i; W_{cnn}) \\
-  \hat{P}^t_i = \text{MLP}_{d}(c^t_i; W_{d}) \\
+  h''_i = \text{LSTM}_{dec}(h'_i, h_{\text{dec}i}; W_{\text{dec}})\\
+  c^t_i = \text{CNN}(h''_i; W_{\text{cnn}}) \\
+  \hat{P}^t_i = \text{MLP}_{\text{d}}(c^t_i; W_{\text{d}}) \\
   \hat{P}^i_t = [\hat{\mu}^i_{x,t}, \hat{\mu}^i_{y, t}, \hat{\sigma}^i_{x, t}, \hat{\sigma}^i_{y, t}, \hat{\rho}^i_t] \label{output}
 \end{align}
 
@@ -105,7 +105,7 @@ GAT層からの出力は，デコーダモジュールによって将来の歩�
 本研究で提案するネットワークの学習方法の詳細について述べる．
 本ネットワークは，以下の負の対数尤度を最小化するように学習される．式\eqref{loss}の損失関数を用いる．
 \begin{equation}
-  L^i = -\sum_{t=t_{obs+1}}^{t_{pred}} \log \left( P(\hat{p}^i_t \mid \hat{\mu}^i_t, \hat{\sigma}^i_t, \hat{\rho}^i_t) \right) \label{loss}
+  L^i = -\sum_{t=t_{\text{obs}+1}}^{t_{\text{pred}}} \log \left( P(\hat{p}^i_t \mid \hat{\mu}^i_t, \hat{\sigma}^i_t, \hat{\rho}^i_t) \right) \label{loss}
 \end{equation}
 
 本ネットワークの学習には，2つの歩行者の軌跡データを含むデータセットを用いる．ETHデータセット\cite{pellegrini2009you-eth}とUCYデータセット\cite{lerner2007crowds-ucy}である．この2つのデータセットは，\figref{Fig:datasets}のような5つのシーン（ETH，HOTEL，UNIV，ZARA1，ZARA2）から構成され，合計1536人の歩行者のデータが含まれている．データセットの軌跡は0.4秒ごとにサンプリングされたものである．
@@ -187,9 +187,9 @@ GAT層からの出力は，デコーダモジュールによって将来の歩�
     \\
     \item \textbf{FDE（Final Displacement Error）}\cite{s-lstm}:
     \begin{align}
-      \text{FDE} = \frac{1}{N} \sum_{i=1}^{N} \| p^i_t - \hat{p}^i_t \|_2 , \ t = t_{pred}
+      \text{FDE} = \frac{1}{N} \sum_{i=1}^{N} \| p^i_t - \hat{p}^i_t \|_2 , \ t = t_{\text{pred}}
     \end{align}
-    ここで，$p^i_t$ は最終時刻 $t_{pred}$ における歩行者 $i$ の実際の位置，$\hat{p}^i_t$ は予測された位置である．\figref{fig:fde}に示すように，FDEは予測の最終時刻における実際の位置と予測位置の距離誤差を示す．
+    ここで，$p^i_t$ は最終時刻 $t_{\text{pred}}$ における歩行者 $i$ の実際の位置，$\hat{p}^i_t$ は予測された位置である．\figref{fig:fde}に示すように，FDEは予測の最終時刻における実際の位置と予測位置の距離誤差を示す．
 \end{itemize}
 
 \begin{figure}[hbtp]
