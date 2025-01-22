@@ -83,7 +83,7 @@
 \subsection{デコーダモジュール}\label{sec:decoder}
 GAT層からの出力は，デコーダモジュールによって将来の歩行者の位置に変換される．まず，2つ目のLSTM層を用いてGAT層により生成された時空間特徴表現をさらに時間方向に処理する．次に，1次元畳み込み層（CNN）を適用し，入力シーケンス長から予測シーケンス長への変換を行う．この層は，予測時間に合わせて特徴表現の次元を調整する役割を果たす．最後に，多層パーセプトロン（MLP）を用いて予測値を生成する．式\eqref{output}に示すように，本ネットワークの最終出力は5次元である．なお，$\hat{P}^t_i\text{と}\hat{P}^i_t$は同義である．
 \begin{align}
-  h''_i = \text{LSTM}_{dec}(h'_i, h_{\text{dec}i}; W_{\text{dec}})\\
+  h''_i = \text{LSTM}_{\text{dec}}(h'_i, h_{\text{dec}i}; W_{\text{dec}})\\
   c^t_i = \text{CNN}(h''_i; W_{\text{cnn}}) \\
   \hat{P}^t_i = \text{MLP}_{\text{d}}(c^t_i; W_{\text{d}}) \\
   \hat{P}^i_t = [\hat{\mu}^i_{x,t}, \hat{\mu}^i_{y, t}, \hat{\sigma}^i_{x, t}, \hat{\sigma}^i_{y, t}, \hat{\rho}^i_t] \label{output}
