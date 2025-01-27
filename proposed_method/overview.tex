@@ -105,7 +105,7 @@ GAT層からの出力は，デコーダモジュールによって将来の歩�
 本研究で提案するネットワークの学習方法の詳細について述べる．
 本ネットワークは，以下の負の対数尤度を最小化するように学習される．式\eqref{loss}の損失関数を用いる．
 \begin{equation}
-  L^i = -\sum_{t=t_{\text{obs}+1}}^{t_{\text{pred}}} \log \left( P(\hat{p}^i_t \mid \hat{\mu}^i_t, \hat{\sigma}^i_t, \hat{\rho}^i_t) \right) \label{loss}
+  L^i = -\sum_{t=t_{\text{obs}+1}}^{t_{\text{pred}}} \log \{ P(\hat{p}^i_t \mid \hat{\mu}^i_t, \hat{\sigma}^i_t, \hat{\rho}^i_t) \} \label{loss}
 \end{equation}
 
 本ネットワークの学習には，2つの歩行者の軌跡データを含むデータセットを用いる．ETHデータセット\cite{pellegrini2009you-eth}とUCYデータセット\cite{lerner2007crowds-ucy}である．この2つのデータセットは，\figref{Fig:datasets}のような5つのシーン（ETH，HOTEL，UNIV，ZARA1，ZARA2）から構成され，合計1536人の歩行者のデータが含まれている．データセットの軌跡は0.4秒ごとにサンプリングされたものである．
@@ -301,19 +301,19 @@ Social-STGCNN\cite{s-stgcnn}を除き，他のベースラインモデルと比�
   \label{tab:param-results}
   % \footnotesize
   \begin{tabular}{c||c|c}
-   & Parameters count & Inference time \\
+   & Parameters count & Inference time [ms] \\
   \hline\hline
-  S-LSTM \cite{s-lstm} & 264K {\color{blue}(9.2x)} & 1.1789 {\color{blue}(27.4x)} \\
+  S-LSTM \cite{s-lstm} & 264K {\color{blue}(9.2x)} & 1179 {\color{blue}(27.4x)} \\
   \hline
-  SR-LSTM-2 \cite{sr-lstm} & 64.9K {\color{blue}(2.3x)} & 0.1578 {\color{blue}(3.7x)} \\
+  SR-LSTM-2 \cite{sr-lstm} & 64.9K {\color{blue}(2.3x)} & 158 {\color{blue}(3.7x)} \\
   \hline
-  S-GAN-P \cite{gupta2018social-s-gan-p} & 46.3K {\color{blue}(1.6x)} & 0.0968 {\color{blue}(2.3x)} \\
+  S-GAN-P \cite{gupta2018social-s-gan-p} & 46.3K {\color{blue}(1.6x)} & 97 {\color{blue}(2.3x)} \\
   \hline
-  PIF \cite{liang2019peeking-pif} & 360.3K {\color{blue}(12.6x)} & 0.1145 {\color{blue}(2.7x)} \\
+  PIF \cite{liang2019peeking-pif} & 360.3K {\color{blue}(12.6x)} & 115 {\color{blue}(2.7x)} \\
   \hline
-  Social-STGCNN \cite{s-stgcnn} & \textbf{7.6K} {\color{blue}(0.3x)} & \textbf{0.0020} {\color{blue}(0.05x)} \\
+  Social-STGCNN \cite{s-stgcnn} & \textbf{7.6K} {\color{blue}(0.3x)} & \textbf{2} {\color{blue}(0.05x)} \\
   \hline \hline
-  \textbf{ours} & 28.6K & 0.043 \\
+  \textbf{ours} & 28.6K & 43 \\
   \hline 
   \end{tabular}
 \end{table}
