@@ -60,7 +60,7 @@
  \label{Fig:network}
 \end{figure}   
 
-% \vspace{-20pt}
+\vspace{-20pt}
 
 \subsection{エンコーダモジュール}
 エンコーダでは，まず各時刻における歩行者の過去位置を線形変換層$\phi_{\text{emb}}$によって高次元空間へ埋め込む．この埋め込み表現をLSTM層に入力し，歩行者の過去の軌跡を時間的に処理した隠れ状態を出力する．ここで得られた隠れ状態は，歩行者の過去の動きを要約した表現となり，次に続くグラフアテンションネットワークモジュールに渡される．エンコーダにおける処理を式\eqref{emb}，\eqref{lstm-en}に示す．なお，$v^i_t \text{と} v^t_i$は同義とする．
@@ -72,13 +72,28 @@
 \subsection{グラフアテンションネットワーク}
 本ネットワークの中核を担うグラフアテンションネットワーク（GAT）\cite{velickovic2017graph-gat}は，マルチヘッドアテンション機構を用いる複数の層で構成される．各GAT層では，近傍ノードの特徴を集約して各ノードの特徴ベクトルを更新し，ノード間の関係強度に基づいて重み付けを行う．そのため，関連性の高いノードからの情報が強調される．複数のGAT層を積み重ねることで，グラフ構造における高次の依存関係を捉えることが可能となる．また，各タイムステップで対応する隣接行列を用いてグラフ畳み込みが実行され，動的なグラフ構造の変化にも対応できる．
 
-歩行者$i$の隠れ状態$h_i$が与えられたとき，全歩行者に対して複数のGAT層を適用する．各層は以下のように適用される．式\eqref{gat-eij}の$e_{ij}$はノード$i$に対するノード$j$の特徴の重要度を表している．$W$は重み行列，$a$は共有アテンション機構である．また，活性化関数$\sigma$として本手法ではネットワーク全体にわたりPReLU\cite{he2015delving-prelu}を採用した．
+% 歩行者$i$の隠れ状態$h_i$が与えられたとき，全歩行者に対して複数のGAT層を適用する．各層は以下のように適用される．式\eqref{gat-eij}の$e_{ij}$はノード$i$に対するノード$j$の特徴の重要度を表している．$W$は重み行列，$a$は共有アテンション機構である．また，活性化関数$\sigma$として本手法ではネットワーク全体にわたりPReLU\cite{he2015delving-prelu}を採用した．
 
-\begin{align}
-  e_{ij} = a(Wh_i, Wh_j) \label{gat-eij} \\
-  \alpha_{ij} = \text{softmax}_{j}(e_{ij}) \\
+% \begin{align}
+%   e_{ij} = a(Wh_i, Wh_j) \label{gat-eij} \\
+%   \alpha_{ij} = \text{softmax}_{j}(e_{ij}) \\
+%   h'_i = \sigma\Bigg(\sum_{j \in \mathcal{N}_i} \alpha_{ij}Wh_j \Bigg)
+% \end{align}
+
+歩行者$i$の隠れ状態$h_i$が与えられたとき，全歩行者に対して複数のGAT層を適用する．各層は以下のように適用される．ノード$i$に対するノード$j$の特徴の重要度を
+\begin{equation}
+  e_{ij} = a(Wh_i, Wh_j) \label{gat-eij}
+\end{equation}
+と表す．ここで，$W$は重み行列，$a$は共有アテンション機構である．
+ノード$j$からノード$i$への情報をアテンション係数$\alpha$として正規化すると，
+\begin{equation}
+  \alpha_{ij} = \text{softmax}_{j}(e_{ij})
+\end{equation}
+となる．最後に，ノード$i$の特徴ベクトルは，
+\begin{equation}
   h'_i = \sigma\Bigg(\sum_{j \in \mathcal{N}_i} \alpha_{ij}Wh_j \Bigg)
-\end{align}
+\end{equation}
+によって更新される．ここで，活性化関数$\sigma$として本手法ではネットワーク全体にわたりPReLU\cite{he2015delving-prelu}を採用した．
 
 \subsection{デコーダモジュール}\label{sec:decoder}
 GAT層からの出力は，デコーダモジュールによって将来の歩行者の位置に変換される．まず，2つ目のLSTM層を用いてGAT層により生成された時空間特徴表現をさらに時間方向に処理する．次に，1次元畳み込み層（CNN）を適用し，入力シーケンス長から予測シーケンス長への変換を行う．この層は，予測時間に合わせて特徴表現の次元を調整する役割を果たす．最後に，多層パーセプトロン（MLP）を用いて予測値を生成する．式\eqref{output}に示すように，本ネットワークの最終出力は5次元である．なお，$\hat{P}^t_i\text{と}\hat{P}^i_t$は同義である．
