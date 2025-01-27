@@ -1,8 +1,8 @@
 %!TEX root = ../thesis.tex
 
-% \vspace{-20pt}
+\vspace{-20pt}
 
-\section{本章の概要}
+% \section{本章の概要}
 % 本章では，\ref{sec:nav-sys}節でシステムの概要を示す．また，\ref{sec:real-robot}節で実ロボットにおける歩行者の位置計算の詳細，\ref{sec:nav-usage}節でナビゲーションにおける予測結果の利用方法について述べる．
 
 本章では，ナビゲーションシステムの概要，実ロボットにおける歩行者の位置計算の詳細，およびナビゲーションにおける予測結果の利用方法について述べる．まず，\ref{sec:nav-sys}節でシステムの概要を示し，次に\ref{sec:real-robot}節で実ロボットにおける歩行者の位置計算の詳細を説明する．最後に，\ref{sec:nav-usage}節でナビゲーションにおける予測結果の利用方法について述べる．
@@ -26,7 +26,7 @@
 
 % \vspace*{15pt}
 
-\vspace{-10pt}
+% \vspace{20pt}
 
 \begin{figure}[H]
   \centering
@@ -36,7 +36,7 @@
  \label{Fig:nav-system}
 \end{figure}
 
-\vspace{-30pt}
+% \vspace{-30pt}
 
 \section{実ロボットにおける歩行者の位置計算}\label{sec:real-robot}
 \figref{Fig:ped2pos}に，俯瞰視点のデータセットと実ロボット上での歩行者の位置計算のイメージを示す．ここで，データセットとはETH\cite{pellegrini2009you-eth}やUCY\cite{lerner2007crowds-ucy}データセットのように，俯瞰視点のデータセットのことを指す．\figref{Fig:ped2pos-dataset}のように，データセットは俯瞰視点の映像と各時刻における歩行者のワールド座標系上の位置が含まれている．しかし，実ロボットで歩行者位置を計算する際は，ロボットがセンサを通じて取得した情報のみを用いてワールド座標系の位置を算出しなければならない．\figref{Fig:ped2pos-realrobot}の例のように，1人称視点で撮影した画像中の歩行者の位置を座標変換することで，ワールド座標系上の位置を得る．これにより，データセットと同じ形式の歩行者の位置データが得られ，データセットで学習したモデルを再学習することなく実ロボット上に適用できる．
