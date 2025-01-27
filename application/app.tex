@@ -30,13 +30,17 @@
 
 \begin{figure}[H]
   \centering
- \includegraphics[keepaspectratio, scale=0.77]
+ \includegraphics[keepaspectratio, scale=0.76]
       {images/application_system.pdf}
  \caption{Navigation system overview}
  \label{Fig:nav-system}
 \end{figure}
 
-% \vspace{-30pt}
+\vspace{-20pt}
+
+予測に過度に依存すると，予測が外れた際に歩行者との接触など事故が生じる可能性がある．そのため，予測が外れ障害物との距離が急激に縮まった場合には，ロボットが緊急停止できる機能が必要である．なお，本研究ではROS Navigation stackを拡張する形で予測を利用しており，この緊急停止機能については既存の機能として実装されているものと仮定する．
+
+\vspace{-14pt}
 
 \section{実ロボットにおける歩行者の位置計算}\label{sec:real-robot}
 \figref{Fig:ped2pos}に，俯瞰視点のデータセットと実ロボット上での歩行者の位置計算のイメージを示す．ここで，データセットとはETH\cite{pellegrini2009you-eth}やUCY\cite{lerner2007crowds-ucy}データセットのように，俯瞰視点のデータセットのことを指す．\figref{Fig:ped2pos-dataset}のように，データセットは俯瞰視点の映像と各時刻における歩行者のワールド座標系上の位置が含まれている．しかし，実ロボットで歩行者位置を計算する際は，ロボットがセンサを通じて取得した情報のみを用いてワールド座標系の位置を算出しなければならない．\figref{Fig:ped2pos-realrobot}の例のように，1人称視点で撮影した画像中の歩行者の位置を座標変換することで，ワールド座標系上の位置を得る．これにより，データセットと同じ形式の歩行者の位置データが得られ，データセットで学習したモデルを再学習することなく実ロボット上に適用できる．
@@ -88,11 +92,14 @@
   最後に，得られた相対位置をワールド座標系に変換する．この座標変換は，ロボットのナビゲーションシステムのmapフレームに基づいて行われる．ワールド座標系での位置が特定されることで，ロボットは歩行者の位置を正確に把握し，適切なナビゲーションを行うことができる．
 \end{enumerate}
 
+\newpage
+
+\vspace*{-25pt}
 \section{ナビゲーションにおける予測結果の利用方法}\label{sec:nav-usage}
 \figref{Fig:global-costmap}に示すように，グローバルコストマップに独自のレイヤとしてMarker Array Layerを追加した．このレイヤでは，0.4秒ごとに受け取る予測結果をコストマップへ反映する．
 \ref{sec:decoder}項で述べたとおり，予測結果のデータ形式はガウス分布を構成する5次元の要素である．本研究では，そのガウス分布からサンプリングした軌道を予測結果としてコストマップに反映する．
-\figref{Fig:costmap-flow}のように，各レイヤでの処理を積み重ねて，最終的なグローバルコストマップを生成する．グローバルコストマップを拡張したのは，\ref{sec:navigation-stack}節で述べたように，多くのロボットで使用されているNavigation stackで予測結果を容易に利用できるようにするためである．
-
+\figref{Fig:costmap-flow}のように，各レイヤでの処理を積み重ねて，最終的なグローバルコストマップを生成する．グローバルコストマップを拡張したのは，\ref{sec:navigation-stack}節で述べたように，多くのロボットで使用されているROS Navigation stackで予測結果を容易に利用できるようにするためである．
+\vspace{-12pt}
 \begin{figure}[H]
   \centering
  \includegraphics[keepaspectratio, scale=0.65]
@@ -101,7 +108,7 @@
  \label{Fig:global-costmap}
 \end{figure} 
 
-\vspace{-20pt}
+\vspace{-25pt}
 
 \begin{figure}[H]
   \centering
