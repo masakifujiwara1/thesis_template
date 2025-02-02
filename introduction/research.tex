@@ -4,18 +4,18 @@
 前節で述べたように，近年歩行者の複雑な動きを予測するために，深層学習を応用しようとする研究が注目を集めている．
 深層学習を歩行者の軌道予測に応用した例として，Alexandreら\cite{s-lstm}は，人間の動きを学習し，将来の軌跡を予測できるLSTMモデルを提案した．Social-LSTMは，歩行者の軌道予測に着目した最も初期の深層学習モデルの一つである．Social-LSTMは，\figref{Fig:s-lstm}のように各歩行者の軌跡ごとに1つのLSTMを割り当て，プーリング機構を通じて複数のLSTM間で情報を共有することで，歩行者間の相互作用を捉えることを可能にしている．このシステムにより，複数の個人にわたって相互作用から生じるさまざまな非線形行動をうまく予測することに成功した．
 
-\vspace{-10pt}
+% \vspace{-10pt}
 
 \begin{figure}[hbtp]
      \centering
     \includegraphics[keepaspectratio, scale=0.55]
          {images/s-lstm.png}
-    \caption{Overview of Social-LSTM method.\protect\footnotemark[1]}
+    \caption{Overview of Social-LSTM method (source: \cite{s-lstm})}
     \label{Fig:s-lstm}
 \end{figure}
-\protect\footnotetext[1]{\cite{s-lstm}より引用}
+% \protect\footnotetext[1]{\cite{s-lstm}より引用}
 
-% \newpage
+\newpage
 
 Zhangら\cite{sr-lstm}は，LSTMのシーケンス学習能力にエージェント間の相互作用をモデル化するため，\figref{Fig:sr-lstm-str}のようなLSTMネットワークの情報精密化モジュールを提案している．この研究では，Attention機構により，各歩行者の他者への影響を重み付けしている．この手法により，\figref{Fig:sr-lstm}のように近隣の歩行者に対してより注意を向けるよう学習することが可能になる．
 
@@ -25,7 +25,7 @@ Zhangら\cite{sr-lstm}は，LSTMのシーケンス学習能力にエージェン
      \centering
     \includegraphics[keepaspectratio, scale=0.6]
          {images/sr-lstm-str.png}
-    \caption{Framework overview of proposed SR-LSTM.\protect\footnotemark[2]}
+    \caption{Framework overview of proposed SR-LSTM (source: \cite{sr-lstm})}
     \label{Fig:sr-lstm-str}
 \end{figure}
 
@@ -35,11 +35,12 @@ Zhangら\cite{sr-lstm}は，LSTMのシーケンス学習能力にエージェン
      \centering
     \includegraphics[keepaspectratio, scale=0.6]
          {images/sr-lstm.png}
-    \caption{Illustration of the pedestrian-wise attention.\protect\footnotemark[2]}
+    \caption{Illustration of the pedestrian-wise attention (source: \cite{sr-lstm})}
     \label{Fig:sr-lstm}
 \end{figure}
 
-\protect\footnotetext[2]{\cite{sr-lstm}より引用}
+% \protect\footnotetext[2]{\cite{sr-lstm}より引用}
+\newpage
 
 同様に，歩行者の注意に着目した研究をKosarajuら\cite{s-bigat}も行っている．この研究は，LSTMを用いて各歩行者の軌跡をモデル化し，グラフアテンションネットワーク（GAT）を用いて，現実的な歩行者の軌道予測を実現している．この研究では，グラフは\figref{Fig:s-bigat}のように歩行者をノード，距離をエッジとしてモデル化される．このグラフ構造を用いることで，歩行者間の相互作用を効果的に捉え，より正確な軌道予測が可能となる．
 \vspace{20pt}
@@ -47,11 +48,11 @@ Zhangら\cite{sr-lstm}は，LSTMのシーケンス学習能力にエージェン
      \centering
     \includegraphics[keepaspectratio, scale=0.4]
          {images/s-bigat.png}
-\caption{Illustration of the pedestrian-wise dependencies.\protect\footnotemark[3]}
+\caption{Illustration of the pedestrian-wise dependencies (source: \cite{s-bigat})}
     \label{Fig:s-bigat}
 \end{figure}
 
-\protect\footnotetext[3]{\cite{s-bigat}より引用}
+% \protect\footnotetext[3]{\cite{s-bigat}より引用}
 
 また，Mohanmedら\cite{s-stgcnn}は軌跡をグラフとしてモデル化し，歩行者間のユークリッド距離で重み付けされたエッジは歩行者間の相互作用を表している．\figref{Fig:s-stgcnn}のように，モデルはグラフ畳み込みニューラルネットワークと時間畳み込みネットワーク（TCN）を用いて，時空間グラフ上で動作し，一度にシーケンス全体を予測できるようにしている．
 
@@ -61,11 +62,11 @@ Zhangら\cite{sr-lstm}は，LSTMのシーケンス学習能力にエージェン
      \centering
     \includegraphics[keepaspectratio, scale=0.39]
          {images/s-stgcnn.png}
-    \caption{The Social-STGCNN model.\protect\footnotemark[4]}
+    \caption{The Social-STGCNN model (source: \cite{s-stgcnn})}
     \label{Fig:s-stgcnn}
 \end{figure}
 
-\protect\footnotetext[4]{\cite{s-stgcnn}より引用}
+% \protect\footnotetext[4]{\cite{s-stgcnn}より引用}
 
 \newpage
 
@@ -77,10 +78,12 @@ Zhangら\cite{sr-lstm}は，LSTMのシーケンス学習能力にエージェン
      \centering
     \includegraphics[keepaspectratio, scale=0.64]
          {images/future-robot.png}
-    \caption{Encoder structure.\protect\footnotemark[5]}
+    \caption{Encoder structure (source: \cite{si2023-tanno})}
     \label{Fig:future-robot}
 \end{figure}
-\protect\footnotetext[5]{\cite{si2023-tanno}より引用}
+% \protect\footnotetext[5]{\cite{si2023-tanno}より引用}
+
+\newpage
 
 % このように，深層学習を歩行者の軌道予測タスクに応用する例は少なくない．しかし，その多くは俯瞰図形式のデータセットを用いて学習器を訓練しており，実際の移動ロボットを対象とした研究は少ない．
 このように，深層学習を歩行者の軌道予測タスクに応用する例は少なくない．しかし，その多くは俯瞰図形式のデータセットを用いて学習器を訓練しており，屋内外環境で動作する移動ロボットを用いた実験を対象とした研究は少ない．

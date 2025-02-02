@@ -86,11 +86,21 @@
   ここで，$w_{\text{img}}$は画像の幅，$fov_{\text{horizontal}}$はカメラの水平視野角，$x_{\text{center}}$が検出バウンディングボックスの中心の$x$座標である．計算後，$\theta_{\text{camera}}$を$-\pi \text{から} \pi$の範囲に正規化する．
 
   \item \textbf{計算した角度とLRFデータからロボットとの相対位置を計算} \\
-  画像上で得られた角度情報に対応するLRFデータの要素を取り出す．そして，そのデータを用いて歩行者とロボットとの相対位置を計算する．LRFはロボットからの距離情報を提供し，歩行者の正確な位置を特定するために使用される．
+  \figref{Fig:yolo-calc}のように，画像上で得られた角度情報に対応するLRFデータの要素を取り出す．そして，そのデータを用いて歩行者とロボットとの相対位置を計算する．LRFはロボットからの距離情報を提供し，歩行者の正確な位置を特定するために使用される．
 
   \item \textbf{相対位置をワールド座標へ座標変換} \\
   最後に，得られた相対位置をワールド座標系に変換する．この座標変換は，ロボットのナビゲーションシステムのmapフレームに基づいて行われる．ワールド座標系での位置が特定されることで，ロボットは歩行者の位置を正確に把握し，適切なナビゲーションを行うことができる．
 \end{enumerate}
+
+\newpage
+
+\begin{figure}[H]
+  \centering
+ \includegraphics[keepaspectratio, scale=0.35]
+      {images/yolo-calc.png}
+\caption{Calculate the pedestrian's position from the angle on the image and the corresponding LRF data}
+ \label{Fig:yolo-calc}
+\end{figure} 
 
 \newpage
 
